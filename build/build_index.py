@@ -44,8 +44,11 @@ def build_so(path):
 
 
 def build_pv(path, ratings_path=None):
+    import os
     prods = json.load(open(path))
-    ratings = json.load(open(ratings_path)) if ratings_path else {}
+    ratings = json.load(open(ratings_path)) if ratings_path and os.path.exists(ratings_path) else {}
+    pp = os.path.join(os.path.dirname(os.path.abspath(path)), "pv_popularity.json")
+    pop = json.load(open(pp)) if os.path.exists(pp) else {}
     out = []
     for pr in prods:
         vs = pr["variants"]
@@ -66,7 +69,7 @@ def build_pv(path, ratings_path=None):
             "a": 1 if any(x["available"] for x in vs) else 0,
             "img": img, "u": "https://provitamine.ro/products/" + pr["handle"],
             "g": str(pr["id"]),
-            "r": r.get("v", 0), "rc": r.get("n", 0), "h": pr["handle"],
+            "r": r.get("v", 0), "rc": r.get("n", 0), "h": pr["handle"], "pop": pop.get(pr["handle"], 0),
         })
     return out
 

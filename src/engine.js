@@ -206,8 +206,11 @@
       }
       if (acc) acc.forEach(function (s, d) { if ((best.get(d) || 0) < s) best.set(d, s); });
     });
-    var P = this.P, oos = this.oos, arr = [];
-    best.forEach(function (s, i) { arr.push([i, P[i].a ? s : s * oos]); });
+    var P = this.P, oos = this.oos, arr = [], pw = this.cfg.popWeight || 0;
+    best.forEach(function (s, i) {
+      if (pw) s *= 1 + pw * Math.log(1 + (P[i].pop || 0));
+      arr.push([i, P[i].a ? s : s * oos]);
+    });
     arr.sort(function (a, b) { return b[1] - a[1] || a[0] - b[0]; });
     var ids = arr.map(function (x) { return x[0]; });
     var pin = this.pins.find(function (p) { return p.term === sq; });
