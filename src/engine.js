@@ -202,6 +202,19 @@
     opts = opts || {};
     var self = this, nq = norm(q);
     if (!nq) return { ids: [], q: nq };
+    // cod produs (SKU / EAN) scris exact: afisam fix acel produs
+    var code = String(q).trim().toLowerCase();
+    if (/\d/.test(code) && !/\s/.test(code)) {
+      if (!this.codes) {
+        this.codes = new Map();
+        for (var ci = 0; ci < this.P.length; ci++) (this.P[ci].k || []).forEach(function (c) {
+          c = String(c).trim().toLowerCase(); if (!c) return;
+          var a = self.codes.get(c); if (a) a.push(ci); else self.codes.set(c, [ci]);
+        });
+      }
+      var hit = this.codes.get(code);
+      if (hit) return { ids: hit.slice(), q: nq, sq: nq, code: true };
+    }
     var words = nq.split(' ');
     var sq = words.map(function (w, k) {
       var s = self.stem(w);

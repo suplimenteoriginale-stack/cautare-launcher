@@ -39,6 +39,7 @@ def build_so(path):
             "p": p, "op": price if p < price else 0,
             "a": 1 if g("availability") == "in_stock" else 0,
             "img": img, "u": g("link"), "g": g("item_group_id"),
+            "k": [c for c in {g("id"), g("gtin"), g("mpn")} if c],
         })
     return out
 
@@ -70,6 +71,7 @@ def build_pv(path, ratings_path=None):
             "img": img, "u": "https://provitamine.ro/products/" + pr["handle"],
             "g": str(pr["id"]),
             "r": r.get("v", 0), "rc": r.get("n", 0), "h": pr["handle"], "pop": pop.get(pr["handle"], 0),
+            "k": sorted({c for x in vs for c in (x.get("sku"), x.get("barcode")) if c}),
         })
     return out
 

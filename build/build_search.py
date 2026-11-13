@@ -44,7 +44,7 @@ def docs_so(path):
         def g(tag):
             m = re.search(r"<g:%s>(.*?)</g:%s>" % (tag, tag), it, re.S)
             return html.unescape(re.sub(r"^<!\[CDATA\[|\]\]>$", "", m.group(1).strip())) if m else ""
-        out.append(dict(t=g("title"), b=g("brand"), c=g("product_type").replace(">", " "), d=strip_html(g("description")), x=g("gtin")))
+        out.append(dict(t=g("title"), b=g("brand"), c=g("product_type").replace(">", " "), d=strip_html(g("description")), x=" ".join(filter(None, [g("id"), g("gtin"), g("mpn")]))))
     return out
 
 
