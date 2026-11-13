@@ -37,19 +37,22 @@
   };
 
   /* ---------- incarcare date ---------- */
+  var J = function (f) { return fetch(BASE + STORE + '/' + f + V).then(function (r) { return r.json(); }); };
+  var cfgP = null;
+  function config() { return cfgP || (cfgP = J('config.json').then(function (c) { CFG = CFG || c; return c; })); }
   function load() {
     if (loading) return loading;
-    var j = function (f) { return fetch(BASE + STORE + '/' + f + V).then(function (r) { return r.json(); }); };
     // stoc si preturi la zi (worker Cloudflare, actualizat la 2-4 minute); daca nu raspunde, ramane indexul
     var stock = fetch(STOCK_URL + '/stock?s=' + STORE + '&m=' + Math.floor(Date.now() / 60000)).then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; });
-    loading = Promise.all([j('config.json'), j('index.json'), j('search.json'), stock]).then(function (res) {
+    // descrierile pornesc odata cu indexul, ca rezultatele complete sa vina cat mai repede (mai ales pe mobil)
+    var desc = J('desc.json').catch(function () { return null; });
+    loading = Promise.all([config(), J('index.json'), J('search.json'), stock]).then(function (res) {
       CFG = res[0]; P = res[1];
       var S = res[3] || {};
       for (var i = 0; i < P.length; i++) { var x = S[P[i].id]; if (x) { P[i].a = x[0]; P[i].p = x[1]; P[i].op = x[2]; } }
       E = new Engine(P, CFG, res[2], window.OFSStemmer);
       popularFromStats();
-      // descrierile (pentru potriviri ca in Doofinder) se incarca in fundal
-      j('desc.json').then(function (d) { E.addDesc(d); if (isOpen() && st.q) render(true); }).catch(function () {});
+      desc.then(function (d) { if (d) { E.addDesc(d); if (isOpen() && st.q) render(true); } });
       return true;
     });
     return loading;
@@ -110,7 +113,8 @@
   function isOpen() { return root && root.classList.contains('ofs-open'); }
   function open(q, opts) {
     opts = opts || {};
-    load().then(function () {
+    load().then(function () { if (isOpen()) render(); });
+    config().then(function () {
       build();
       if (!isOpen()) {
         root.classList.add('ofs-open');
@@ -158,6 +162,7 @@
 
   /* ---------- randare ---------- */
   function render(keep) {
+    if (!E) { root.classList.toggle('ofs-hasq', !!el.input.value); el.content.innerHTML = '<div class="ofs-loading"><span></span></div>'; return; }
     var y = keep && el.body ? el.body.scrollTop : 0;
     var c = el.content;
     root.classList.toggle('ofs-res', st.mode === 'results');
@@ -471,7 +476,10 @@
     open(v, { mode: v.trim() ? 'results' : 'initial' });
   }
   function init() {
-    load().then(function () {
+    load();
+    // ascultam bara de cautare imediat ce avem configuratia (mica), nu dupa tot indexul:
+    // un tap rapid pe mobil deschide lansatorul, care afiseaza rezultatele cand datele sunt gata
+    config().then(function () {
       document.addEventListener('focusin', hook, true);
       document.addEventListener('click', hook, true);
       document.addEventListener('submit', function (e) {
