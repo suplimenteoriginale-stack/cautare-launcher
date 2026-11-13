@@ -512,8 +512,5 @@
  ],
  "hideCategories": "^Import",
  "statsUrl": "https://cautare-statistici.provitaminebg.workers.dev",
- "mobileChipRows": [
-  "category",
-  "brand"
- ]
+ "mobileChipRows": ["brand"]
 }
