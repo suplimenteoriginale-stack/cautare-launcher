@@ -39,6 +39,7 @@
       fetch(BASE + STORE + '/index.json').then(function (r) { return r.json(); })
     ]).then(function (res) {
       CFG = res[0]; P = res[1]; E = new Engine(P, CFG);
+      popularFromStats();
       return true;
     });
     return loading;
@@ -145,8 +146,8 @@
     var c = el.content;
     root.classList.toggle('ofs-res', st.mode === 'results');
     if (st.mode === 'initial') { renderChipsInitial(); c.innerHTML = renderInitial(); }
-    else if (st.mode === 'suggest') { var r = E.search(st.q); st.ids = r.ids; renderChipsSuggest(L('suggestions')); c.innerHTML = renderSuggest(); }
-    else { var rr = E.search(st.q); st.ids = rr.ids; renderChipsSuggest(''); c.innerHTML = renderResults(); }
+    else if (st.mode === 'suggest') { var r = E.search(st.q); st.ids = r.ids; renderChipsSuggest(L('suggestions')); c.innerHTML = renderSuggest(); logSearch(false); }
+    else { var rr = E.search(st.q); st.ids = rr.ids; renderChipsSuggest(''); c.innerHTML = renderResults(); logSearch(true); }
     el.layer.classList.toggle('ofs-short', st.mode !== 'results' && window.innerWidth >= 768);
     syncHash(); onScroll();
   }
@@ -308,7 +309,13 @@
     if (d.sort != null) { st.sort = +d.sort; rerenderResults(); return; }
     if (d.fopen) { st._asideOpen = true; root.querySelector('.ofs-aside').classList.add('ofs-show'); return; }
     if (d.fclose) { st._asideOpen = false; root.querySelector('.ofs-aside').classList.remove('ofs-show'); return; }
-    if (d.pid) { if (st.q) addRecent(st.q); track('click', { q: st.q, id: d.pid }); }
+    if (d.pid) {
+      if (st.q && st.mode !== 'initial') {
+        addRecent(st.q); logSearch(true);
+        var list = st.mode === 'results' ? st.view : st.ids, pos = list ? list.indexOf(E.byId[d.pid]) : -1;
+        track('click', { q: st.q, id: d.pid, pos: pos });
+      }
+    }
   }
   function onFacetInput(e) {
     var t = e.target;
@@ -349,11 +356,25 @@
     try { rec.start(); } catch (x) { btn.classList.remove('ofs-rec'); }
   }
 
-  // statistici (optional): daca e setat data-ofs-track, trimite evenimente
-  var TRACK = SCRIPT.getAttribute('data-ofs-track');
+  // statistici: trimite cautarile si click-urile catre worker-ul cautare-stats
+  var SID = (function () { try { var k = 'ofs_sid', v = sessionStorage.getItem(k); if (!v) { v = Math.random().toString(36).slice(2, 12); sessionStorage.setItem(k, v); } return v; } catch (x) { return Math.random().toString(36).slice(2, 12); } })();
+  var logged = {}, logTimer = null;
   function track(type, data) {
-    if (!TRACK) return;
-    try { navigator.sendBeacon(TRACK, JSON.stringify({ s: STORE, t: type, d: data, ts: Date.now() })); } catch (x) {}
+    var u = CFG && CFG.statsUrl; if (!u) return;
+    data.sid = SID;
+    var body = JSON.stringify({ s: STORE, t: type, d: data });
+    try { if (!(navigator.sendBeacon && navigator.sendBeacon(u + '/e', body))) fetch(u + '/e', { method: 'POST', body: body, keepalive: true, mode: 'no-cors' }); } catch (x) {}
+  }
+  function logSearch(now) {
+    clearTimeout(logTimer);
+    var q = st.q, n = st.ids.length, k = norm(q);
+    if (!k || k.length < 2 || logged[k]) return;
+    var go = function () { if (norm(st.q) === k && !logged[k]) { logged[k] = 1; track('search', { q: q, n: n }); } };
+    if (now) go(); else logTimer = setTimeout(go, 1500);
+  }
+  function popularFromStats() {
+    if (!CFG.statsUrl) return;
+    fetch(CFG.statsUrl + '/popular?s=' + STORE).then(function (r) { return r.json(); }).then(function (a) { if (a && a.length >= 5) { CFG.popular = a; if (isOpen() && st.mode === 'initial') render(); } }).catch(function () {});
   }
 
   /* ---------- legatura cu bara de cautare a site-ului ---------- */

@@ -497,5 +497,6 @@
    "link": "https://www.suplimenteoriginale.ro/jarro-dophilus-infant-jarrow-formulas.html"
   }
  ],
- "hideCategories": "^Import"
+ "hideCategories": "^Import",
+ "statsUrl": "https://cautare-stats.provitaminebg.workers.dev"
 }

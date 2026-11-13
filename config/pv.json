@@ -273,5 +273,6 @@
    "link": ""
   }
  ],
- "hideCategories": "^(Import.*|Producatori|Reducere Cantitativa|CATEGORII AFECTIUNI|Alte suplimente alimentare|Categorii Produse)$"
+ "hideCategories": "^(Import.*|Producatori|Reducere Cantitativa|CATEGORII AFECTIUNI|Alte suplimente alimentare|Categorii Produse)$",
+ "statsUrl": "https://cautare-stats.provitaminebg.workers.dev"
 }
