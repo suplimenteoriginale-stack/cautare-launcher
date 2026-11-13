@@ -30,7 +30,7 @@
 .ofs-chip .ofs-x{width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:17px;line-height:1;opacity:.85}
 .ofs-clear{color:var(--ofs-link);white-space:nowrap;font-size:14px;height:32px;padding:0 8px}
 /* corp */
-.ofs-body{flex:1;overflow-y:auto;overflow-x:hidden;position:relative;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.ofs-body{flex:1;overflow-y:auto;overflow-x:hidden;position:relative;overscroll-behavior:contain}
 .ofs-wrap{display:flex;gap:16px;padding:32px 48px 16px}
 .ofs-wrap.ofs-sug{gap:16px}
 .ofs-aside{flex:0 0 152px}
@@ -167,9 +167,7 @@
   .ofs-wrap,.ofs-res .ofs-wrap{padding:12px 8px 90px;flex-direction:column;gap:0}
   .ofs-aside,.ofs-sug .ofs-aside{flex:none}
   .ofs-res .ofs-aside{display:none;position:fixed;left:0;right:0;bottom:0;top:32px;z-index:7;background:#fff;overflow-y:auto;padding:0 16px 90px;border-radius:16px 16px 0 0}
-  .ofs-res .ofs-aside.ofs-show{display:block}
-  .ofs-sheet .ofs-backdrop{z-index:6}
-  .ofs-sheet .ofs-layer::after{content:"";position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:6}
+  .ofs-res .ofs-aside.ofs-show{display:block;box-shadow:0 0 0 100vmax rgba(0,0,0,.6)}
   .ofs-handle{display:block;width:100px;height:4px;border-radius:2px;background:#bbb;margin:8px auto 14px}
   .ofs-afclose{display:flex;justify-content:space-between;align-items:center;margin:0 -2px 18px;font-size:13px;font-weight:400}
   .ofs-afclose b{font-weight:700}
