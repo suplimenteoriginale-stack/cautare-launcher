@@ -334,10 +334,9 @@
         gk = k; gvals = k === 'brand' ? Array.from(mp.entries()).sort(brandSort('brand')) : Array.from(mp.entries()).sort(function (a, b) { return b[1] - a[1]; });
         return true;
       });
+      // pe mobil randul ghidat ("Alegeti Brands") dubla filtrele rapide de sus, deci nu il afisam
       if (gk && isMob()) {
-        var mlab = (L('mGuided') || {})[gk] || ('Alegeți ' + gk + ':');
-        var gp = [{ v: '', l: L('any'), k: gk }].concat(gvals.slice(0, 20).map(function (b) { return { v: b[0], l: gk === 'stock' ? L('stockValues')[b[0]] : b[0], k: gk }; }));
-        h += '<div class="ofs-mguided"><div class="ofs-mlabel2">' + esc(mlab) + '</div>' + pills(gp, 'data-gval') + '</div>';
+        // nimic
       } else if (gk) {
         var gname = { brand: L('facetBrand'), category: L('facetCategory'), stock: L('facetStock') }[gk];
         var sv = L('stockValues');
