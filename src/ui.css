@@ -25,22 +25,24 @@
 .ofs-chips:empty{display:none}
 .ofs-chips-title{color:#fff;font-weight:700;font-size:14px;white-space:nowrap;margin-right:0}
 .ofs-chip{display:inline-flex;align-items:center;height:32px;border:1px solid rgba(255,255,255,.75);border-radius:500px;color:#fff;white-space:nowrap;font-size:14px;overflow:hidden}
-.ofs-chip>button:first-child{padding:0 2px 0 12px;height:30px}
+.ofs-chip>button:first-child{padding:0 14px 0 18px;height:30px}
 .ofs-chip b{font-weight:700}
 .ofs-chip .ofs-x{width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:17px;line-height:1;opacity:.85}
 .ofs-clear{color:var(--ofs-link);white-space:nowrap;font-size:14px;height:32px;padding:0 8px}
 /* corp */
 .ofs-body{flex:1;overflow-y:auto;overflow-x:hidden;position:relative;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
-.ofs-wrap{display:flex;gap:48px;padding:32px 48px 16px}
+.ofs-wrap{display:flex;gap:16px;padding:32px 48px 16px}
 .ofs-wrap.ofs-sug{gap:16px}
-.ofs-aside{flex:0 0 168px}
+.ofs-aside{flex:0 0 152px}
 .ofs-sug .ofs-aside{flex-basis:256px}
+.ofs-sug .ofs-aside .ofs-h{margin-bottom:0}
 .ofs-main{flex:1;min-width:0}
 .ofs-h{font-size:18px;font-weight:700;line-height:27px;margin:0 0 8px;color:var(--ofs-text)}
 .ofs-list{margin-bottom:20px}
 .ofs-list a,.ofs-list button{display:block;width:100%;height:32px;line-height:32px;font-size:16px;color:var(--ofs-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ofs-list a:hover,.ofs-list button:hover{text-decoration:underline}
 .ofs-mh{display:flex;justify-content:space-between;align-items:center;margin:0 40px 8px 48px;height:32px}
+.ofs-seeall{padding:0 8px;height:32px}
 .ofs-mh .ofs-h{margin:0}
 .ofs-main>.ofs-h{margin-left:48px}
 .ofs-seeall{color:var(--ofs-link);font-size:14px}
@@ -69,11 +71,11 @@
 .ofs-stars{color:#f2b01e;letter-spacing:1px;font-size:13px}
 .ofs-stock{font-size:12px;margin-top:8px;color:#2e8b57}
 .ofs-stock.ofs-no{color:#c0392b}
-.ofs-price{display:flex;align-items:baseline;flex-wrap:wrap;column-gap:16px;margin-top:auto;padding-top:20px}
+.ofs-price{display:flex;align-items:baseline;flex-wrap:wrap;column-gap:16px;margin-top:auto;padding-top:23px;min-height:53px}
 .ofs-sale{font-weight:700;font-size:17px;line-height:26px;color:#111}
 .ofs-old{text-decoration:line-through;color:#8a8a8a;font-size:12px}
 /* rezultate */
-.ofs-guided{display:flex;align-items:center;gap:20px;padding:0 48px;height:58px;margin-top:32px;position:sticky;top:0;z-index:4;background:#fff}
+.ofs-guided{display:flex;align-items:center;gap:24px;padding:0 48px;height:58px;margin-top:32px;position:sticky;top:0;z-index:4;background:#fff}
 .ofs-guided.ofs-stuck{height:74px;margin-top:0;padding-top:8px;padding-bottom:8px;box-shadow:0 2px 6px rgba(0,0,0,.06)}
 .ofs-guided-t{flex:0 0 142px;font-size:14.4px;line-height:22px;white-space:nowrap}
 .ofs-guided-t button{display:block;color:var(--ofs-link);font-size:12.8px;line-height:20px}
@@ -119,12 +121,12 @@
 .ofs-term.ofs-on .ofs-cb{background:var(--ofs-accent);border-color:var(--ofs-accent)}
 .ofs-term.ofs-on .ofs-cb:after{content:"";width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);margin-top:-2px}
 .ofs-term.ofs-on{font-weight:700}
-.ofs-term.ofs-vis{min-height:43px}
+.ofs-term.ofs-vis{min-height:49px}
 .ofs-term.ofs-vis.ofs-on{background:#f2f2f2}
 .ofs-vlogo{width:109px;height:30px;object-fit:contain;flex:0 0 109px}
-.ofs-fmore{position:relative;font-size:12px;line-height:18px;margin-top:8px;color:#737678;text-align:center}
+.ofs-fmore{position:relative;font-size:12px;line-height:18px;margin-top:0;color:#737678;text-align:center}
 .ofs-fmore .ofs-cnt{display:block;text-align:right;padding-right:8px}
-.ofs-fmore button{display:inline-flex;align-items:center;gap:6px;color:var(--ofs-text);margin-top:2px}
+.ofs-fmore button{display:inline-flex;align-items:center;gap:6px;color:var(--ofs-text)}
 .ofs-range{position:relative;height:30px;margin:14px 10px 0}
 .ofs-range .ofs-rail{position:absolute;left:0;right:0;top:13px;height:3px;background:var(--ofs-rail)}
 .ofs-range input{position:absolute;left:-10px;right:-10px;width:calc(100% + 20px);top:4px;-webkit-appearance:none;appearance:none;background:none;pointer-events:none;height:20px;margin:0}
