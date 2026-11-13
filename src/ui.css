@@ -28,7 +28,7 @@
 .ofs-chip .ofs-x{opacity:.8;font-size:15px;line-height:1}
 .ofs-clear{color:var(--ofs-accent);white-space:nowrap;font-size:14px}
 /* body */
-.ofs-body{flex:1;overflow-y:auto;position:relative;-webkit-overflow-scrolling:touch}
+.ofs-body{flex:1;overflow-y:auto;overflow-x:hidden;position:relative;-webkit-overflow-scrolling:touch}
 .ofs-wrap{display:flex;gap:32px;padding:24px 48px 40px}
 .ofs-aside{flex:0 0 220px}
 .ofs-main{flex:1;min-width:0}
@@ -39,7 +39,7 @@
 .ofs-seeall{color:var(--ofs-link);font-size:14px}
 .ofs-foot{position:sticky;bottom:0;text-align:right;padding:8px 24px;font-size:11px;color:#bbb;background:#fff}
 /* carousel */
-.ofs-car{position:relative;display:flex;align-items:center}
+.ofs-car{position:relative;display:flex;align-items:center;min-width:0;flex:1}
 .ofs-track{display:flex;gap:16px;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;padding:2px;flex:1}
 .ofs-track::-webkit-scrollbar{display:none}
 .ofs-track>.ofs-card{flex:0 0 200px}
