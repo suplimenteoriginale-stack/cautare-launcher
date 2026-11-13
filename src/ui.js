@@ -29,7 +29,10 @@
     right: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     up: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 15l7-7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     down: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 9l7 7 7-7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-    top: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 19V5M5 12l7-7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    top: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 19V5M5 12l7-7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    back: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12H4M10 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    clr: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6" stroke-linecap="round"/></svg>',
+    sliders: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h10M18 7h2M4 17h4M12 17h8" stroke-linecap="round"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>'
   };
 
   /* ---------- incarcare date ---------- */
@@ -61,12 +64,15 @@
     root.innerHTML =
       '<div class="ofs-backdrop"></div><div class="ofs-layer">' +
       '<div class="ofs-header"><div class="ofs-hrow">' + logo +
+      '<button type="button" class="ofs-back" aria-label="Înapoi">' + IC.back + '</button>' +
       '<form class="ofs-box" role="search" autocomplete="off">' + IC.search +
-      '<input class="ofs-input" type="search" enterkeyhint="search" placeholder="' + esc(L('placeholder')) + '" aria-label="' + esc(L('search')) + '">' + mic + '</form>' +
+      '<input class="ofs-input" type="search" enterkeyhint="search" placeholder="' + esc(L('placeholder')) + '" aria-label="' + esc(L('search')) + '">' + mic +
+      '<button type="button" class="ofs-clr" aria-label="Șterge">' + IC.clr + '</button></form>' +
       '<button type="button" class="ofs-close" aria-label="Închide">' + IC.close + '</button></div>' +
       '<div class="ofs-chips"></div></div>' +
       '<div class="ofs-body"><div class="ofs-content"></div><div class="ofs-foot"></div></div>' +
-      '<button type="button" class="ofs-top" aria-label="Sus">' + IC.top + '</button></div>';
+      '<button type="button" class="ofs-top" aria-label="Sus">' + IC.top + '</button>' +
+      '<button type="button" class="ofs-mfbtn" data-fopen="1">' + IC.sliders + '<span>' + esc(L('filters')) + '</span></button></div>';
     document.body.appendChild(root);
     el.layer = root.querySelector('.ofs-layer'); el.input = root.querySelector('.ofs-input');
     el.form = root.querySelector('.ofs-box'); el.chips = root.querySelector('.ofs-chips');
@@ -82,6 +88,8 @@
     });
     el.form.addEventListener('submit', function (e) { e.preventDefault(); submit(el.input.value); });
     root.querySelector('.ofs-close').addEventListener('click', function () { close(); });
+    root.querySelector('.ofs-back').addEventListener('click', function () { close(); });
+    root.querySelector('.ofs-clr').addEventListener('click', function () { el.input.value = ''; st.q = ''; st.mode = 'initial'; st.F = newF(); render(); el.input.focus(); });
     root.querySelector('.ofs-backdrop').addEventListener('click', function () { close(); });
     el.top.addEventListener('click', function () { el.body.scrollTo({ top: 0, behavior: 'smooth' }); });
     el.body.addEventListener('scroll', onScroll);
@@ -147,6 +155,8 @@
     var y = keep && el.body ? el.body.scrollTop : 0;
     var c = el.content;
     root.classList.toggle('ofs-res', st.mode === 'results');
+    root.classList.toggle('ofs-hasq', !!el.input.value);
+    root.classList.toggle('ofs-m-results', st.mode === 'results' && !!st.ids.length);
     if (st.mode === 'initial') { renderChipsInitial(); c.innerHTML = renderInitial(); }
     else if (st.mode === 'suggest') { var r = E.search(st.q, { prefix: true }); st.ids = r.ids; renderChipsSuggest(L('suggestions')); c.innerHTML = renderSuggest(); logSearch(false); }
     else { var rr = E.search(st.q); st.ids = rr.ids; renderChipsSuggest(''); c.innerHTML = renderResults(); logSearch(true); }
@@ -186,7 +196,32 @@
       '<div class="ofs-track">' + inner + '</div><button type="button" class="ofs-arrow" data-car="1" aria-label="Înainte">' + IC.right + '</button></div>';
   }
 
+  function isMob() { return window.innerWidth < 768; }
+  function pills(items, attr) { return '<div class="ofs-pills">' + items.map(function (x) { return '<button type="button" class="ofs-pill' + (x.on ? ' ofs-on' : '') + '" ' + attr + '="' + esc(x.v) + '"' + (x.k ? ' data-gkey="' + x.k + '"' : '') + '>' + esc(x.l || x.v) + '</button>'; }).join('') + '</div>'; }
+  function mGrid(list) { return '<div class="ofs-grid">' + list.map(card).join('') + '</div>'; }
+  // randurile de chips (categorii / branduri) din antet pe mobil, ca in Doofinder
+  function mChipRows() {
+    var f = E.facet(st.ids.slice(0, 200), newF()), h = '';
+    (CFG.mobileChipRows || ['category', 'brand']).forEach(function (k) {
+      var top = topN(f[k], 10); if (!top.length) return;
+      h += pills(top.map(function (x) { return { v: x[0] }; }), k === 'brand' ? 'data-gobrand' : 'data-gocat');
+    });
+    return h ? '<div class="ofs-mchips">' + h + '</div>' : '';
+  }
+  function renderInitialMob() {
+    var rec = (CFG.recommended || []).map(function (id) { return E.byId[id]; }).filter(function (i) { return i != null; });
+    var a = recent(), h = '<div class="ofs-msec">';
+    if (a.length) h += '<div class="ofs-mlabel">' + esc(L('recent').replace(/:$/, '')) + '</div>' + pills(a.map(function (q) { return { v: q }; }), 'data-q');
+    h += '<div class="ofs-mlabel">' + esc(L('popular')) + '</div>' + pills((CFG.popular || []).map(function (q) { return { v: q }; }), 'data-go') + '</div>';
+    return h + '<div class="ofs-mbody"><div class="ofs-mlabel">' + esc(L('recommended')) + '</div>' + mGrid(rec) + '</div>';
+  }
+  function renderSuggestMob() {
+    if (!st.ids.length) return noRes();
+    return mChipRows() + '<div class="ofs-mbody"><div class="ofs-rhead"><div><b>' + st.ids.length + '</b> ' + esc(L('found')) + '</div><button type="button" class="ofs-seeall" data-all="1">' + esc(L('seeAll')) + '</button></div>' + mGrid(st.ids.slice(0, 20)) + '</div>';
+  }
+
   function renderInitial() {
+    if (isMob()) return renderInitialMob();
     var rec = (CFG.recommended || []).map(function (id) { return E.byId[id]; }).filter(function (i) { return i != null; });
     return '<div class="ofs-wrap"><div class="ofs-aside"><div class="ofs-h">' + esc(L('popular')) + '</div><div class="ofs-list">' +
       (CFG.popular || []).map(function (q) { return '<button type="button" data-go="' + esc(q) + '">' + esc(q) + '</button>'; }).join('') +
@@ -199,6 +234,7 @@
   }
   function topN(map, n) { return Array.from(map.entries()).sort(function (a, b) { return b[1] - a[1]; }).slice(0, n); }
   function renderSuggest() {
+    if (isMob()) return renderSuggestMob();
     if (!st.ids.length) return noRes();
     var f = E.facet(st.ids.slice(0, 200), newF());
     var cats = topN(f.category, 4), brands = topN(f.brand, 4);
@@ -212,7 +248,7 @@
   function renderResults() {
     var f = E.facet(st.ids, st.F), ids = st.sort ? E.sort(f.ids, st.sort) : f.ids;
     st.view = ids;
-    var h = '';
+    var h = isMob() ? mChipRows() : '';
     // filtru ghidat ca in Doofinder: pe rand Brand -> Categorie -> Stoc (pana alegi sau sari)
     if (!st.skipGuided) {
       var gk = null, gvals = null;
@@ -222,7 +258,11 @@
         gk = k; gvals = k === 'brand' ? Array.from(mp.entries()).sort(brandSort('brand')) : Array.from(mp.entries()).sort(function (a, b) { return b[1] - a[1]; });
         return true;
       });
-      if (gk) {
+      if (gk && isMob()) {
+        var mlab = (L('mGuided') || {})[gk] || ('Alegeți ' + gk + ':');
+        var gp = [{ v: '', l: L('any'), k: gk, on: true }].concat(gvals.slice(0, 20).map(function (b) { return { v: b[0], l: gk === 'stock' ? L('stockValues')[b[0]] : b[0], k: gk }; }));
+        h += '<div class="ofs-mguided"><div class="ofs-mlabel2">' + esc(mlab) + '</div>' + pills(gp, 'data-gval') + '</div>';
+      } else if (gk) {
         var gname = { brand: L('facetBrand'), category: L('facetCategory'), stock: L('facetStock') }[gk];
         var sv = L('stockValues');
         h += '<div class="ofs-guided"><div class="ofs-guided-t">' + L('guidedTitle').replace(/<b>.*<\/b>/, '<b>' + esc(gname) + '</b>') + '<button type="button" data-skipg="1">' + esc(L('guidedSkip')) + '</button></div>' +
@@ -236,8 +276,9 @@
       }
     }
     var anyF = st.F.brand.size || st.F.category.size || st.F.stock.size || st.F.price;
-    h += '<div class="ofs-wrap"><div class="ofs-aside"><div class="ofs-afclose"><span>Filtre</span><button type="button" data-fclose="1">' + IC.close + '</button></div>' +
-      (anyF ? '<button type="button" class="ofs-fclear" data-fclear="1">' + esc(L('clearFilters')) + '</button>' : '') + renderFacets(f) + '</div><div class="ofs-main">';
+    h += '<div class="ofs-wrap"><div class="ofs-aside"><div class="ofs-handle"></div><div class="ofs-afclose"><span><b>' + ids.length + '</b> ' + esc(L('sheetCount')) + '</span><button type="button" data-fclose="1">' + IC.close + '</button></div>' +
+      (anyF ? '<button type="button" class="ofs-fclear" data-fclear="1">' + esc(L('clearFilters')) + '</button>' : '') + renderFacets(f) +
+      '<div class="ofs-sheetbar"><button type="button" class="ofs-sclear" data-fclear="1">' + esc(L('clearFilters')) + '</button><button type="button" class="ofs-sshow" data-fclose="1">' + esc(L('showResults')) + '</button></div></div><div class="ofs-main">';
     var bn = E.banner(st.q);
     if (bn) {
       var mob = window.innerWidth < 768 && bn.mimg ? bn.mimg : bn.img;
@@ -333,15 +374,15 @@
     if (d.gocat != null || d.gobrand != null) { submit(el.input.value); if (d.gocat != null) st.F.category.add(d.gocat); else st.F.brand.add(d.gobrand); rerenderResults(); return; }
     if (d.car) { var tr = b.parentNode.querySelector('.ofs-track'); tr.scrollBy({ left: (+d.car) * tr.clientWidth * 0.8, behavior: 'smooth' }); return; }
     if (d.skipg) { st.skipGuided = true; rerenderResults(); return; }
-    if (d.gval != null) { st.F[d.gkey].add(d.gval); rerenderResults(); return; }
+    if (d.gval != null) { if (d.gval !== '') st.F[d.gkey].add(d.gval); rerenderResults(); return; }
     if (d.fclear) { st.F = newF(); rerenderResults(); return; }
     if (d.f) { var s = st.F[d.f]; s.has(d.v) ? s.delete(d.v) : s.add(d.v); rerenderResults(true); return; }
     if (d.fcol) { st.collapsed[d.fcol] = !st.collapsed[d.fcol]; b.parentNode.classList.toggle('ofs-col'); return; }
     if (d.fmore) { st.more[d.fmore] = !st.more[d.fmore]; rerenderResults(true); return; }
     if (d.sortopen) { b.nextSibling.classList.toggle('ofs-show'); return; }
     if (d.sort != null) { st.sort = +d.sort; rerenderResults(); return; }
-    if (d.fopen) { st._asideOpen = true; root.querySelector('.ofs-aside').classList.add('ofs-show'); return; }
-    if (d.fclose) { st._asideOpen = false; root.querySelector('.ofs-aside').classList.remove('ofs-show'); return; }
+    if (d.fopen) { st._asideOpen = true; root.classList.add('ofs-sheet'); root.querySelector('.ofs-aside').classList.add('ofs-show'); return; }
+    if (d.fclose) { st._asideOpen = false; root.classList.remove('ofs-sheet'); root.querySelector('.ofs-aside').classList.remove('ofs-show'); return; }
     if (d.pid) {
       if (st.q && st.mode !== 'initial') {
         addRecent(st.q); logSearch(true);
@@ -373,6 +414,7 @@
   function onScroll() {
     el.top.classList.toggle('ofs-show', st.mode === 'results' && el.body.scrollTop > 600);
     var g = root.querySelector('.ofs-guided'); if (g) g.classList.toggle('ofs-stuck', el.body.scrollTop > 40);
+    root.classList.toggle('ofs-scrolled', el.body.scrollTop > 120);
     if (st.mode !== 'results' || !st.view || st.shown >= st.view.length) return;
     var more = root.querySelector('.ofs-more');
     if (more && more.getBoundingClientRect().top < window.innerHeight + 600) {

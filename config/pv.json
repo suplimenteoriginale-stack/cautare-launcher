@@ -70,7 +70,16 @@
   },
   "clearFilters": "Șterge filtrele",
   "noResultsTitle": "Nu am găsit produse pentru căutarea ta.",
-  "noResultsText": "Verifică ortografia sau încearcă un termen mai general (ex: „magneziu” în loc de numele exact al produsului). Ai nevoie de ajutor? Sună-ne la <a href=\"tel:0753333773\">0753 333 773</a> (L–V, 09–16)."
+  "noResultsText": "Verifică ortografia sau încearcă un termen mai general (ex: „magneziu” în loc de numele exact al produsului). Ai nevoie de ajutor? Sună-ne la <a href=\"tel:0753333773\">0753 333 773</a> (L–V, 09–16).",
+  "filters": "Filtre",
+  "sheetCount": "produse",
+  "showResults": "Arată rezultatele",
+  "any": "Oricare",
+  "mGuided": {
+   "brand": "Alege Brands:",
+   "category": "Alege Categorii:",
+   "stock": "Alege In Stoc:"
+  }
  },
  "facets": [
   "category",
@@ -290,5 +299,8 @@
  ],
  "hideCategories": "^(Import.*|Producatori|Reducere Cantitativa|CATEGORII AFECTIUNI|Alte suplimente alimentare|Categorii Produse)$",
  "statsUrl": "https://cautare-statistici.provitaminebg.workers.dev",
- "popWeight": 0.1
+ "popWeight": 0.1,
+ "mobileChipRows": [
+  "brand"
+ ]
 }

@@ -58,7 +58,16 @@
   },
   "clearFilters": "Ștergeți filtrele",
   "noResultsTitle": "Nu am găsit produse pentru căutarea dumneavoastră.",
-  "noResultsText": "Verificați ortografia sau încercați un termen mai general (ex: „magneziu” în loc de numele exact al produsului). Aveți nevoie de ajutor? Sunați-ne la <a href=\"tel:0764710771\">0764 710 771</a>."
+  "noResultsText": "Verificați ortografia sau încercați un termen mai general (ex: „magneziu” în loc de numele exact al produsului). Aveți nevoie de ajutor? Sunați-ne la <a href=\"tel:0764710771\">0764 710 771</a>.",
+  "filters": "Filtre",
+  "sheetCount": "Rezultate",
+  "showResults": "Arată rezultatele",
+  "any": "Orice",
+  "mGuided": {
+   "brand": "Alegeți Brands:",
+   "category": "Alegeți Categorie:",
+   "stock": "Alegeți In Stoc:"
+  }
  },
  "facets": [
   "brand",
@@ -502,5 +511,9 @@
   }
  ],
  "hideCategories": "^Import",
- "statsUrl": "https://cautare-statistici.provitaminebg.workers.dev"
+ "statsUrl": "https://cautare-statistici.provitaminebg.workers.dev",
+ "mobileChipRows": [
+  "category",
+  "brand"
+ ]
 }

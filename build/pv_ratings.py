@@ -9,7 +9,7 @@ ctx = ssl.create_default_context(cafile=os.environ.get("CA_BUNDLE") or None)
 
 def one(handle, tries=4):
     for k in range(tries):
-        time.sleep(0.8)
+        time.sleep(1.2)
         try:
             return _one(handle)
         except urllib.error.HTTPError as e:
@@ -33,7 +33,7 @@ def _one(handle):
 
 if __name__ == "__main__":
     prods = json.load(open(sys.argv[1]))
-    with ThreadPoolExecutor(2) as ex:
+    with ThreadPoolExecutor(1) as ex:
         res = dict(r for r in ex.map(one, [p["handle"] for p in prods]) if r[1] and r[1]["n"])
     json.dump(res, open(sys.argv[2], "w"))
     print(len(res), "ratinguri")
