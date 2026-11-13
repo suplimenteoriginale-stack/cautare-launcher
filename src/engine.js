@@ -1,164 +1,221 @@
-/* Motor de cautare client-side. Functioneaza si in browser si in Node (pentru teste). */
+/* Motor de cautare client-side, construit sa se comporte ca Doofinder (Elasticsearch):
+   - campuri si ponderi ca in Doofinder: title 3, brand 2, categories 2, df_all 1 (tot textul, inclusiv descrierea)
+   - scor BM25 pe fiecare camp, se pastreaza campul cel mai bun (dis_max)
+   - stemming romanesc (Snowball), corectare automata a cuvintelor scrise gresit
+   - sinonime cu aceeasi frecventa (idf) pentru toti membrii grupului
+   - toate cuvintele trebuie gasite (AND); produsele fara stoc x0.01; rezultate fixate
+   Functioneaza in browser si in Node (pentru teste). */
 (function (root) {
   'use strict';
+  var K1 = 1.2, B = 0.75, process_syn = false;
+  var FW = { t: 3, b: 2, c: 2, all: 1 };
 
   function norm(s) {
     return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
-      .replace(/[^a-z0-9]+/g, ' ').trim();
+      .replace(/['’`]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
   }
-  function toks(s) { var n = norm(s); return n ? n.split(' ') : []; }
 
-  // Levenshtein marginit (Damerau simplificat pentru transpozitii)
+  // Damerau-Levenshtein marginit
   function dist(a, b, max) {
     var la = a.length, lb = b.length;
     if (Math.abs(la - lb) > max) return max + 1;
-    var prev2 = null, prev = new Array(lb + 1), cur;
-    for (var j = 0; j <= lb; j++) prev[j] = j;
-    for (var i = 1; i <= la; i++) {
-      cur = new Array(lb + 1); cur[0] = i; var rowMin = i;
+    var pp = null, prev = [], cur, i, j;
+    for (j = 0; j <= lb; j++) prev[j] = j;
+    for (i = 1; i <= la; i++) {
+      cur = [i]; var rowMin = i;
       for (j = 1; j <= lb; j++) {
-        var cost = a.charCodeAt(i - 1) === b.charCodeAt(j - 1) ? 0 : 1;
-        var v = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + cost);
-        if (prev2 && i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) v = Math.min(v, prev2[j - 2] + 1);
+        var v = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a.charCodeAt(i - 1) === b.charCodeAt(j - 1) ? 0 : 1));
+        if (pp && i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) v = Math.min(v, pp[j - 2] + 1);
         cur[j] = v; if (v < rowMin) rowMin = v;
       }
       if (rowMin > max) return max + 1;
-      prev2 = prev; prev = cur;
+      pp = prev; prev = cur;
     }
     return prev[lb];
   }
 
-  var FIELDS = [['t', 10], ['b', 8], ['c', 4], ['d', 1]];
-
-  function Engine(products, cfg) {
-    this.P = products;
-    this.cfg = cfg || {};
-    this.oos = this.cfg.outOfStockBoost == null ? 0.01 : this.cfg.outOfStockBoost;
-    var post = new Map();
-    var hideCat = new RegExp(this.cfg.hideCategories || '^$', 'i');
-    this.nt = new Array(products.length);
-    this.byId = {};
-    for (var i = 0; i < products.length; i++) {
-      var p = products[i];
-      this.byId[p.id] = i;
-      this.nt[i] = ' ' + norm(p.t) + ' ';
-      p._cats = [];
-      (p.c || []).forEach(function (c) { if (p._cats.indexOf(c) < 0 && !hideCat.test(c)) p._cats.push(c); });
-      for (var f = 0; f < FIELDS.length; f++) {
-        var val = FIELDS[f][0] === 'c' ? (p.c || []).join(' ') : p[FIELDS[f][0]];
-        var w = FIELDS[f][1];
-        var tk = toks(val);
-        for (var k = 0; k < tk.length; k++) {
-          var t = tk[k];
-          var m = post.get(t); if (!m) { m = new Map(); post.set(t, m); }
-          if ((m.get(i) || 0) < w) m.set(i, w);
-        }
-      }
+  // decodare postari: [deltaDoc, (-tf)?, deltaDoc, ...] -> Map(doc -> tf)
+  function decode(arr) {
+    var m = new Map(), d = 0, last = -1;
+    for (var k = 0; k < arr.length; k++) {
+      var v = arr[k];
+      if (v < 0) { m.set(last, -v); continue; }
+      d += v; last = d; m.set(d, 1);
     }
-    this.post = post;
-    this.vocab = Array.from(post.keys()).sort();
-    var syn = (this.cfg.synonyms || []).map(function (g) { return g.map(norm).filter(Boolean); });
-    this.syn = syn;
-    this.pins = (this.cfg.pinned || []).map(function (x) { return { term: norm(x.term), items: x.items }; });
-    this.banners = (this.cfg.banners || []).map(function (b) {
-      return { b: b, terms: b.terms.map(norm).filter(Boolean) };
-    });
+    return m;
   }
 
-  // potriviri pentru un singur termen din cautare -> Map(produs -> scor)
-  Engine.prototype.termMatches = function (qt, isLast) {
-    var self = this, res = new Map();
-    function add(tok, mult) {
-      var m = self.post.get(tok); if (!m) return;
-      m.forEach(function (w, i) { var s = w * mult; if ((res.get(i) || 0) < s) res.set(i, s); });
+  function Field(data) {
+    this.raw = data.post; this.cache = new Map(); this.len = data.len;
+    var s = 0; for (var i = 0; i < data.len.length; i++) s += data.len[i];
+    this.avg = s / Math.max(1, data.len.length);
+    this.df = new Map();
+    for (var w in data.post) {
+      var a = data.post[w], c = 0;
+      for (var k = 0; k < a.length; k++) if (a[k] >= 0) c++;
+      this.df.set(w, c);
     }
-    add(qt, 1);
-    var numeric = /^\d+$/.test(qt);
-    // prefix
-    if (qt.length >= 2) {
-      var lo = 0, hi = this.vocab.length;
-      while (lo < hi) { var mid = (lo + hi) >> 1; if (this.vocab[mid] < qt) lo = mid + 1; else hi = mid; }
-      for (var j = lo; j < this.vocab.length && this.vocab[j].lastIndexOf(qt, 0) === 0; j++) {
-        if (this.vocab[j] !== qt) add(this.vocab[j], isLast ? 0.9 : 0.75);
-      }
-    }
-    // greseli de scriere
-    if (!numeric && qt.length >= 4) {
-      var max = qt.length >= 8 ? 2 : 1;
-      for (var v = 0; v < this.vocab.length; v++) {
-        var tok = this.vocab[v];
-        if (tok === qt || /^\d/.test(tok)) continue;
-        if (Math.abs(tok.length - qt.length) > max && !(isLast && tok.length > qt.length)) continue;
-        var d = dist(qt, tok, max);
-        if (d <= max) { add(tok, d === 1 ? 0.6 : 0.4); continue; }
-        // prefix aproximativ pentru ultimul cuvant (utilizatorul inca scrie)
-        if (isLast && tok.length > qt.length && dist(qt, tok.slice(0, qt.length), 1) <= 1) add(tok, 0.5);
-      }
-    }
-    return res;
+  }
+  Field.prototype.get = function (w) {
+    var m = this.cache.get(w);
+    if (!m) { var a = this.raw[w]; m = a ? decode(a) : null; this.cache.set(w, m); }
+    return m;
   };
 
-  Engine.prototype.variants = function (nq) {
-    var out = [{ q: nq, f: 1 }], seen = {}; seen[nq] = 1;
-    var padded = ' ' + nq + ' ';
+  function Engine(products, cfg, search, stemmer) {
+    var self = this;
+    this.P = products; this.cfg = cfg || {}; this.N = products.length;
+    this.stemmer = stemmer;
+    this.oos = this.cfg.outOfStockBoost == null ? 0.01 : this.cfg.outOfStockBoost;
+    this.byId = {};
+    var hideCat = new RegExp(this.cfg.hideCategories || '^$', 'i');
+    products.forEach(function (p, i) {
+      self.byId[p.id] = i;
+      p._cats = [];
+      (p.c || []).forEach(function (c) { if (p._cats.indexOf(c) < 0 && !hideCat.test(c)) p._cats.push(c); });
+    });
+    this.F = {};
+    ['t', 'b', 'c'].forEach(function (f) { self.F[f] = new Field(search.f[f]); });
+    this.vocab = new Set();
+    ['t', 'b', 'c'].forEach(function (f) { self.F[f].df.forEach(function (_, w) { self.vocab.add(w); }); });
+    this._prepSyn();
+    this.pins = (this.cfg.pinned || []).map(function (x) { return { term: self.stemQ(x.term), items: x.items }; });
+    this.banners = (this.cfg.banners || []).map(function (b) { return { b: b, terms: b.terms.map(norm).filter(Boolean) }; });
+  }
+
+  // descrierile (df_all) vin intr-un fisier separat, incarcat dupa deschidere
+  Engine.prototype.addDesc = function (desc) {
+    var self = this;
+    this.F.all = new Field(desc.f.all);
+    this.F.all.df.forEach(function (_, w) { self.vocab.add(w); });
+    this._vocabArr = null;
+    this._prepSyn();
+  };
+
+  Engine.prototype.stem = function (w) {
+    return (w.length < 4 || /^\d+$/.test(w) || !this.stemmer) ? w : this.stemmer.stem(w);
+  };
+  Engine.prototype.stemQ = function (q) { var s = this; return norm(q).split(' ').filter(Boolean).map(function (w) { return s.stem(w); }).join(' '); };
+
+  Engine.prototype._prepSyn = function () {
+    var self = this;
+    this.syn = (this.cfg.synonyms || []).map(function (g) { return g.map(function (x) { return self.stemQ(x); }).filter(Boolean); });
+    // frecventa comuna pe grup (ca la sinonimele Elasticsearch)
+    this.dfo = {};
+    Object.keys(this.F).forEach(function (f) {
+      var o = self.dfo[f] = new Map(), F = self.F[f];
+      self.syn.forEach(function (g) {
+        var mx = 0;
+        g.forEach(function (m) { m.split(' ').forEach(function (w) { mx = Math.max(mx, F.df.get(w) || 0); }); });
+        g.forEach(function (m) { if (m.indexOf(' ') < 0) o.set(m, Math.max(o.get(m) || 0, mx)); });
+      });
+    });
+  };
+
+  Engine.prototype.vocabArr = function () {
+    if (!this._vocabArr) this._vocabArr = Array.from(this.vocab).sort();
+    return this._vocabArr;
+  };
+  Engine.prototype.dfAll = function (w) {
+    var s = 0, F = this.F; for (var f in F) s += F[f].df.get(w) || 0; return s;
+  };
+
+  // corectare automata: cuvant necunoscut -> cel mai apropiat cuvant din catalog
+  Engine.prototype.correct = function (w) {
+    if (this.vocab.has(w) || /^\d+$/.test(w) || w.length < 4) return w;
+    var max = w.length >= 8 ? 2 : 1, best = null, bd = 9, bdf = -1, V = this.vocabArr();
+    for (var k = 0; k < V.length; k++) {
+      var x = V[k]; if (Math.abs(x.length - w.length) > max) continue;
+      var d = dist(w, x, max); if (d > max) continue;
+      var df = this.dfAll(x);
+      if (d < bd || (d === bd && df > bdf)) { best = x; bd = d; bdf = df; }
+    }
+    return best || w;
+  };
+
+  Engine.prototype.bm = function (f, w, doc, tf) {
+    var F = this.F[f], df = (this.dfo[f] && this.dfo[f].get(w)) || F.df.get(w) || 0;
+    var idf = Math.log(1 + (this.N - df + 0.5) / (df + 0.5));
+    return FW[f] * idf * tf * (K1 + 1) / (tf + K1 * (1 - B + B * F.len[doc] / F.avg));
+  };
+
+  // scor pentru un termen (cu eventuale extinderi prefix) -> Map(doc -> scor)
+  Engine.prototype.termScores = function (alts, noDesc) {
+    var out = new Map(), self = this;
+    alts.forEach(function (a) {
+      for (var f in self.F) {
+        if (noDesc && f === 'all') continue;
+        var m = self.F[f].get(a.w); if (!m) continue;
+        m.forEach(function (tf, doc) {
+          var s = self.bm(f, a.w, doc, tf) * a.f;
+          if ((out.get(doc) || 0) < s) out.set(doc, s);
+        });
+      }
+    });
+    return out;
+  };
+
+  Engine.prototype.prefixAlts = function (w) {
+    var out = [{ w: w, f: 1 }], V = this.vocabArr();
+    if (w.length < 2) return out;
+    var lo = 0, hi = V.length;
+    while (lo < hi) { var mid = (lo + hi) >> 1; if (V[mid] < w) lo = mid + 1; else hi = mid; }
+    for (var j = lo, n = 0; j < V.length && V[j].lastIndexOf(w, 0) === 0 && n < 60; j++) if (V[j] !== w) { out.push({ w: V[j], f: 0.7 }); n++; }
+    return out;
+  };
+
+  Engine.prototype.variants = function (sq) {
+    var out = [sq], seen = {}; seen[sq] = 1;
+    var pad = ' ' + sq + ' ';
     this.syn.forEach(function (g) {
       g.forEach(function (m) {
-        if (padded.indexOf(' ' + m + ' ') < 0) return;
+        if (pad.indexOf(' ' + m + ' ') < 0) return;
         g.forEach(function (alt) {
           if (alt === m) return;
-          var v = (' ' + nq + ' ').replace(' ' + m + ' ', ' ' + alt + ' ').trim();
-          if (!seen[v] && out.length < 12) { seen[v] = 1; out.push({ q: v, f: 0.95 }); }
+          var v = pad.replace(' ' + m + ' ', ' ' + alt + ' ').trim();
+          if (!seen[v] && out.length < 16) { seen[v] = 1; out.push(v); }
         });
       });
     });
     return out;
   };
 
-  Engine.prototype.scoreVariant = function (vq, mode) {
-    var tk = vq.split(' ').filter(Boolean), n = tk.length;
-    var per = tk.map(function (t, k) { return this.termMatches(t, k === n - 1); }, this);
-    var scores = new Map(), cnt = new Map();
-    per.forEach(function (m) {
-      m.forEach(function (s, i) { scores.set(i, (scores.get(i) || 0) + s); cnt.set(i, (cnt.get(i) || 0) + 1); });
-    });
-    var need = mode === 'and' ? n : Math.max(1, Math.ceil(n / 2));
-    var out = new Map(), padded = ' ' + vq + ' ';
-    var self = this;
-    scores.forEach(function (s, i) {
-      var c = cnt.get(i);
-      if (c < need) return;
-      if (mode !== 'and') s = s * c / n;
-      if (n > 1 && self.nt[i].indexOf(padded) >= 0) s += 15;
-      if (self.nt[i].lastIndexOf(' ' + vq, 0) === 0) s += 5;
-      out.set(i, s);
-    });
-    return out;
-  };
-
-  // cautarea propriu-zisa: intoarce lista de indici sortata dupa relevanta
-  Engine.prototype.search = function (q) {
-    var nq = norm(q);
+  // opts.prefix: completare pentru ultimul cuvant (cand utilizatorul inca scrie)
+  Engine.prototype.search = function (q, opts) {
+    opts = opts || {};
+    var self = this, nq = norm(q);
     if (!nq) return { ids: [], q: nq };
-    var vars = this.variants(nq), self = this, best = new Map(), mode = 'and';
-    function run(m) {
-      vars.forEach(function (v) {
-        self.scoreVariant(v.q, m).forEach(function (s, i) { s *= v.f; if ((best.get(i) || 0) < s) best.set(i, s); });
-      });
-    }
-    run('and');
-    if (!best.size) { mode = 'or'; run('or'); }
-    var P = this.P, oos = this.oos;
-    var arr = [];
+    var words = nq.split(' ');
+    var sq = words.map(function (w, k) {
+      var s = self.stem(w);
+      if (opts.prefix && k === words.length - 1) return s;
+      return self.correct(s);
+    }).join(' ');
+    var best = new Map();
+    var sqTok = ' ' + sq + ' ';
+    this.variants(sq).forEach(function (v, vi) {
+      var tk = v.split(' '), acc = null;
+      for (var k = 0; k < tk.length; k++) {
+        var alts = (opts.prefix && k === tk.length - 1) ? self.prefixAlts(tk[k]) : [{ w: tk[k], f: 1 }];
+        if (opts.prefix && k === tk.length - 1 && !self.vocab.has(tk[k])) alts.push({ w: self.correct(tk[k]), f: 0.8 });
+        // sinonimele nu se cauta in descrieri (doar cuvintele scrise de client)
+        var ts = self.termScores(alts, process_syn && vi > 0 && sqTok.indexOf(' ' + tk[k] + ' ') < 0);
+        if (!acc) acc = ts;
+        else { var nx = new Map(); acc.forEach(function (s, d) { var t = ts.get(d); if (t) nx.set(d, s + t); }); acc = nx; }
+        if (!acc.size) break;
+      }
+      if (acc) acc.forEach(function (s, d) { if ((best.get(d) || 0) < s) best.set(d, s); });
+    });
+    var P = this.P, oos = this.oos, arr = [];
     best.forEach(function (s, i) { arr.push([i, P[i].a ? s : s * oos]); });
     arr.sort(function (a, b) { return b[1] - a[1] || a[0] - b[0]; });
     var ids = arr.map(function (x) { return x[0]; });
-    // rezultate fixate (custom results)
-    var pin = this.pins.find(function (p) { return p.term === nq; });
+    var pin = this.pins.find(function (p) { return p.term === sq; });
     if (pin) {
       var pinned = pin.items.map(function (id) { return self.byId[id]; }).filter(function (i) { return i != null; });
       ids = pinned.concat(ids.filter(function (i) { return pinned.indexOf(i) < 0; }));
     }
-    return { ids: ids, q: nq, mode: mode };
+    return { ids: ids, q: nq, sq: sq };
   };
 
   Engine.prototype.banner = function (q) {
@@ -170,7 +227,6 @@
     return null;
   };
 
-  // filtrare + fatete (disjunctive: fiecare fateta ignora propriul filtru)
   Engine.prototype.facet = function (ids, F) {
     var P = this.P;
     function pass(p, skip) {

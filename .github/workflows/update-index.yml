@@ -32,9 +32,12 @@ jobs:
           E
       - name: Construieste indexul
         run: |
+          pip install -q snowballstemmer
           mkdir -p dist/so dist/pv
           python3 build/build_index.py so data/so_feed.xml dist/so/index.json
           python3 build/build_index.py pv data/pv_products.json dist/pv/index.json data/pv_ratings.json
+          python3 build/build_search.py so data/so_feed.xml dist/so
+          python3 build/build_search.py pv data/pv_products.json dist/pv
           python3 build/build_config.py so
           python3 build/build_config.py pv
           python3 build/bundle.py

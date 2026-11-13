@@ -10,6 +10,7 @@
   var Engine = window.OFSEngine, norm = Engine.norm;
 
   var CFG = null, P = null, E = null, loading = null;
+  var V = '?v=' + Math.floor(Date.now() / 36e5); // reimprospatare din ora in ora (indexul se reface la 3 ore)
   var LS = 'ofs_recent_' + STORE;
   var st = { q: '', mode: 'initial', F: newF(), sort: 0, shown: 24, ids: [], skipGuided: false, collapsed: {}, more: {}, fsearch: {} };
   var root, el = {}, origInput = null, histPushed = false, debTimer = null;
@@ -34,12 +35,12 @@
   /* ---------- incarcare date ---------- */
   function load() {
     if (loading) return loading;
-    loading = Promise.all([
-      fetch(BASE + STORE + '/config.json').then(function (r) { return r.json(); }),
-      fetch(BASE + STORE + '/index.json').then(function (r) { return r.json(); })
-    ]).then(function (res) {
-      CFG = res[0]; P = res[1]; E = new Engine(P, CFG);
+    var j = function (f) { return fetch(BASE + STORE + '/' + f + V).then(function (r) { return r.json(); }); };
+    loading = Promise.all([j('config.json'), j('index.json'), j('search.json')]).then(function (res) {
+      CFG = res[0]; P = res[1]; E = new Engine(P, CFG, res[2], window.OFSStemmer);
       popularFromStats();
+      // descrierile (pentru potriviri ca in Doofinder) se incarca in fundal
+      j('desc.json').then(function (d) { E.addDesc(d); if (isOpen() && st.q) render(true); }).catch(function () {});
       return true;
     });
     return loading;
@@ -142,14 +143,16 @@
   }
 
   /* ---------- randare ---------- */
-  function render() {
+  function render(keep) {
+    var y = keep && el.body ? el.body.scrollTop : 0;
     var c = el.content;
     root.classList.toggle('ofs-res', st.mode === 'results');
     if (st.mode === 'initial') { renderChipsInitial(); c.innerHTML = renderInitial(); }
-    else if (st.mode === 'suggest') { var r = E.search(st.q); st.ids = r.ids; renderChipsSuggest(L('suggestions')); c.innerHTML = renderSuggest(); logSearch(false); }
+    else if (st.mode === 'suggest') { var r = E.search(st.q, { prefix: true }); st.ids = r.ids; renderChipsSuggest(L('suggestions')); c.innerHTML = renderSuggest(); logSearch(false); }
     else { var rr = E.search(st.q); st.ids = rr.ids; renderChipsSuggest(''); c.innerHTML = renderResults(); logSearch(true); }
     el.layer.classList.toggle('ofs-short', st.mode !== 'results' && window.innerWidth >= 768);
     syncHash(); onScroll();
+    if (keep) el.body.scrollTop = y;
   }
 
   function renderChipsInitial() {
