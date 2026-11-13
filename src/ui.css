@@ -211,3 +211,10 @@
 .ofs-pv .ofs-card{padding-bottom:14px}
 
   .ofs-loading{display:flex;justify-content:center;padding:80px 0}.ofs-loading span{width:32px;height:32px;border:3px solid #e6e6e6;border-top-color:var(--ofs-accent,#65EDE6);border-radius:50%;animation:ofs-spin .8s linear infinite}@keyframes ofs-spin{to{transform:rotate(360deg)}}
+
+.ofs-iw{position:relative;flex:1;display:flex;align-items:center;min-width:0;align-self:stretch}
+.ofs-iw .ofs-input{position:relative;z-index:1;width:100%}
+.ofs-ghost{position:absolute;left:0;right:0;top:0;bottom:0;display:flex;align-items:center;white-space:pre;overflow:hidden;pointer-events:none;z-index:2;visibility:hidden;font:inherit;font-size:16px;padding:0 0 0 10px}
+.ofs-gt{color:transparent}
+.ofs-gr{color:#a9adb1;pointer-events:auto;cursor:pointer}
+@media (max-width:767px){.ofs-ghost{padding-left:4px}}

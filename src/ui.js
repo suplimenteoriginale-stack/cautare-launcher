@@ -36,6 +36,56 @@
     sliders: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h10M18 7h2M4 17h4M12 17h8" stroke-linecap="round"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>'
   };
 
+  /* ---------- completare automata (text gri in bara, ca la Doofinder) ---------- */
+  var ghostRest = '', AC = null;
+  function acNorm(x) { return String(x || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
+  function acBuild() {
+    var words = new Map(), phr = new Map();
+    var add = function (m, k, w) { m.set(k, (m.get(k) || 0) + w); };
+    var hide = new RegExp((CFG && CFG.hideCategories) || '^$', 'i');
+    for (var i = 0; i < P.length; i++) {
+      var p = P[i], seen = {};
+      (acNorm(p.t) + ' ' + acNorm(p.b)).split(/[^a-z0-9]+/).forEach(function (w) {
+        if (w.length >= 3 && /^[a-z]/.test(w) && !seen[w]) { seen[w] = 1; add(words, w, 1); }
+      });
+      if (p.b) add(phr, acNorm(p.b).trim(), 1);
+      (p.c || []).forEach(function (c) { if (!hide.test(c)) add(phr, acNorm(c).trim(), 0.5); });
+    }
+    (CFG.popular || []).forEach(function (q, i) { add(phr, acNorm(q).trim(), 200 - i); });
+    AC = { words: Array.from(words.entries()).sort(function (a, b) { return b[1] - a[1]; }), phr: Array.from(phr.entries()).filter(function (x) { return x[0].length > 2; }).sort(function (a, b) { return b[1] - a[1]; }) };
+  }
+  function acComplete(typed) {
+    if (!P) return '';
+    if (!AC) acBuild();
+    var q = acNorm(typed);
+    if (!q.trim() || /\s$/.test(q) || q.length !== typed.length) return '';
+    var last = q.split(/\s+/).pop();
+    var best = '', bw = 0, i, x;
+    // termen intreg (cautari populare, branduri, categorii) care incepe cu ce s-a scris
+    if (q.length >= 3) for (i = 0; i < AC.phr.length; i++) { x = AC.phr[i]; if (x[0].length > q.length && x[0].indexOf(q) === 0) { best = x[0].slice(q.length); bw = x[1]; break; } }
+    // ultimul cuvant, dupa cat de des apare in produse
+    if (last.length >= 2) for (i = 0; i < AC.words.length; i++) {
+      x = AC.words[i]; if (x[1] <= bw) break;
+      if (x[0].length > last.length && x[0].indexOf(last) === 0) { best = x[0].slice(last.length); break; }
+    }
+    return best;
+  }
+  function updateGhost() {
+    if (!el.ghost) return;
+    var v = el.input.value, focused = document.activeElement === el.input;
+    var atEnd = el.input.selectionStart === v.length && el.input.selectionEnd === v.length;
+    ghostRest = focused && atEnd ? acComplete(v) : '';
+    el.gt.textContent = v; el.gr.textContent = ghostRest;
+    el.ghost.style.visibility = ghostRest && el.input.scrollWidth <= el.input.clientWidth + 1 ? 'visible' : 'hidden';
+    if (!ghostRest) el.ghost.style.visibility = 'hidden';
+  }
+  function acceptGhost() {
+    if (!ghostRest) return;
+    el.input.value = el.input.value + ghostRest; ghostRest = '';
+    el.input.focus(); try { el.input.setSelectionRange(el.input.value.length, el.input.value.length); } catch (e) {}
+    el.input.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+
   /* ---------- incarcare date ---------- */
   var J = function (f) { return fetch(BASE + STORE + '/' + f + V).then(function (r) { return r.json(); }); };
   var cfgP = null;
@@ -75,7 +125,8 @@
       '<div class="ofs-header"><div class="ofs-hrow">' + logo +
       '<button type="button" class="ofs-back" aria-label="Înapoi">' + IC.back + '</button>' +
       '<form class="ofs-box" role="search" autocomplete="off">' + IC.search +
-      '<input class="ofs-input" type="search" enterkeyhint="search" placeholder="' + esc(L('placeholder')) + '" aria-label="' + esc(L('search')) + '">' + mic +
+      '<span class="ofs-iw"><span class="ofs-ghost" aria-hidden="true"><span class="ofs-gt"></span><span class="ofs-gr"></span></span>' +
+      '<input class="ofs-input" type="search" enterkeyhint="search" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="' + esc(L('placeholder')) + '" aria-label="' + esc(L('search')) + '"></span>' + mic +
       '<button type="button" class="ofs-clr" aria-label="Șterge">' + IC.clr + '</button></form>' +
       '<button type="button" class="ofs-close" aria-label="Închide">' + IC.close + '</button></div>' +
       '<div class="ofs-chips"></div></div>' +
@@ -91,6 +142,15 @@
     setTimeout(indent, 0); window.addEventListener('resize', indent);
     if (logoEl && logoEl.tagName === 'IMG') logoEl.addEventListener('load', indent);
 
+    el.ghost = root.querySelector('.ofs-ghost'); el.gt = root.querySelector('.ofs-gt'); el.gr = root.querySelector('.ofs-gr');
+    el.gr.addEventListener('mousedown', function (e) { e.preventDefault(); });
+    el.gr.addEventListener('click', function (e) { e.preventDefault(); acceptGhost(); });
+    el.input.addEventListener('keydown', function (e) {
+      if (!ghostRest) return;
+      var atEnd = el.input.selectionStart === el.input.value.length && el.input.selectionEnd === el.input.value.length;
+      if (e.key === 'Tab' || (e.key === 'ArrowRight' && atEnd)) { e.preventDefault(); acceptGhost(); }
+    });
+    ['input', 'keyup', 'click', 'focus', 'blur'].forEach(function (ev) { el.input.addEventListener(ev, updateGhost); });
     el.input.addEventListener('input', function () {
       clearTimeout(debTimer);
       debTimer = setTimeout(function () { st.q = el.input.value; st.mode = st.q.trim() ? 'suggest' : 'initial'; st.F = newF(); render(); }, 70);
@@ -163,6 +223,7 @@
   /* ---------- randare ---------- */
   function render(keep) {
     if (!E) { root.classList.toggle('ofs-hasq', !!el.input.value); el.content.innerHTML = '<div class="ofs-loading"><span></span></div>'; return; }
+    updateGhost();
     // pe mobil nu exista ecran separat de sugestii: cat scrii vezi direct toate rezultatele (ca dupa Enter)
     if (st.mode === 'suggest' && isMob()) { st.mode = 'results'; st.live = true; st.shown = 20; st.sort = 0; st.skipGuided = false; st.more = {}; st.fsearch = {}; }
     else if (st.mode !== 'results') st.live = false;
