@@ -30,22 +30,33 @@ jobs:
                       if e.code not in (429, 500, 502, 503) or t == 5: raise
                       time.sleep(int(e.headers.get("Retry-After") or 0) or 10 * (t + 1))
           allp = []
-          for page in range(1, 40):
-              d = get(f"https://provitamine.ro/products.json?limit=250&page={page}")["products"]
-              time.sleep(1)
-              if not d: break
-              allp += d
-          json.dump(allp, open("data/pv_products.json", "w"))
-          print(len(allp), "produse PV")
+          try:
+              for page in range(1, 40):
+                  d = get(f"https://provitamine.ro/products.json?limit=250&page={page}")["products"]
+                  time.sleep(1)
+                  if not d: break
+                  allp += d
+              json.dump(allp, open("data/pv_products.json", "w"))
+              print(len(allp), "produse PV")
+          except Exception as e:
+              # Shopify refuza temporar (429): pastram catalogul PV deja publicat, restul se publica normal
+              print("::warning::Catalog PV indisponibil (", e, "), se pastreaza indexul PV publicat")
+              open("data/pv_failed", "w").write(str(e))
           E
       - name: Construieste indexul
         run: |
           pip install -q snowballstemmer
           mkdir -p dist/so dist/pv
           python3 build/build_index.py so data/so_feed.xml dist/so/index.json
-          python3 build/build_index.py pv data/pv_products.json dist/pv/index.json data/pv_ratings.json
           python3 build/build_search.py so data/so_feed.xml dist/so
-          python3 build/build_search.py pv data/pv_products.json dist/pv
+          if [ -f data/pv_failed ]; then
+            for f in index.json search.json desc.json; do
+              curl -sSf --retry 3 -o dist/pv/$f "https://suplimenteoriginale-stack.github.io/cautare-launcher/pv/$f"
+            done
+          else
+            python3 build/build_index.py pv data/pv_products.json dist/pv/index.json data/pv_ratings.json
+            python3 build/build_search.py pv data/pv_products.json dist/pv
+          fi
           python3 build/build_config.py so
           python3 build/build_config.py pv
           python3 build/bundle.py
