@@ -198,7 +198,37 @@
   };
 
   // opts.prefix: completare pentru ultimul cuvant (cand utilizatorul inca scrie)
+  // cuvinte apropiate ca scriere (o litera diferita; doua la cuvinte lungi), cele mai frecvente primele
+  Engine.prototype.neighbors = function (w) {
+    if (w.length < 3 || /\d/.test(w)) return [];
+    var max = w.length >= 8 ? 2 : 1, V = this.vocabArr(), out = [];
+    for (var k = 0; k < V.length; k++) {
+      var x = V[k]; if (x === w || Math.abs(x.length - w.length) > max) continue;
+      var d = dist(w, x, max); if (d <= max) out.push([x, d, this.dfAll(x)]);
+    }
+    return out.sort(function (a, b) { return a[1] - b[1] || b[2] - a[2]; }).slice(0, 4).map(function (x) { return x[0]; });
+  };
   Engine.prototype.search = function (q, opts) {
+    opts = opts || {};
+    var r = this.searchCore(q, opts);
+    if (r.ids.length || r.code || opts.fix) return r;
+    // nimic gasit: poate un cuvant corect scris e de fapt o greseala (ex. "live extension" -> "life extension")
+    var self = this, words = norm(q).split(' ').filter(Boolean);
+    if (!words.length || words.length > 5) return r;
+    var stems = words.map(function (w) { return self.stem(w); });
+    var bestR = null;
+    for (var k = 0; k < words.length; k++) {
+      var nb = this.neighbors(stems[k]);
+      for (var j = 0; j < nb.length; j++) {
+        var fix = {}; fix[k] = nb[j];
+        var rr = this.searchCore(q, { prefix: opts.prefix, fix: fix });
+        if (rr.ids.length && (!bestR || rr.ids.length > bestR.ids.length)) bestR = rr;
+      }
+      if (bestR) break;
+    }
+    return bestR || r;
+  };
+  Engine.prototype.searchCore = function (q, opts) {
     opts = opts || {};
     var self = this, nq = norm(q);
     if (!nq) return { ids: [], q: nq };
@@ -217,6 +247,7 @@
     }
     var words = nq.split(' ');
     var sq = words.map(function (w, k) {
+      if (opts.fix && opts.fix[k]) return opts.fix[k];
       var s = self.stem(w);
       if (opts.prefix && k === words.length - 1) return s;
       return self.correct(s);
