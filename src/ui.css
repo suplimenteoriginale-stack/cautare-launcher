@@ -83,12 +83,8 @@
 .ofs-guided .ofs-track{gap:16px;padding:4px}
 .ofs-guided .ofs-arrow{color:#111}
 .ofs-gcard{flex:0 0 auto;display:flex;align-items:center;background:#fff;border-radius:15px;box-shadow:0 1px 4px 1px #d3d3d3;height:50px;white-space:nowrap;font-size:16px;overflow:hidden}
-.ofs-gcard .ofs-glogo{width:100px;height:50px;object-fit:contain;padding:6px}
-.ofs-gcard .ofs-gthumb{display:none;width:44px;height:50px;object-fit:contain;padding:4px}
-.ofs-guided.ofs-stuck .ofs-gcard .ofs-glogo{display:none}
-.ofs-guided.ofs-stuck .ofs-gcard .ofs-gthumb,.ofs-gcard.ofs-nologo .ofs-gthumb{display:block}
-.ofs-gcard.ofs-nologo .ofs-glogo{display:none}
-.ofs-gcard span{padding:0 18px 0 12px;min-width:100px;text-align:center}
+.ofs-gcard .ofs-gthumb{display:block;width:50px;height:50px;object-fit:contain;padding:4px 6px}
+.ofs-gcard span{padding:0 22px 0 12px;min-width:110px;text-align:center}
 .ofs-res .ofs-wrap{gap:24px;padding-top:32px}
 .ofs-res .ofs-aside{flex:0 0 360px}
 .ofs-rhead{display:flex;justify-content:space-between;align-items:center;height:36px;margin-bottom:24px;font-size:14px}

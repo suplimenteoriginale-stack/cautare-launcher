@@ -78,8 +78,11 @@ if __name__ == "__main__":
     T = [toks(d["t"]) for d in D]
     B = [toks(d["b"]) for d in D]
     C = [toks(d["c"]) for d in D]
-    A = [T[i] + B[i] + C[i] + toks(d["d"]) + norm(d["x"]).split() for i, d in enumerate(D)]
-    main = {"n": len(D), "f": {"t": inverted(T), "b": inverted(B), "c": inverted(C)}}
+    # Doofinder indexeaza doar inceputul descrierii (~3200 caractere; masurat pe numarul de rezultate)
+    A = [T[i] + B[i] + C[i] + toks(d["d"][:3200]) + norm(d["x"]).split() for i, d in enumerate(D)]
+    # title.autocomplete din Doofinder: cuvintele brute din titlu, potrivite dupa prefix
+    TA = [norm(d["t"]).split() for d in D]
+    main = {"n": len(D), "f": {"t": inverted(T), "b": inverted(B), "c": inverted(C), "ta": inverted(TA)}}
     desc = {"n": len(D), "f": {"all": inverted(A)}}
     json.dump(main, open(out + "/search.json", "w"), separators=(",", ":"))
     json.dump(desc, open(out + "/desc.json", "w"), separators=(",", ":"))

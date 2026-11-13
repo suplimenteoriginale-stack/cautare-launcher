@@ -8,7 +8,7 @@
 (function (root) {
   'use strict';
   var K1 = 1.2, B = 0.75, process_syn = false;
-  var FW = { t: 3, b: 2, c: 2, all: 1 };
+  var FW = { t: 3, b: 2, c: 2, all: 1, ta: 1 };
 
   function norm(s) {
     return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
@@ -76,6 +76,9 @@
     });
     this.F = {};
     ['t', 'b', 'c'].forEach(function (f) { self.F[f] = new Field(search.f[f]); });
+    this.TA = search.f.ta ? new Field(search.f.ta) : null;
+    this.taWords = this.TA ? Array.from(this.TA.df.keys()).sort() : [];
+    this.taCache = new Map();
     this.vocab = new Set();
     ['t', 'b', 'c'].forEach(function (f) { self.F[f].df.forEach(function (_, w) { self.vocab.add(w); }); });
     this._prepSyn();
@@ -139,6 +142,20 @@
     return FW[f] * idf * tf * (K1 + 1) / (tf + K1 * (1 - B + B * F.len[doc] / F.avg));
   };
 
+  // title.autocomplete: documentele care au in titlu un cuvant ce incepe cu `raw`
+  Engine.prototype.taScores = function (raw) {
+    if (!this.TA || !raw) return null;
+    var c = this.taCache.get(raw); if (c) return c;
+    var W = this.taWords, lo = 0, hi = W.length, docs = new Map();
+    while (lo < hi) { var mid = (lo + hi) >> 1; if (W[mid] < raw) lo = mid + 1; else hi = mid; }
+    for (var j = lo; j < W.length && W[j].lastIndexOf(raw, 0) === 0; j++) this.TA.get(W[j]).forEach(function (tf, d) { docs.set(d, (docs.get(d) || 0) + tf); });
+    var df = docs.size, N = this.N, F = this.TA, out = new Map();
+    var idf = Math.log(1 + (N - df + 0.5) / (df + 0.5));
+    docs.forEach(function (tf, d) { out.set(d, FW.ta * idf * tf * (K1 + 1) / (tf + K1 * (1 - B + B * F.len[d] / F.avg))); });
+    this.taCache.set(raw, out);
+    return out;
+  };
+
   // scor pentru un termen (cu eventuale extinderi prefix) -> Map(doc -> scor)
   Engine.prototype.termScores = function (alts, noDesc) {
     var out = new Map(), self = this;
@@ -192,14 +209,18 @@
       return self.correct(s);
     }).join(' ');
     var best = new Map();
-    var sqTok = ' ' + sq + ' ';
+    var sqTok = ' ' + sq + ' ', rawOf = {};
+    sq.split(' ').forEach(function (t, k) { if (words[k] && words[k].length >= 2) rawOf[t] = words[k]; });
     this.variants(sq).forEach(function (v, vi) {
       var tk = v.split(' '), acc = null;
       for (var k = 0; k < tk.length; k++) {
+        var raw = rawOf[tk[k]] || null;
         var alts = (opts.prefix && k === tk.length - 1) ? self.prefixAlts(tk[k]) : [{ w: tk[k], f: 1 }];
         if (opts.prefix && k === tk.length - 1 && !self.vocab.has(tk[k])) alts.push({ w: self.correct(tk[k]), f: 0.8 });
         // sinonimele nu se cauta in descrieri (doar cuvintele scrise de client)
         var ts = self.termScores(alts, process_syn && vi > 0 && sqTok.indexOf(' ' + tk[k] + ' ') < 0);
+        var ta = raw != null ? self.taScores(raw) : null;
+        if (ta) ta.forEach(function (sc, d) { if ((ts.get(d) || 0) < sc) ts.set(d, sc); });
         if (!acc) acc = ts;
         else { var nx = new Map(); acc.forEach(function (s, d) { var t = ts.get(d); if (t) nx.set(d, s + t); }); acc = nx; }
         if (!acc.size) break;

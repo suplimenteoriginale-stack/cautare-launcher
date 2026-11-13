@@ -211,13 +211,11 @@
     var h = '';
     // filtru ghidat pe branduri
     if (!st.skipGuided && !st.F.brand.size && f.brand.size >= 4) {
-      var bs = topN(f.brand, 20);
+      var bs = Array.from(f.brand.entries()).sort(brandSort('brand')).slice(0, 20);
       h += '<div class="ofs-guided"><div class="ofs-guided-t">' + L('guidedTitle') + '<button type="button" data-skipg="1">' + esc(L('guidedSkip')) + '</button></div>' +
         carousel(bs.map(function (b) {
           var img = ''; for (var k = 0; k < ids.length; k++) { if (P[ids[k]].b === b[0]) { img = P[ids[k]].img; break; } }
-          var logo = CFG.brandLogos && CFG.logos && CFG.logos[b[0]];
-          return '<button type="button" class="ofs-gcard' + (logo ? '' : ' ofs-nologo') + '" data-gbrand="' + esc(b[0]) + '">' +
-            (logo ? '<img class="ofs-glogo" loading="lazy" src="' + esc(BASE + 'assets/' + logo) + '" alt="">' : '') +
+          return '<button type="button" class="ofs-gcard" data-gbrand="' + esc(b[0]) + '">' +
             '<img class="ofs-gthumb" loading="lazy" src="' + esc(img) + '" alt=""><span>' + esc(b[0]) + '</span></button>';
         }).join('')) + '</div>';
     }
@@ -241,12 +239,21 @@
     return h + '</div></div>';
   }
 
+  // ordinea brandurilor ca in Doofinder: intai cele cu logo (in ordinea din configurare), apoi dupa numar
+  function brandSort(key) {
+    var order = (key === 'brand' && CFG.brandLogos && CFG.logos) ? Object.keys(CFG.logos) : [];
+    return function (a, b) {
+      var ia = order.indexOf(a[0]), ib = order.indexOf(b[0]);
+      if (ia >= 0 || ib >= 0) return (ia < 0 ? 1e6 : ia) - (ib < 0 ? 1e6 : ib);
+      return b[1] - a[1];
+    };
+  }
   function facetBlock(key, title, body) {
     return '<div class="ofs-facet' + (st.collapsed[key] ? ' ofs-col' : '') + '"><button type="button" class="ofs-fh" data-fcol="' + key + '">' + esc(title) + IC.up + '</button><div class="ofs-fb">' + body + '</div></div>';
   }
   function termsFacet(key, title, map, logos) {
     if (!map.size) return '';
-    var sel = st.F[key], all = Array.from(map.entries()).sort(function (a, b) { return b[1] - a[1]; });
+    var sel = st.F[key], all = Array.from(map.entries()).sort(brandSort(key));
     var fq = norm(st.fsearch[key] || '');
     var list = fq ? all.filter(function (x) { return norm(x[0]).indexOf(fq) >= 0; }) : all;
     var lim = st.more[key] ? list.length : 5;
