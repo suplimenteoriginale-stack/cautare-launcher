@@ -144,10 +144,16 @@ async function syncPV(env) {
     const map = {};
     let n = 0;
     for (let page = 1; page <= 20; page++) {
-      const res = await fetch(`https://provitamine.ro/products.json?limit=250&page=${page}`, { headers: { 'User-Agent': 'Mozilla/5.0 (cautare-launcher)' } });
+      let res;
+      for (let t = 0; t < 3; t++) {
+        res = await fetch(`https://provitamine.ro/products.json?limit=250&page=${page}`, { headers: { 'User-Agent': 'Mozilla/5.0 (cautare-launcher)' } });
+        if (res.status !== 429) break;
+        await new Promise((r) => setTimeout(r, 4000 * (t + 1)));
+      }
       if (!res.ok) throw new Error('shopify ' + res.status);
       const ps = (await res.json()).products || [];
       if (!ps.length) break;
+      await new Promise((r) => setTimeout(r, 400));
       for (const pr of ps) {
         const vs = pr.variants || [];
         if (!vs.length) continue;
