@@ -158,8 +158,8 @@
   .ofs-pills::-webkit-scrollbar{display:none}
   .ofs-pill{flex:0 0 auto;height:34px;padding:0 12px;border:1px solid #d5d5d5;border-radius:20px;font-size:14px;white-space:nowrap;color:var(--ofs-text)}
   .ofs-pill.ofs-on{border-color:var(--ofs-text)}
-  .ofs-mchips{padding:16px 12px 18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 6px 8px -6px rgba(0,0,0,.12);background:#fff;position:sticky;top:0;z-index:4;transition:margin .2s}
-  .ofs-scrolled .ofs-mchips{display:none}
+  .ofs-mchips{padding:16px 12px 18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 6px 8px -6px rgba(0,0,0,.12);background:#fff;position:sticky;top:0;z-index:4;transition:transform .2s,opacity .2s}
+  .ofs-scrolled .ofs-mchips{transform:translateY(-110%);opacity:0;pointer-events:none}
   .ofs-mbody{padding:20px 8px 90px}
   .ofs-mbody>.ofs-mlabel{margin:0 4px 10px}
   .ofs-mguided{padding:24px 12px 4px}
