@@ -1,0 +1,32 @@
+name: Ratinguri provitamine (saptamanal)
+on:
+  schedule:
+    - cron: "40 3 * * 1"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  ratings:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Citeste ratingurile Judge.me de pe paginile de produs
+        run: |
+          python3 - <<'P'
+          import json, urllib.request
+          allp = []
+          for page in range(1, 40):
+              req = urllib.request.Request(f"https://provitamine.ro/products.json?limit=250&page={page}", headers={"User-Agent": "Mozilla/5.0"})
+              d = json.load(urllib.request.urlopen(req, timeout=60))["products"]
+              if not d: break
+              allp += d
+          json.dump(allp, open("/tmp/pv_products.json", "w"))
+          P
+          python3 build/pv_ratings.py /tmp/pv_products.json data/pv_ratings.json
+      - name: Salveaza
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data/pv_ratings.json
+          git diff --cached --quiet || (git commit -m "Ratinguri PV actualizate" && git push)
