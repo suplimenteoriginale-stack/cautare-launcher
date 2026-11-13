@@ -1,1 +1,2158 @@
-{"saccharomyces-boulardii-plus-mos-5-billion-jarrow-formulas-180-capsule": {"v": 5.0, "n": 26}, "glucosamine-msm-chondroitin-vitamin-c-ostrovit-90-tablete": {"v": 4.0, "n": 1}, "collagen-peptides-hydrolyzed-type-i-iii-osavi-600g": {"v": 5.0, "n": 1}, "koflet-h-durere-in-gat-himalaya-12-drajeuri-ginger": {"v": 5.0, "n": 1}, "bromelain-500mg-now-foods": {"v": 5.0, "n": 1}, "multivitamine-daily-vits-now-foods-120-capsule": {"v": 5.0, "n": 3}, "tudca-acid-tauroursodeoxicolic-250-mg-nutricost-60-capsule": {"v": 5.0, "n": 1}, "resveratrol-antioxidant-250-mg-swanson-30-capsule-swu530": {"v": 5.0, "n": 8}, "berberine-400mg-swanson": {"v": 5.0, "n": 13}, "kudzu-root-500mg-swanson": {"v": 5.0, "n": 14}, "n-acetyl-tyrosine-350mg-swanson": {"v": 5.0, "n": 1}, "inositol-650mg-swanson": {"v": 5.0, "n": 11}, "vitamin-a-swanson": {"v": 5.0, "n": 1}, "colon-helper-swanson": {"v": 4.67, "n": 3}, "royal-jelly-300mg-now-foods": {"v": 5.0, "n": 5}, "pregnenolone-super-strength-50mg-swanson": {"v": 5.0, "n": 4}, "boron-mineral-now-foods": {"v": 5.0, "n": 4}, "chromium-picolinate-200mcg-swanson": {"v": 5.0, "n": 16}}
+{
+"100-vitamins-minerals-ostrovit-90-tablete": {
+"v": 5.0,
+"n": 1
+},
+"5-htp-now-foods": {
+"v": 5.0,
+"n": 9
+},
+"7-keto-dhea-100-mg-now-foods-60-capsule": {
+"v": 5.0,
+"n": 1
+},
+"7-keto-dhea-100mg-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"acacia-fiber-organic-powder-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"acai-berry-500mg-swanson": {
+"v": 5.0,
+"n": 1
+},
+"acetyl-l-carnitine-500mg-now-foods": {
+"v": 5.0,
+"n": 7
+},
+"acetyl-l-carnitine-arginate-life-extension": {
+"v": 5.0,
+"n": 1
+},
+"acid-folic-800mcg-swanson": {
+"v": 5.0,
+"n": 9
+},
+"acid-folic-now-foods": {
+"v": 5.0,
+"n": 4
+},
+"acid-hialuronic-msm-now-foods": {
+"v": 5.0,
+"n": 5
+},
+"acidophilus-two-billion-now-foods": {
+"v": 5.0,
+"n": 3
+},
+"activated-charcoal-swanson": {
+"v": 5.0,
+"n": 4
+},
+"advanced-uc-ii-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"ahcc-imunitate-crescuta-500-mg-oly-60-capsule": {
+"v": 5.0,
+"n": 1
+},
+"ajipure-arginine-500mg-swanson": {
+"v": 5.0,
+"n": 1
+},
+"ajipure-glycine-500mg-swanson": {
+"v": 5.0,
+"n": 4
+},
+"ajipure-taurine-pharmaceutical-grade-1000mg-swanson-60-capsule-swu736": {
+"v": 5.0,
+"n": 1
+},
+"albion-chelated-calcium-magnesium-swanson": {
+"v": 5.0,
+"n": 2
+},
+"albion-chelated-chromium-200mcg-swanson": {
+"v": 5.0,
+"n": 1
+},
+"albion-chelated-copper-2mg-swanson": {
+"v": 5.0,
+"n": 4
+},
+"albion-chelated-molybdenum-400mcg-swanson": {
+"v": 5.0,
+"n": 1
+},
+"albion-chelated-multi-mineral-with-iron-swanson": {
+"v": 5.0,
+"n": 3
+},
+"algae-omega-3-vegan-nordic-naturals-60-softgels": {
+"v": 5.0,
+"n": 1
+},
+"aloe-vera-25mg-swanson": {
+"v": 5.0,
+"n": 3
+},
+"alpha-lipoic-acid-ala-300mg-swanson-60-capsule-swu136": {
+"v": 5.0,
+"n": 2
+},
+"alpha-lipoic-acid-ala-300mg-swanson-60-capsule-swu136-1": {
+"v": 5.0,
+"n": 24
+},
+"amino-complete-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"ampk-metabolic-activator-life-extension": {
+"v": 5.0,
+"n": 2
+},
+"andrographis-paniculata-400mg-swanson": {
+"v": 5.0,
+"n": 1
+},
+"apple-cider-vinegar-swanson": {
+"v": 5.0,
+"n": 1
+},
+"arginine-citrulline-now-foods": {
+"v": 4.0,
+"n": 1
+},
+"arjuna-bark-extract-500mg-swanson-2": {
+"v": 5.0,
+"n": 2
+},
+"ashwagandha-extract-450mg-now-foods-90-capsule": {
+"v": 5.0,
+"n": 6
+},
+"ashwagandha-extract-now-foods": {
+"v": 5.0,
+"n": 6
+},
+"ashwagandha-jarrow-formulas": {
+"v": 5.0,
+"n": 6
+},
+"ashwagandha-root-450mg-swanson": {
+"v": 5.0,
+"n": 52
+},
+"ashwagandha-root-extract-375-mg-ostrovit-200-tablete": {
+"v": 5.0,
+"n": 1
+},
+"ashwagandha-ultimate-ksm-66-swanson": {
+"v": 5.0,
+"n": 11
+},
+"asparagus-extract-swanson": {
+"v": 5.0,
+"n": 11
+},
+"astaxanthin-4mg-swanson": {
+"v": 5.0,
+"n": 7
+},
+"astaxanthin-jarrow-formulas": {
+"v": 5.0,
+"n": 3
+},
+"astaxanthin-now-foods": {
+"v": 5.0,
+"n": 2
+},
+"astaxanthin-zeaxanthin-swanson": {
+"v": 5.0,
+"n": 1
+},
+"astragalus-500mg-now-foods": {
+"v": 5.0,
+"n": 2
+},
+"astragalus-root-full-spectrum-470mg-swanson": {
+"v": 5.0,
+"n": 6
+},
+"b12-methylcobalamin-natural-factors": {
+"v": 5.0,
+"n": 3
+},
+"bacopa-monnieri-250mg-swanson": {
+"v": 5.0,
+"n": 7
+},
+"balance-b-200-complex-swanson": {
+"v": 5.0,
+"n": 7
+},
+"bamboo-extract-swanson": {
+"v": 5.0,
+"n": 1
+},
+"benfotiamine-nutricost": {
+"v": 5.0,
+"n": 1
+},
+"berberine-400mg-swanson": {
+"v": 5.0,
+"n": 13
+},
+"berberine-complex-with-cinnamon-gymnema-fenugreek-swanson": {
+"v": 5.0,
+"n": 16
+},
+"berberine-ostrovit": {
+"v": 5.0,
+"n": 3
+},
+"berberine-plus-with-bitter-melon-milk-thistle-swanson": {
+"v": 5.0,
+"n": 1
+},
+"bergamot-extract-swanson": {
+"v": 5.0,
+"n": 1
+},
+"berry-dophilus-kids-2-billion-cfu-now-foods-120-tablete-masticabile": {
+"v": 5.0,
+"n": 5
+},
+"berry-dophilus-kids-now-foods": {
+"v": 5.0,
+"n": 5
+},
+"beta-carotene-swanson": {
+"v": 5.0,
+"n": 2
+},
+"beta-sitosterol-plant-sterols-now-foods": {
+"v": 5.0,
+"n": 2
+},
+"bioactive-complete-b-complex-life-extension": {
+"v": 5.0,
+"n": 1
+},
+"biocell-collagen-hydrolyzed-type-2-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"bioperine-10mg-swanson": {
+"v": 5.0,
+"n": 2
+},
+"biotin-5000mg-swanson": {
+"v": 5.0,
+"n": 30
+},
+"biotin-vitamina-h-sau-b7-10-000-mcg-now-foods-120-capsule": {
+"v": 5.0,
+"n": 1
+},
+"bitter-melon-500mg-swanson": {
+"v": 5.0,
+"n": 12
+},
+"black-cumin-seed-oil-500mg-swanson": {
+"v": 5.0,
+"n": 35
+},
+"black-cumin-seed-oil-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"black-walnut-hulls-500mg-now-foods": {
+"v": 5.0,
+"n": 9
+},
+"black-walnut-hulls-500mg-swanson": {
+"v": 5.0,
+"n": 11
+},
+"blood-pressure-health-now-foods": {
+"v": 5.0,
+"n": 8
+},
+"boost-b12-oral-spray-betteryou": {
+"v": 5.0,
+"n": 5
+},
+"boron-from-albion-boroganic-glycine-6mg-swanson": {
+"v": 5.0,
+"n": 2
+},
+"boron-mineral-now-foods": {
+"v": 5.0,
+"n": 4
+},
+"boswellia-extract-now-foods": {
+"v": 5.0,
+"n": 4
+},
+"boswellia-serrata-400mg-swanson": {
+"v": 5.0,
+"n": 2
+},
+"boswellia-serrata-800mg-swanson-60-capsule-sw1589": {
+"v": 5.0,
+"n": 21
+},
+"boswellia-serrata-extract-swanson": {
+"v": 5.0,
+"n": 2
+},
+"broccomax-sulforafan-jarrow-formulas": {
+"v": 5.0,
+"n": 1
+},
+"bromelain-500mg-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"burdock-root-swanson": {
+"v": 5.0,
+"n": 1
+},
+"c-1000-vitamina-c-buffered-now-foods": {
+"v": 5.0,
+"n": 6
+},
+"c-1000-vitamina-c-cu-bioflavonoide-100mg-now-foods-250-capsule": {
+"v": 5.0,
+"n": 2
+},
+"c-1000-vitamina-c-susteined-release-now-foods": {
+"v": 5.0,
+"n": 6
+},
+"calcium-carbonate-powder-now-foods": {
+"v": 5.0,
+"n": 2
+},
+"calcium-citrate-complex-swanson": {
+"v": 5.0,
+"n": 1
+},
+"calcium-citrate-pure-powder-now-foods": {
+"v": 5.0,
+"n": 4
+},
+"calcium-citrate-swanson": {
+"v": 5.0,
+"n": 1
+},
+"calcium-d-glucarate-500mg-now-foods": {
+"v": 5.0,
+"n": 4
+},
+"calcium-magnesium-now-foods": {
+"v": 5.0,
+"n": 2
+},
+"candida-support-now-foods-180-capsule": {
+"v": 5.0,
+"n": 3
+},
+"caprylic-acid-600mg-swanson": {
+"v": 5.0,
+"n": 2
+},
+"carnitine-swanson": {
+"v": 5.0,
+"n": 4
+},
+"cats-claw-gheara-matei-500-mg-swanson-100-capsule-sw514-copy": {
+"v": 5.0,
+"n": 16
+},
+"catuaba-bark-swanson": {
+"v": 5.0,
+"n": 2
+},
+"cayenne-pepper-capsaicina-500mg-now-foods-250-capsule": {
+"v": 5.0,
+"n": 15
+},
+"chaga-mushroom-400mg-swanson": {
+"v": 5.0,
+"n": 2
+},
+"chanca-piedra-500mg-swanson": {
+"v": 5.0,
+"n": 50
+},
+"chelated-zinc-glycinate-swanson": {
+"v": 5.0,
+"n": 10
+},
+"chewyzymes-now-foods": {
+"v": 5.0,
+"n": 3
+},
+"chinese-skullcap-swanson": {
+"v": 5.0,
+"n": 1
+},
+"chitosan-plus-chromium-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"choline-and-inositol-500mg-now-foods": {
+"v": 5.0,
+"n": 7
+},
+"chromium-picolinate-200mcg-swanson": {
+"v": 5.0,
+"n": 16
+},
+"chromium-picolinate-200mcg-swanson-200-capsule-sw923": {
+"v": 5.0,
+"n": 16
+},
+"chromium-picolinate-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"cinnamon-375mg-swanson": {
+"v": 5.0,
+"n": 3
+},
+"citicoline-cdp-choline-250mg-jarrow": {
+"v": 5.0,
+"n": 3
+},
+"citrulline-malate-swanson": {
+"v": 5.0,
+"n": 6
+},
+"clinical-strength-ocu-support-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"cod-liver-oil-1000mg-now-foods": {
+"v": 5.0,
+"n": 5
+},
+"coenzima-q10-natural-factors": {
+"v": 5.0,
+"n": 1
+},
+"coenzyme-q10-natural-factors": {
+"v": 5.0,
+"n": 2
+},
+"coleus-forskohlii-400mg-swanson": {
+"v": 5.0,
+"n": 1
+},
+"collagen-hidrolizat-vitamin-c-ostrovit-400-g": {
+"v": 5.0,
+"n": 2
+},
+"collagen-peptides-hydrolyzed-osavi": {
+"v": 5.0,
+"n": 2
+},
+"collagen-peptides-hydrolyzed-type-i-iii-osavi-600g": {
+"v": 5.0,
+"n": 1
+},
+"collagen-peptides-powder-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"collagen-tendons-ligaments-osavi": {
+"v": 5.0,
+"n": 2
+},
+"collagen-type-2-now-foods": {
+"v": 5.0,
+"n": 10
+},
+"colon-helper-swanson": {
+"v": 4.67,
+"n": 3
+},
+"complex-vitamine-kid-vits-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"coq10-coenzima-q10-100mg-swanson-50-softgels-swu560": {
+"v": 5.0,
+"n": 1
+},
+"coq10-coenzima-q10-200-mg-swanson-30-capsule-swu034": {
+"v": 5.0,
+"n": 10
+},
+"coq10-coenzima-q10-30mg-now-foods-60-capsule": {
+"v": 5.0,
+"n": 7
+},
+"cordyceps-600mg-swanson": {
+"v": 4.85,
+"n": 13
+},
+"cranberry-swanson": {
+"v": 5.0,
+"n": 6
+},
+"creatina-monohidrat-pudra-dedicated": {
+"v": 5.0,
+"n": 1
+},
+"creatine-capsules-life-extension": {
+"v": 5.0,
+"n": 1
+},
+"creatine-monohydrate-mango-ostrovit-300g": {
+"v": 5.0,
+"n": 1
+},
+"creatine-monohydrate-micronized-fara-aroma-ostrovit-300g": {
+"v": 5.0,
+"n": 1
+},
+"curcumin-phytosome-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"cystone-tractul-urinar-himalaya": {
+"v": 4.97,
+"n": 111
+},
+"d-mannose-700mg-swanson": {
+"v": 5.0,
+"n": 25
+},
+"d-mannose-organic-pure-powder-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"d-mannose-powder-osavi": {
+"v": 5.0,
+"n": 1
+},
+"d3000-daily-vitamin-d-oral-spray-betteryou": {
+"v": 5.0,
+"n": 2
+},
+"d3000-k2-vitamin-oral-spray-betteryou": {
+"v": 5.0,
+"n": 8
+},
+"d400-junior-daily-vitamin-d-oral-spray-betteryou": {
+"v": 5.0,
+"n": 1
+},
+"daily-b-complex-swanson-100-capsule-sw1855": {
+"v": 5.0,
+"n": 1
+},
+"damiana-leaves-510mg-swanson": {
+"v": 5.0,
+"n": 2
+},
+"dandelion-root-500mg-now-foods": {
+"v": 5.0,
+"n": 3
+},
+"dandelion-root-515mg-swanson": {
+"v": 5.0,
+"n": 10
+},
+"devils-claw-500mg-swanson": {
+"v": 5.0,
+"n": 7
+},
+"dgl-natural-factors": {
+"v": 5.0,
+"n": 1
+},
+"dha-1000-brain-support-now-foods": {
+"v": 5.0,
+"n": 6
+},
+"dha-250-now-foods": {
+"v": 5.0,
+"n": 4
+},
+"dha-500-omega-3-500-dha-250-epa-now-foods-180-softgels": {
+"v": 5.0,
+"n": 1
+},
+"dha-500-omega-3-now-foods": {
+"v": 5.0,
+"n": 24
+},
+"dhea-suport-hormonal-25-mg-nutricost-120-capsule": {
+"v": 5.0,
+"n": 1
+},
+"diet-fat-burner-swanson": {
+"v": 5.0,
+"n": 4
+},
+"digest-ultimate-now-foods": {
+"v": 5.0,
+"n": 2
+},
+"dlux-1000-vitamin-d-oral-spray-betteryou": {
+"v": 5.0,
+"n": 2
+},
+"dopa-mucuna-now-foods": {
+"v": 5.0,
+"n": 9
+},
+"echinacea-400mg-swanson": {
+"v": 5.0,
+"n": 4
+},
+"epic-pro-25-strain-probiotic-swanson": {
+"v": 5.0,
+"n": 22
+},
+"eve-superior-womens-multi-now-foods": {
+"v": 5.0,
+"n": 2
+},
+"extra-strength-ginkgo-120mg-doctor-s-best": {
+"v": 5.0,
+"n": 1
+},
+"extract-ashwagandha-swanson": {
+"v": 5.0,
+"n": 1
+},
+"fibro-essentials-swanson": {
+"v": 5.0,
+"n": 16
+},
+"fiole-de-slabit-20-fiole-slimcode": {
+"v": 5.0,
+"n": 1
+},
+"flaxseed-oil-organic-1000mg-swanson": {
+"v": 5.0,
+"n": 1
+},
+"fo-ti-he-shou-wu-swanson": {
+"v": 5.0,
+"n": 1
+},
+"folate-5-methyltetrahydrofolic-acid-800mcg-swanson": {
+"v": 5.0,
+"n": 7
+},
+"folate-5-methyltetrahydrofolic-acid-800mcg-swanson-30-capsule-swu714": {
+"v": 5.0,
+"n": 7
+},
+"full-spectrum-boswellia-and-curcumin-swanson": {
+"v": 5.0,
+"n": 14
+},
+"full-spectrum-fennel-seed-480mg-swanson": {
+"v": 5.0,
+"n": 2
+},
+"full-spectrum-feverfew-380mg-swanson": {
+"v": 5.0,
+"n": 9
+},
+"full-spectrum-gotu-kola-435mg-swanson": {
+"v": 5.0,
+"n": 8
+},
+"full-spectrum-guarana-500mg-swanson": {
+"v": 5.0,
+"n": 2
+},
+"full-spectrum-milk-thistle-500mg-swanson": {
+"v": 5.0,
+"n": 33
+},
+"full-spectrum-milk-thistle-armurariu-500mg-swanson-30-capsule-sw1557": {
+"v": 5.0,
+"n": 1
+},
+"full-spectrum-muira-puama-root-400mg-swanson": {
+"v": 5.0,
+"n": 5
+},
+"full-spectrum-saffron-swanson": {
+"v": 5.0,
+"n": 2
+},
+"full-spectrum-triple-mushroom-complex-swanson": {
+"v": 5.0,
+"n": 8
+},
+"full-spectrum-turmeric-bromelain-swanson": {
+"v": 5.0,
+"n": 9
+},
+"gaba-500-mg-swanson-100-capsule-sw872": {
+"v": 4.9,
+"n": 10
+},
+"gaba-750-mg-maximum-strength-swanson-60-capsule-swu676": {
+"v": 5.0,
+"n": 2
+},
+"gaba-relaxarea-sistemului-nervos-750mg-now-foods-100-capsule": {
+"v": 5.0,
+"n": 1
+},
+"garcinia-cambogia-extract-swanson": {
+"v": 5.0,
+"n": 7
+},
+"garlic-oil-swanson": {
+"v": 5.0,
+"n": 1
+},
+"gasex-digestiv-himalaya": {
+"v": 5.0,
+"n": 17
+},
+"gastro-comfort-now-foods": {
+"v": 5.0,
+"n": 2
+},
+"ginger-root-550mg-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"ginger-root-swanson": {
+"v": 5.0,
+"n": 5
+},
+"ginger-turmeric-300mg-swanson": {
+"v": 5.0,
+"n": 7
+},
+"ginkgo-biloba-extract-120-mg-swanson-100-capsule-swu033": {
+"v": 5.0,
+"n": 1
+},
+"ginkgo-biloba-extract-swanson": {
+"v": 5.0,
+"n": 9
+},
+"glucomannan-konjac-665mg-swanson": {
+"v": 5.0,
+"n": 4
+},
+"glucosamine-chondroitin-msm-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"glucosamine-chondroitin-msm-swanson": {
+"v": 5.0,
+"n": 14
+},
+"glucosamine-msm-chondroitin-vitamin-c-ostrovit-90-tablete": {
+"v": 4.0,
+"n": 1
+},
+"glutathione-cysteine-c-life-extension": {
+"v": 5.0,
+"n": 2
+},
+"glutathione-glutation-500-mg-now-foods-60-capsule": {
+"v": 5.0,
+"n": 1
+},
+"glutathione-now-foods": {
+"v": 5.0,
+"n": 17
+},
+"glutathione-reduced-500-mg-jarrow-formulas-120-capsule": {
+"v": 5.0,
+"n": 1
+},
+"glutathione-reduced-500mg-jarrow": {
+"v": 5.0,
+"n": 17
+},
+"glutathione-with-coq10-swanson": {
+"v": 5.0,
+"n": 1
+},
+"gluten-digest-now-foods": {
+"v": 5.0,
+"n": 5
+},
+"glycine-1000mg-life-extension": {
+"v": 5.0,
+"n": 2
+},
+"glycine-1000mg-now-foods": {
+"v": 5.0,
+"n": 5
+},
+"glycine-pure-powder-now-foods": {
+"v": 5.0,
+"n": 2
+},
+"gotu-kola-450-mg-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"graminex-flower-pollen-extract-swanson": {
+"v": 5.0,
+"n": 1
+},
+"grapefruit-peel-600mg-swanson": {
+"v": 4.78,
+"n": 9
+},
+"graviola-500mg-now-foods": {
+"v": 5.0,
+"n": 12
+},
+"green-tea-extract-swanson": {
+"v": 5.0,
+"n": 6
+},
+"greens-spirulina-500mg-swanson": {
+"v": 5.0,
+"n": 6
+},
+"gymnema-sylvestre-leaf-400mg-swanson": {
+"v": 4.94,
+"n": 16
+},
+"hair-skin-nails-swanson": {
+"v": 5.0,
+"n": 8
+},
+"herbal-urinary-care-swanson": {
+"v": 5.0,
+"n": 18
+},
+"hibiscus-flower-swanson": {
+"v": 5.0,
+"n": 8
+},
+"high-absorption-magnesium-chelated-100mg-doctors-best-2": {
+"v": 5.0,
+"n": 8
+},
+"horny-goat-weed-extract-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"horny-goat-weed-extract-swanson": {
+"v": 4.5,
+"n": 2
+},
+"horsetail-500mg-swanson": {
+"v": 5.0,
+"n": 2
+},
+"hyaluronic-acid-complex-swanson": {
+"v": 5.0,
+"n": 1
+},
+"inositol-500mg-now-foods": {
+"v": 5.0,
+"n": 2
+},
+"inositol-650mg-swanson": {
+"v": 5.0,
+"n": 11
+},
+"inositol-jarrow-formulas": {
+"v": 5.0,
+"n": 8
+},
+"iron-citrate-swanson": {
+"v": 5.0,
+"n": 2
+},
+"iron-complex-fier-now-foods-100-capsule": {
+"v": 4.0,
+"n": 1
+},
+"iron-ferrous-fumarate-swanson": {
+"v": 5.0,
+"n": 7
+},
+"iron-fier-18mg-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"jarro-dophilus-plus-fos-jarrow-formulas": {
+"v": 5.0,
+"n": 46
+},
+"kelp-iodine-source-swanson": {
+"v": 5.0,
+"n": 7
+},
+"kidney-cleanse-now-foods": {
+"v": 5.0,
+"n": 5
+},
+"koflet-h-durere-in-gat-himalaya-12-drajeuri-ginger": {
+"v": 5.0,
+"n": 1
+},
+"koflet-himalaya": {
+"v": 5.0,
+"n": 2
+},
+"kudzu-root-500mg-swanson": {
+"v": 5.0,
+"n": 14
+},
+"l-arginine-maximum-strength-850mg-swanson-90-capsule-sw1713": {
+"v": 5.0,
+"n": 3
+},
+"l-arginine-swanson": {
+"v": 5.0,
+"n": 1
+},
+"l-carnitine-500mg-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"l-citrulina-pudra-dedicated-300g": {
+"v": 4.0,
+"n": 1
+},
+"l-citrulline-750mg-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"l-glutamine-500mg-swanson": {
+"v": 5.0,
+"n": 14
+},
+"l-glutamine-750-mg-jarrow-formulas-120-capsule": {
+"v": 5.0,
+"n": 9
+},
+"l-glutathione-100mg-swanson": {
+"v": 5.0,
+"n": 6
+},
+"l-lysine-1000mg-now-foods": {
+"v": 4.93,
+"n": 14
+},
+"l-lysine-lizina-1000mg-now-foods-250-tablete": {
+"v": 5.0,
+"n": 2
+},
+"l-lysine-lizina-500mg-now-foods-100-tablete": {
+"v": 5.0,
+"n": 1
+},
+"l-ornithine-500mg-swanson": {
+"v": 5.0,
+"n": 1
+},
+"l-theanine-with-decaf-green-tea-100mg-now-foods": {
+"v": 5.0,
+"n": 4
+},
+"l-theanine-with-inositol-now-foods": {
+"v": 5.0,
+"n": 7
+},
+"l-tyrosine-500mg-swanson": {
+"v": 5.0,
+"n": 2
+},
+"l-tyrosine-now-foods": {
+"v": 5.0,
+"n": 6
+},
+"lactobacillus-acidophilus-swanson": {
+"v": 5.0,
+"n": 3
+},
+"lactobacillus-gasseri-swanson": {
+"v": 5.0,
+"n": 11
+},
+"lactobacillus-plantarum-swanson": {
+"v": 5.0,
+"n": 1
+},
+"lactobacillus-reuteri-plus-swanson": {
+"v": 5.0,
+"n": 1
+},
+"lactobacillus-rhamnosus-with-fos-swanson": {
+"v": 5.0,
+"n": 4
+},
+"lecitina-1200mg-now-foods": {
+"v": 5.0,
+"n": 3
+},
+"leg-vein-essentials-swanson": {
+"v": 5.0,
+"n": 8
+},
+"lemon-balm-500mg-swanson": {
+"v": 5.0,
+"n": 3
+},
+"lions-mane-mushroom-500mg-swanson": {
+"v": 5.0,
+"n": 53
+},
+"liposomal-vitamin-c-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"lithium-orotate-5mg-swanson": {
+"v": 5.0,
+"n": 4
+},
+"liv52-hepatoprotector-himalaya": {
+"v": 4.98,
+"n": 86
+},
+"liv52ds-himalaya": {
+"v": 5.0,
+"n": 58
+},
+"liver-essentials-swanson": {
+"v": 5.0,
+"n": 5
+},
+"lutein-esters-bilberry-swanson": {
+"v": 5.0,
+"n": 6
+},
+"lutein-ochi-si-vedere-10-mg-swanson-60-softgels-swu979": {
+"v": 5.0,
+"n": 11
+},
+"lutein-with-zeaxanthin-natural-factors": {
+"v": 5.0,
+"n": 1
+},
+"lutein-zeaxanthin-now-foods": {
+"v": 5.0,
+"n": 5
+},
+"lutein-zeaxanthin-swanson": {
+"v": 5.0,
+"n": 9
+},
+"lycopene-swanson": {
+"v": 5.0,
+"n": 2
+},
+"lysine-pure-powder-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"maca-extract-500mg-swanson": {
+"v": 5.0,
+"n": 5
+},
+"maca-now-foods": {
+"v": 5.0,
+"n": 6
+},
+"magnesium-bisglycinate-200-mg-natural-factors-120-capsule": {
+"v": 5.0,
+"n": 2
+},
+"magnesium-bisglycinate-natural-factors": {
+"v": 5.0,
+"n": 1
+},
+"magnesium-bisglycinate-powder-now-foods": {
+"v": 5.0,
+"n": 5
+},
+"magnesium-chelated-albion-133mg-swanson": {
+"v": 4.97,
+"n": 62
+},
+"magnesium-citrate-225mg-swanson": {
+"v": 5.0,
+"n": 1
+},
+"magnesium-citrate-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"magnesium-citrate-powder-ostrovit-200g": {
+"v": 5.0,
+"n": 1
+},
+"magnesium-citrate-pure-powder-now-foods": {
+"v": 5.0,
+"n": 4
+},
+"magnesium-glycinate-100-chelated-100mg-doctors-best-240-tablete": {
+"v": 5.0,
+"n": 1
+},
+"magnesium-glycinate-now-foods": {
+"v": 5.0,
+"n": 2
+},
+"magnesium-glycinate-ostrovit": {
+"v": 5.0,
+"n": 1
+},
+"magnesium-lysinate-glycinate-doctors-best": {
+"v": 5.0,
+"n": 1
+},
+"magnesium-malate-1000mg-now-foods": {
+"v": 5.0,
+"n": 10
+},
+"magnesium-orotate-swanson": {
+"v": 5.0,
+"n": 1
+},
+"magnesium-oxide-200mg-swanson": {
+"v": 5.0,
+"n": 2
+},
+"magtein-magnesium-threonate-now-foods": {
+"v": 5.0,
+"n": 14
+},
+"mangosteen-500mg-swanson": {
+"v": 5.0,
+"n": 8
+},
+"marine-collagen-peptides-swanson": {
+"v": 5.0,
+"n": 8
+},
+"mega-d-3-mk-7-k2-180-mcg-5-000-iu-now-foods-120-capsule": {
+"v": 5.0,
+"n": 1
+},
+"mega-d3-mk7-now-foods": {
+"v": 5.0,
+"n": 26
+},
+"mega-epa-dha-life-extension": {
+"v": 5.0,
+"n": 1
+},
+"mega-tribulus-extract-swanson": {
+"v": 5.0,
+"n": 1
+},
+"melatonin-3mg-swanson": {
+"v": 5.0,
+"n": 10
+},
+"melatonin-keep-sleep-ostrovit": {
+"v": 5.0,
+"n": 2
+},
+"melatonin-melatonina-20-mg-now-foods-90-capsule": {
+"v": 5.0,
+"n": 1
+},
+"melatonin-now-foods": {
+"v": 5.0,
+"n": 11
+},
+"melatonina-dual-release-swanson": {
+"v": 5.0,
+"n": 3
+},
+"menopause-essentials-swanson": {
+"v": 5.0,
+"n": 12
+},
+"menopause-support-now-foods": {
+"v": 5.0,
+"n": 5
+},
+"mens-virility-power-now-foods": {
+"v": 5.0,
+"n": 2
+},
+"methyl-b-12-methylcobalamin-1000-mcg-jarrow-formulas-100-drajeuri": {
+"v": 5.0,
+"n": 1
+},
+"methyl-b-12-now-foods": {
+"v": 5.0,
+"n": 21
+},
+"methyl-b12-5000mcg-now-foods": {
+"v": 5.0,
+"n": 5
+},
+"methyl-b12-jarrow-formulas-500-mcg": {
+"v": 5.0,
+"n": 32
+},
+"methyl-b12-methyl-folate-jarrow-formulas": {
+"v": 5.0,
+"n": 23
+},
+"methyl-b12-with-folate-5000mcg-now-foods": {
+"v": 5.0,
+"n": 5
+},
+"methyl-folate-5-mthf-now-foods": {
+"v": 4.93,
+"n": 15
+},
+"methyl-folate-jarrow-formulas": {
+"v": 5.0,
+"n": 17
+},
+"mineral-citrate-complex-swanson": {
+"v": 5.0,
+"n": 1
+},
+"moringa-oleifera-400mg-swanson": {
+"v": 5.0,
+"n": 5
+},
+"msm-1000mg-now-foods": {
+"v": 5.0,
+"n": 6
+},
+"msm-joint-health-swanson": {
+"v": 5.0,
+"n": 4
+},
+"msm-with-optimsm-1500mg-doctors-best": {
+"v": 5.0,
+"n": 1
+},
+"multi-with-iron-swanson": {
+"v": 5.0,
+"n": 5
+},
+"multivitamin-without-iron-swanson": {
+"v": 5.0,
+"n": 2
+},
+"multivitamine-daily-vits-now-foods-120-capsule": {
+"v": 5.0,
+"n": 3
+},
+"n-acetyl-cysteine-nac-600mg-swanson": {
+"v": 5.0,
+"n": 15
+},
+"n-acetyl-l-cysteine-600mg-life-extension": {
+"v": 5.0,
+"n": 10
+},
+"n-acetyl-tyrosine-350mg-swanson": {
+"v": 5.0,
+"n": 1
+},
+"nac-600mg-now-foods": {
+"v": 5.0,
+"n": 20
+},
+"nac-n-acetyl-cysteine-1000mg-now-foods": {
+"v": 4.89,
+"n": 9
+},
+"nac-n-acetyl-cysteine-jarrow-formulas": {
+"v": 5.0,
+"n": 1
+},
+"nac-n-acetyl-cysteine-natural-factors": {
+"v": 5.0,
+"n": 1
+},
+"nad-cell-regenerator-300-mg-life-extension-30-capsule": {
+"v": 5.0,
+"n": 1
+},
+"nad-cell-regenerator-and-resveratrol-elite-life-extension": {
+"v": 5.0,
+"n": 1
+},
+"nad-cell-regenerator-life-extension": {
+"v": 5.0,
+"n": 3
+},
+"nattokinase-100mg-swanson": {
+"v": 5.0,
+"n": 5
+},
+"nattokinase-doctors-best": {
+"v": 5.0,
+"n": 1
+},
+"nattokinase-nutricost": {
+"v": 5.0,
+"n": 1
+},
+"natural-vitamin-k2-menachinona-mk-7-100mcg-swanson-30-softgels-swu672": {
+"v": 5.0,
+"n": 1
+},
+"natural-vitamin-k2-menachinona-mk-7-200mcg-swanson-30-softgels-swu906": {
+"v": 5.0,
+"n": 1
+},
+"natural-vitamin-k2-mk7-45mcg-doctors-best": {
+"v": 5.0,
+"n": 1
+},
+"neem-leaf-500mg-swanson": {
+"v": 5.0,
+"n": 29
+},
+"neuro-mag-magnesium-threonate-life-extension": {
+"v": 5.0,
+"n": 61
+},
+"neuro-optimizer-jarrow-formulas": {
+"v": 5.0,
+"n": 268
+},
+"niacin-vitamina-b3-swanson": {
+"v": 5.0,
+"n": 4
+},
+"niacinamide-500mg-swanson": {
+"v": 5.0,
+"n": 9
+},
+"niacinamide-now-foods": {
+"v": 5.0,
+"n": 7
+},
+"nitric-oxide-booster-nutricost": {
+"v": 4.5,
+"n": 2
+},
+"nmn-nad-energie-celulara-longevitate-500-mg-oly-60-capsule": {
+"v": 5.0,
+"n": 1
+},
+"noni-morinda-citrifolia-swanson": {
+"v": 5.0,
+"n": 1
+},
+"nordic-omega3-fishies-300mg-nordic-naturals": {
+"v": 5.0,
+"n": 1
+},
+"olive-leaf-400mg-swanson": {
+"v": 5.0,
+"n": 2
+},
+"olive-leaf-extract-500mg-swanson": {
+"v": 5.0,
+"n": 7
+},
+"olive-leaf-extract-750-mg-swanson-60-capsule-swh139": {
+"v": 5.0,
+"n": 1
+},
+"omega-3-fish-oil-osavi": {
+"v": 5.0,
+"n": 1
+},
+"omega-3-now-foods": {
+"v": 5.0,
+"n": 22
+},
+"omega-369-now-foods": {
+"v": 5.0,
+"n": 5
+},
+"one-per-day-multivitamin-life-extension": {
+"v": 5.0,
+"n": 1
+},
+"optizinc-now-foods": {
+"v": 5.0,
+"n": 7
+},
+"oral-probiotic-formula-swanson": {
+"v": 5.0,
+"n": 3
+},
+"oregano-oil-enteric-now-foods": {
+"v": 5.0,
+"n": 2
+},
+"oregano-oil-extract-150mg-swanson": {
+"v": 4.96,
+"n": 56
+},
+"organic-spirulina-astaxanthin-swanson": {
+"v": 5.0,
+"n": 1
+},
+"osteomove-joint-care-natural-factors": {
+"v": 5.0,
+"n": 1
+},
+"p-5-p-pyridoxal-5-phosphate-50mg-now-foods": {
+"v": 5.0,
+"n": 8
+},
+"p5p-swanson": {
+"v": 5.0,
+"n": 1
+},
+"panax-ginseng-500mg-now-foods": {
+"v": 5.0,
+"n": 2
+},
+"pancreatin-10x-200mg-now-foods": {
+"v": 5.0,
+"n": 13
+},
+"papaya-enzymes-with-amylase-bromelain-natural-factors": {
+"v": 4.0,
+"n": 1
+},
+"passion-flower-500mg-swanson": {
+"v": 5.0,
+"n": 1
+},
+"pau-d-arco-500mg-swanson": {
+"v": 5.0,
+"n": 27
+},
+"pea400-inflamație-durere-neuropata-natural-factors": {
+"v": 5.0,
+"n": 1
+},
+"pepzin-gi-zinc-l-carnosine-doctors-best": {
+"v": 5.0,
+"n": 1
+},
+"phosphatidylserine-swanson": {
+"v": 5.0,
+"n": 4
+},
+"pilex-hemoroizi-himalaya": {
+"v": 4.94,
+"n": 18
+},
+"plant-enzymes-now-foods": {
+"v": 5.0,
+"n": 8
+},
+"potassium-citrate-99mg-now-foods": {
+"v": 5.0,
+"n": 6
+},
+"potassium-citrate-99mg-swanson": {
+"v": 5.0,
+"n": 13
+},
+"potassium-citrate-powder-ostrovit-200g": {
+"v": 5.0,
+"n": 1
+},
+"potassium-citrate-pure-powder-now-foods": {
+"v": 5.0,
+"n": 3
+},
+"pregnenolone-super-strength-50mg-swanson": {
+"v": 5.0,
+"n": 4
+},
+"probiotic-10-100-billion-now-foods": {
+"v": 5.0,
+"n": 4
+},
+"probiotic-10-probiotice-25-billion-now-foods-100-capsule": {
+"v": 5.0,
+"n": 2
+},
+"probiotic-gummies-kids-nordic-naturals": {
+"v": 5.0,
+"n": 1
+},
+"probiotic-prebiotic-fiber-swanson": {
+"v": 5.0,
+"n": 3
+},
+"probiotic-with-digestive-enzymes-swanson": {
+"v": 5.0,
+"n": 3
+},
+"progesterone-from-wild-yam-skin-cream-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"prostate-support-now-foods": {
+"v": 5.0,
+"n": 5
+},
+"proteolytic-enzymes-doctors-best": {
+"v": 5.0,
+"n": 7
+},
+"psyllium-husk-caps-500-mg-now-foods-200-capsule": {
+"v": 5.0,
+"n": 4
+},
+"psyllium-husk-caps-now-foods": {
+"v": 5.0,
+"n": 4
+},
+"pumpkin-seed-oil-1000mg-swanson": {
+"v": 4.88,
+"n": 16
+},
+"pumpkin-seed-oil-ulei-seminte-dovleac-now-foods": {
+"v": 5.0,
+"n": 2
+},
+"pure-collagen-types-1-and-3-powder-doctors-best": {
+"v": 5.0,
+"n": 2
+},
+"quercetin-cu-bromelaina-now-foods": {
+"v": 5.0,
+"n": 5
+},
+"quercetin-with-bromelain-osavi-60-capsule": {
+"v": 5.0,
+"n": 1
+},
+"reishi-mushroom-extract-500mg-swanson": {
+"v": 5.0,
+"n": 2
+},
+"resveratrol-250mg-swanson": {
+"v": 5.0,
+"n": 2
+},
+"resveratrol-antioxidant-250-mg-swanson-30-capsule-swu530": {
+"v": 5.0,
+"n": 8
+},
+"resveratrol-complex-swanson": {
+"v": 5.0,
+"n": 2
+},
+"resveratrol-quercetin-swanson": {
+"v": 5.0,
+"n": 1
+},
+"resveratrol-trans-resveratrol-150-mg-ostrovit-60-capsule": {
+"v": 5.0,
+"n": 1
+},
+"rhodiola-ashwagandha-ginseng-complex-swanson": {
+"v": 4.91,
+"n": 11
+},
+"rhodiola-rosea-root-400mg-swanson": {
+"v": 5.0,
+"n": 12
+},
+"riboflavin-vitamin-b2-100mg-swanson": {
+"v": 5.0,
+"n": 1
+},
+"royal-jelly-300mg-now-foods": {
+"v": 5.0,
+"n": 5
+},
+"rumalaya-forte-himalaya": {
+"v": 4.95,
+"n": 19
+},
+"rumalaya-gel-himalaya": {
+"v": 5.0,
+"n": 1
+},
+"rutin-vitamina-p-450mg-now-foods": {
+"v": 5.0,
+"n": 3
+},
+"saccharomyces-boulardii-mos-jarrow-formulas": {
+"v": 5.0,
+"n": 2
+},
+"saccharomyces-boulardii-mos-swanson": {
+"v": 5.0,
+"n": 2
+},
+"saccharomyces-boulardii-now-foods": {
+"v": 5.0,
+"n": 5
+},
+"saccharomyces-boulardii-plus-mos-5-billion-jarrow-formulas-180-capsule": {
+"v": 5.0,
+"n": 26
+},
+"same-200-s-adenozilmetionina-200-mg-jarrow-formulas-60-tablete": {
+"v": 5.0,
+"n": 16
+},
+"saw-palmetto-540mg-swanson": {
+"v": 4.95,
+"n": 41
+},
+"saw-palmetto-berries-prostata-550mg-now-foods-250-capsule": {
+"v": 5.0,
+"n": 2
+},
+"saw-palmetto-palmier-pitic-540mg-swanson-250-capsule-sw910": {
+"v": 5.0,
+"n": 1
+},
+"selenium-complex-200mcg-swanson": {
+"v": 5.0,
+"n": 17
+},
+"selenium-now-foods": {
+"v": 5.0,
+"n": 13
+},
+"selenium-seleniu-200mcg-now-foods-90-capsule": {
+"v": 5.0,
+"n": 1
+},
+"serrapeptase-now-foods": {
+"v": 5.0,
+"n": 7
+},
+"shiitake-mushroom-500mg-swanson": {
+"v": 5.0,
+"n": 4
+},
+"shilajit-extract-400-mg-swanson-60-capsule-swh205": {
+"v": 5.0,
+"n": 1
+},
+"shilajit-extract-swanson": {
+"v": 5.0,
+"n": 8
+},
+"silica-complex-now-foods": {
+"v": 5.0,
+"n": 2
+},
+"silimarina-milk-thistle-300mg-now-foods-50-capsule": {
+"v": 5.0,
+"n": 9
+},
+"sleep-essentials-swanson": {
+"v": 5.0,
+"n": 7
+},
+"slippery-elm-400mg-now-foods": {
+"v": 5.0,
+"n": 35
+},
+"slippery-elm-bark-400mg-swanson": {
+"v": 5.0,
+"n": 10
+},
+"slippery-elm-powder-now-foods": {
+"v": 5.0,
+"n": 12
+},
+"sodium-butyrate-allnutrition": {
+"v": 5.0,
+"n": 1
+},
+"spermidine-double-wood-supplements": {
+"v": 5.0,
+"n": 1
+},
+"spirulina-organic-now-foods": {
+"v": 5.0,
+"n": 15
+},
+"st-johns-wort-375mg-swanson": {
+"v": 5.0,
+"n": 7
+},
+"st-johns-wort-sunatoare-375-mg-swanson-120-capsule-sw1353": {
+"v": 5.0,
+"n": 7
+},
+"stinging-nettle-leaf-400mg-swanson": {
+"v": 5.0,
+"n": 2
+},
+"strontium-citrate-340mg-swanson": {
+"v": 5.0,
+"n": 4
+},
+"strontium-citrate-750mg-life-extension": {
+"v": 5.0,
+"n": 6
+},
+"sulforaphane-from-broccoli-400mcg-swanson": {
+"v": 5.0,
+"n": 13
+},
+"sunflower-lecithin-1200mg-now-foods": {
+"v": 5.0,
+"n": 9
+},
+"sunflower-lecithin-now-foods": {
+"v": 5.0,
+"n": 4
+},
+"super-enzymes": {
+"v": 5.0,
+"n": 20
+},
+"super-omega-3-plus-life-extension": {
+"v": 5.0,
+"n": 2
+},
+"super-primrose-1300mg-now-foods": {
+"v": 5.0,
+"n": 7
+},
+"super-stress-b-complex-with-vitamin-c-swanson": {
+"v": 5.0,
+"n": 10
+},
+"super-ubiquinol-coq10-enhanced-mitochondrial-support-life-extension": {
+"v": 5.0,
+"n": 4
+},
+"tart-cherry-465mg-swanson": {
+"v": 5.0,
+"n": 6
+},
+"taurine-500-mg-now-foods-100-capsule": {
+"v": 5.0,
+"n": 5
+},
+"taurine-jarrow-formulas": {
+"v": 5.0,
+"n": 4
+},
+"taurine-swanson": {
+"v": 5.0,
+"n": 1
+},
+"tentex-royal-himalaya": {
+"v": 5.0,
+"n": 3
+},
+"testojack-200-now-foods": {
+"v": 5.0,
+"n": 3
+},
+"testojack-200-stimulent-hormonal-now-foods-120-capsule": {
+"v": 5.0,
+"n": 3
+},
+"testojack-300-now-foods": {
+"v": 5.0,
+"n": 7
+},
+"theanine-with-inositol-and-taurine-100mg-now-foods": {
+"v": 5.0,
+"n": 2
+},
+"thyroid-energy-now-foods": {
+"v": 5.0,
+"n": 2
+},
+"thyroid-essentials-swanson": {
+"v": 5.0,
+"n": 3
+},
+"tmg-trimethylglycine-1000mg-now-foods": {
+"v": 5.0,
+"n": 2
+},
+"tocotrienols-swanson": {
+"v": 5.0,
+"n": 3
+},
+"tri-3d-omega-now-foods": {
+"v": 5.0,
+"n": 10
+},
+"tri-fiber-complex-swanson": {
+"v": 5.0,
+"n": 1
+},
+"tribulus-1000mg-now-foods": {
+"v": 5.0,
+"n": 2
+},
+"tribulus-terrestris-extract-swanson": {
+"v": 5.0,
+"n": 1
+},
+"triphala-500mg-now-foods": {
+"v": 5.0,
+"n": 7
+},
+"triphala-500mg-swanson": {
+"v": 5.0,
+"n": 4
+},
+"triple-boron-complex-3mg-swanson": {
+"v": 5.0,
+"n": 13
+},
+"triple-magnesium-complex-400mg-swanson": {
+"v": 5.0,
+"n": 28
+},
+"triple-magnesium-complex-400mg-swanson-100-capsule-sw808-copy": {
+"v": 5.0,
+"n": 25
+},
+"true-calm-now-foods": {
+"v": 5.0,
+"n": 5
+},
+"tryptophan-500mg-swanson": {
+"v": 5.0,
+"n": 16
+},
+"tudca-acid-tauroursodeoxicolic-250-mg-nutricost-60-capsule": {
+"v": 5.0,
+"n": 1
+},
+"tudca-protecție-hepatica-500-mg-oly-60-capsule": {
+"v": 5.0,
+"n": 3
+},
+"turkey-tail-mushroom-swanson": {
+"v": 5.0,
+"n": 28
+},
+"turmeric-black-pepper-swanson": {
+"v": 5.0,
+"n": 32
+},
+"turmeric-curcuma-longa-720mg-swanson": {
+"v": 5.0,
+"n": 51
+},
+"turmeric-curcuma-longa-720mg-swanson-240-capsule-sw1075": {
+"v": 5.0,
+"n": 42
+},
+"turmeric-curcumin-extract-now-foods": {
+"v": 5.0,
+"n": 2
+},
+"type-2-collagen-complex-bioavailable-jarrow-formulas": {
+"v": 5.0,
+"n": 15
+},
+"ubiquinol-active-coq10-100mg-now-foods": {
+"v": 5.0,
+"n": 4
+},
+"ubiquinol-kaneka-100-mg-swanson-60-softgels-swu377": {
+"v": 5.0,
+"n": 2
+},
+"ubiquinol-qh-absorb-100-mg-jarrow-formulas-60-softgels": {
+"v": 5.0,
+"n": 9
+},
+"uc-2-collagen-type-2-with-hyaluronic-acid-osavi": {
+"v": 3.0,
+"n": 1
+},
+"ulcetrol-with-pepzin-gi-mastic-gum-now-foods": {
+"v": 4.5,
+"n": 2
+},
+"ultimate-16-strain-probiotic-swanson": {
+"v": 4.96,
+"n": 25
+},
+"ultimate-omega-1280-mg-nordic-naturals-180-softgels": {
+"v": 5.0,
+"n": 1
+},
+"ultimate-omega-junior-nordic-naturals": {
+"v": 5.0,
+"n": 1
+},
+"ultra-a-d3-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"ultra-omega-3-500mg-epa-250mg-dha-now-foods-180-softgels": {
+"v": 5.0,
+"n": 2
+},
+"ultra-omega-3-now-foods": {
+"v": 5.0,
+"n": 6
+},
+"ultra-omega-3d-with-vitamin-d3-now-foods": {
+"v": 5.0,
+"n": 12
+},
+"uric-acid-cleanse-swanson": {
+"v": 4.94,
+"n": 18
+},
+"uric-acid-control-life-extension": {
+"v": 5.0,
+"n": 3
+},
+"valerian-root-500mg-now-foods": {
+"v": 5.0,
+"n": 6
+},
+"vitamin-a-d-now-foods": {
+"v": 5.0,
+"n": 2
+},
+"vitamin-a-swanson": {
+"v": 5.0,
+"n": 1
+},
+"vitamin-b100-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"vitamin-b12-5000mcg-swanson": {
+"v": 4.95,
+"n": 19
+},
+"vitamin-b12-methylcobalamin-1000-mcg-natural-factors-210-tablete": {
+"v": 5.0,
+"n": 2
+},
+"vitamin-b12-methylcobalamin-1000-mcg-natural-factors-90-tablete": {
+"v": 5.0,
+"n": 2
+},
+"vitamin-b2-riboflavin-now-foods": {
+"v": 5.0,
+"n": 7
+},
+"vitamin-b50-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"vitamin-b6-pyridoxine-100mg-swanson": {
+"v": 5.0,
+"n": 1
+},
+"vitamin-c-1000mg-ostrovit": {
+"v": 5.0,
+"n": 2
+},
+"vitamin-c-1000mg-with-rose-hips-swanson": {
+"v": 5.0,
+"n": 21
+},
+"vitamin-c-daily-oral-spray-betteryou": {
+"v": 5.0,
+"n": 2
+},
+"vitamin-c-quercetin-phytosome-life-extension": {
+"v": 5.0,
+"n": 2
+},
+"vitamin-d3-2000-iu-natures-way-240-softgels": {
+"v": 4.0,
+"n": 1
+},
+"vitamin-d3-4000-iu-k2-100-mcg-ostrovit-100-tablete": {
+"v": 4.0,
+"n": 2
+},
+"vitamin-d3-k2-calcium-ostrovit-90-tablete": {
+"v": 5.0,
+"n": 1
+},
+"vitamin-d3-k2-gummies-nordic-naturals": {
+"v": 5.0,
+"n": 1
+},
+"vitamin-d3-k2-kids-oral-spray-betteryou": {
+"v": 5.0,
+"n": 1
+},
+"vitamin-d3-k2-softgels-ostrovit": {
+"v": 5.0,
+"n": 5
+},
+"vitamin-e-400iu-180mg-swanson": {
+"v": 5.0,
+"n": 14
+},
+"vitamin-e400-now-foods": {
+"v": 5.0,
+"n": 10
+},
+"vitamin-k1-100mcg-swanson": {
+"v": 5.0,
+"n": 3
+},
+"vitamin-k2-mk4-100mcg-now-foods": {
+"v": 5.0,
+"n": 3
+},
+"vitamin-k2-mk7-100mcg-swanson": {
+"v": 5.0,
+"n": 16
+},
+"vitamin-k2-mk7-ostrovit": {
+"v": 5.0,
+"n": 2
+},
+"vitamina-a-10000-iu-now-foods": {
+"v": 5.0,
+"n": 8
+},
+"vitamina-b1-thiamine-now-foods": {
+"v": 5.0,
+"n": 16
+},
+"vitamina-b12-hydroxycobalamin-swanson": {
+"v": 5.0,
+"n": 1
+},
+"vitamina-b12-metilcobalamina-1000-mcg-nutricost-120-capsule": {
+"v": 4.0,
+"n": 1
+},
+"vitamina-b6-now-foods": {
+"v": 5.0,
+"n": 6
+},
+"vitamina-c-1000": {
+"v": 5.0,
+"n": 9
+},
+"vitamina-c-tamponata-sodium-ascorbate-powder-buffered-now-foods": {
+"v": 5.0,
+"n": 4
+},
+"vitamina-d-3-5000-iu-swanson-250-softgels-sw1371": {
+"v": 5.0,
+"n": 25
+},
+"vitamina-d3": {
+"v": 5.0,
+"n": 32
+},
+"vitamina-d3-2000-iu-now-foods-240-softgels": {
+"v": 5.0,
+"n": 1
+},
+"vitamina-d3-400ui-swanson": {
+"v": 5.0,
+"n": 64
+},
+"vitamina-d3-50-000-iu-now-foods-50-softgels": {
+"v": 5.0,
+"n": 1
+},
+"vitamina-d3-doctor-s-best": {
+"v": 5.0,
+"n": 17
+},
+"vitamina-d3-k2-now-foods": {
+"v": 5.0,
+"n": 14
+},
+"vitamina-k-2-mk-7-100-mcg-now-foods-120-capsule": {
+"v": 5.0,
+"n": 1
+},
+"vitamina-k2-mk7-now-foods": {
+"v": 5.0,
+"n": 3
+},
+"vitamins-d3-k2-swanson": {
+"v": 5.0,
+"n": 1
+},
+"water-out-fluid-balance-now-foods": {
+"v": 5.0,
+"n": 2
+},
+"watercress-swanson": {
+"v": 5.0,
+"n": 1
+},
+"womans-probiotic-now-foods": {
+"v": 5.0,
+"n": 1
+},
+"wormwood-artemisia-annua-425mg-swanson": {
+"v": 5.0,
+"n": 40
+},
+"zeaxanthin-swanson": {
+"v": 5.0,
+"n": 1
+},
+"zinc-50mg-now-foods": {
+"v": 5.0,
+"n": 11
+},
+"zinc-balance-jarrow-formulas": {
+"v": 5.0,
+"n": 7
+},
+"zinc-carnosine-swanson": {
+"v": 4.5,
+"n": 2
+},
+"zinc-citrate-50mg-swanson": {
+"v": 5.0,
+"n": 4
+},
+"zinc-gluconate-30mg-swanson": {
+"v": 4.8,
+"n": 5
+},
+"zinc-glycinate-now-foods": {
+"v": 5.0,
+"n": 11
+},
+"zinc-orotate-swanson": {
+"v": 5.0,
+"n": 1
+},
+"zinc-picolinate": {
+"v": 5.0,
+"n": 7
+},
+"zinc-picolinate-22mg-swanson": {
+"v": 5.0,
+"n": 18
+}
+}

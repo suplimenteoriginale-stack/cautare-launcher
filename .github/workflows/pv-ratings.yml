@@ -1,7 +1,8 @@
 name: Ratinguri provitamine (saptamanal)
 on:
-  schedule:
-    - cron: "40 3 * * 1"
+  # schedule: oprit - citirea paginilor una cate una depaseste 90 de minute (429 Shopify); ratingurile vin din metafield-urile Judge.me
+  #schedule:
+    #- cron: "40 3 * * 1"
   workflow_dispatch:
 permissions:
   contents: write
