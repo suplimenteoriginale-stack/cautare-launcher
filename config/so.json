@@ -5,18 +5,19 @@
  "currency": "RON",
  "theme": {
   "header": "#002F34",
-  "accent": "#4FD1C5",
-  "link": "#3BB4C1",
+  "accent": "#65EDE6",
+  "link": "#65EDE6",
   "text": "#323334",
   "font": "'Open Sans', sans-serif",
   "badgeBg": "#111",
   "badgeFg": "#fff",
-  "cardRadius": "4px",
+  "cardRadius": "12px",
   "cardBorder": "#e6e6e6",
   "brandCase": "upper",
   "ratings": false,
   "stockLabel": false,
-  "badgeFormat": "- {n}%"
+  "badgeFormat": "- {n}%",
+  "rail": "#3F8E8B"
  },
  "labels": {
   "placeholder": "Căutare...",

@@ -54,7 +54,7 @@
     root = document.createElement('div');
     root.className = 'ofs-root ofs-' + STORE + (t.brandCase === 'upper' ? ' ofs-upper' : '');
     root.setAttribute('role', 'dialog'); root.setAttribute('aria-modal', 'true');
-    var vars = { header: t.header, accent: t.accent, link: t.link, text: t.text, font: t.font, 'badge-bg': t.badgeBg, 'badge-fg': t.badgeFg, 'card-radius': t.cardRadius, 'card-border': t.cardBorder };
+    var vars = { header: t.header, accent: t.accent, link: t.link, rail: t.rail || t.accent, text: t.text, font: t.font, 'badge-bg': t.badgeBg, 'badge-fg': t.badgeFg, 'card-radius': t.cardRadius, 'card-border': t.cardBorder };
     Object.keys(vars).forEach(function (k) { root.style.setProperty('--ofs-' + k, vars[k]); });
     var logo = CFG.logo ? '<img class="ofs-logo" src="' + esc(CFG.logo) + '" alt="">' : '<div class="ofs-logotext">' + esc(CFG.logoText || '') + '</div>';
     var mic = ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) ? '<button type="button" class="ofs-mic" aria-label="Căutare vocală">' + IC.mic + '</button>' : '';
@@ -175,10 +175,10 @@
     var h = '<a class="ofs-card' + (p.a ? '' : ' ofs-oos') + '" href="' + esc(p.u) + '" data-pid="' + esc(p.id) + '">' +
       '<div class="ofs-img">' + (disc > 0 ? '<span class="ofs-badge">' + esc(t.badgeFormat.replace('{n}', disc)) + '</span>' : '') +
       '<img loading="lazy" src="' + esc(p.img) + '" alt="' + esc(p.t) + '">' + (p.a ? '' : '<span class="ofs-oos-label">' + esc(L('outOfStock')) + '</span>') + '</div>' +
-      '<div class="ofs-brand">' + esc(p.b) + '</div><div class="ofs-title">' + esc(p.t) + '</div>';
+      '<div class="ofs-info"><div class="ofs-brand">' + esc(p.b) + '</div><div class="ofs-title">' + esc(p.t) + '</div>';
     if (t.ratings && p.rc) h += '<div class="ofs-rating">' + stars(p.r) + '<span>(' + p.rc + ')</span></div>';
     if (t.stockLabel) h += '<div class="ofs-stock' + (p.a ? '' : ' ofs-no') + '">● ' + esc(p.a ? L('inStock') : L('outOfStock')) + '</div>';
-    h += '<div class="ofs-price"><span class="ofs-sale">' + money(p.p) + '</span>' + (p.op > p.p ? '<span class="ofs-old">' + money(p.op) + '</span>' : '') + '</div></a>';
+    h += '<div class="ofs-price"><span class="ofs-sale">' + money(p.p) + '</span>' + (p.op > p.p ? '<span class="ofs-old">' + money(p.op) + '</span>' : '') + '</div></div></a>';
     return h;
   }
   function carousel(inner, cls) {
@@ -198,11 +198,11 @@
     if (!st.ids.length) return '<div class="ofs-wrap"><div class="ofs-main"><div class="ofs-empty">' + esc(L('noResults')) + ' „' + esc(st.q) + '”</div></div></div>';
     var f = E.facet(st.ids.slice(0, 200), newF());
     var cats = topN(f.category, 4), brands = topN(f.brand, 4);
-    return '<div class="ofs-wrap"><div class="ofs-aside">' +
+    return '<div class="ofs-wrap ofs-sug"><div class="ofs-aside">' +
       (cats.length ? '<div class="ofs-h">' + esc(L('categories')) + '</div><div class="ofs-list" style="margin-bottom:22px">' + cats.map(function (c) { return '<button type="button" data-gocat="' + esc(c[0]) + '">' + esc(c[0]) + '</button>'; }).join('') + '</div>' : '') +
       (brands.length ? '<div class="ofs-h">' + esc(L('brands')) + '</div><div class="ofs-list">' + brands.map(function (b) { return '<button type="button" data-gobrand="' + esc(b[0]) + '">' + esc(b[0]) + '</button>'; }).join('') + '</div>' : '') +
       '</div><div class="ofs-main"><div class="ofs-mh"><div class="ofs-h">' + esc(L('products')) + '</div><button type="button" class="ofs-seeall" data-all="1">' + esc(L('seeAll')) + '</button></div>' +
-      carousel(st.ids.slice(0, 12).map(card).join('')) + '</div></div>';
+      carousel(st.ids.slice(0, 28).map(card).join('')) + '</div></div>';
   }
 
   function renderResults() {
@@ -215,7 +215,10 @@
       h += '<div class="ofs-guided"><div class="ofs-guided-t">' + L('guidedTitle') + '<button type="button" data-skipg="1">' + esc(L('guidedSkip')) + '</button></div>' +
         carousel(bs.map(function (b) {
           var img = ''; for (var k = 0; k < ids.length; k++) { if (P[ids[k]].b === b[0]) { img = P[ids[k]].img; break; } }
-          return '<button type="button" class="ofs-gcard" data-gbrand="' + esc(b[0]) + '"><img loading="lazy" src="' + esc(img) + '" alt=""><span>' + esc(b[0]) + '</span></button>';
+          var logo = CFG.brandLogos && CFG.logos && CFG.logos[b[0]];
+          return '<button type="button" class="ofs-gcard' + (logo ? '' : ' ofs-nologo') + '" data-gbrand="' + esc(b[0]) + '">' +
+            (logo ? '<img class="ofs-glogo" loading="lazy" src="' + esc(BASE + 'assets/' + logo) + '" alt="">' : '') +
+            '<img class="ofs-gthumb" loading="lazy" src="' + esc(img) + '" alt=""><span>' + esc(b[0]) + '</span></button>';
         }).join('')) + '</div>';
     }
     h += '<div class="ofs-wrap"><div class="ofs-aside"><div class="ofs-afclose"><span>Filtre</span><button type="button" data-fclose="1">' + IC.close + '</button></div>' + renderFacets(f) + '</div><div class="ofs-main">';
@@ -250,11 +253,11 @@
     var body = '<div class="ofs-fsearch">' + IC.small + '<input type="text" data-fs="' + key + '" placeholder="' + esc(L('search')) + '" value="' + esc(st.fsearch[key] || '') + '"></div>' +
       list.slice(0, lim).map(function (x) {
         var on = sel.has(x[0]), logo = logos && CFG.logos && CFG.logos[x[0]];
-        return '<button type="button" class="ofs-term' + (on ? ' ofs-on' : '') + '" data-f="' + key + '" data-v="' + esc(x[0]) + '">' +
+        return '<button type="button" class="ofs-term' + (on ? ' ofs-on' : '') + (logo ? ' ofs-vis' : '') + '" data-f="' + key + '" data-v="' + esc(x[0]) + '">' +
           (logo ? '<img class="ofs-vlogo" src="' + esc(BASE + 'assets/' + logo) + '" alt="">' : '<span class="ofs-cb"></span>') +
           '<span>' + esc(x[0]) + '</span><span class="ofs-n">' + x[1] + '</span></button>';
       }).join('');
-    if (list.length > 5) body += '<div class="ofs-fmore"><span></span><button type="button" data-fmore="' + key + '">' + esc(st.more[key] ? L('seeLess') : L('seeMore')) + ' ' + IC.down + '</button><span>' + Math.min(lim, list.length) + ' ' + esc(L('of')) + ' ' + list.length + '</span></div>';
+    if (list.length > 5) body += '<div class="ofs-fmore"><span class="ofs-cnt">' + Math.min(lim, list.length) + ' ' + esc(L('of')) + ' ' + list.length + '</span><button type="button" data-fmore="' + key + '">' + esc(st.more[key] ? L('seeLess') : L('seeMore')) + ' ' + IC.down + '</button></div>';
     return facetBlock(key, title, body);
   }
   function priceFacet(f) {
@@ -342,6 +345,7 @@
   }
   function onScroll() {
     el.top.classList.toggle('ofs-show', st.mode === 'results' && el.body.scrollTop > 600);
+    var g = root.querySelector('.ofs-guided'); if (g) g.classList.toggle('ofs-stuck', el.body.scrollTop > 40);
     if (st.mode !== 'results' || !st.view || st.shown >= st.view.length) return;
     var more = root.querySelector('.ofs-more');
     if (more && more.getBoundingClientRect().top < window.innerHeight + 600) {
