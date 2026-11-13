@@ -238,7 +238,7 @@
     if (isMob()) return renderSuggestMob();
     if (!st.ids.length) return noRes();
     var f = E.facet(st.ids.slice(0, 200), newF());
-    var cats = topN(f.category, 4), brands = topN(f.brand, 4);
+    var cats = topN(f.category, 4), brands = Array.from(f.brand.entries()).sort(brandSort('brand')).slice(0, 4);
     return '<div class="ofs-wrap ofs-sug"><div class="ofs-aside">' +
       (cats.length ? '<div class="ofs-h">' + esc(L('categories')) + '</div><div class="ofs-list" style="margin-bottom:22px">' + cats.map(function (c) { return '<button type="button" data-gocat="' + esc(c[0]) + '">' + esc(c[0]) + '</button>'; }).join('') + '</div>' : '') +
       (brands.length ? '<div class="ofs-h">' + esc(L('brands')) + '</div><div class="ofs-list">' + brands.map(function (b) { return '<button type="button" data-gobrand="' + esc(b[0]) + '">' + esc(b[0]) + '</button>'; }).join('') + '</div>' : '') +
