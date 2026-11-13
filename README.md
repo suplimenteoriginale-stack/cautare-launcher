@@ -21,4 +21,4 @@ provitamine.ro (Shopify, `theme.liquid` înainte de `</body>`):
 - `src/engine.js`: logica de căutare; `src/ui.js` + `src/ui.css`: interfața.
 
 ## Statistici
-`stats/` conține worker-ul Cloudflare `cautare-stats` (D1 `cautare-stats`): primește căutările și click-urile din launcher (`/e`), dă căutările populare (`/popular?s=so`) și afișează panoul de statistici la `/d/<cheie>`. Cheia se generează automat la prima pornire și se vede în D1: `SELECT v FROM cfg WHERE k='dash'`.
+`stats/` conține worker-ul Cloudflare `cautare-statistici` (D1 `cautare-stats`): primește căutările și click-urile din launcher (`/e`), dă căutările populare (`/popular?s=so`) și afișează panoul de statistici la `/d/<cheie>`. Cheia se generează automat la prima pornire și se vede în D1: `SELECT v FROM cfg WHERE k='dash'`.
