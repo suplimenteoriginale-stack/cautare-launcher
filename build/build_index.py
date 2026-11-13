@@ -45,7 +45,19 @@ def build_so(path):
             "k": [c for c in {g("id"), g("gtin"), g("mpn")} if c],
         })
         r = ratings.get(g("id"))
-        if r: out[-1]["r"], out[-1]["rc"] = r["v"], r["n"]
+        if r: out[-1]["_r"] = r
+    # variantele de pe aceeasi pagina (acelasi item_group_id) au recenzii comune in Gomag:
+    # le adunam pe grup si le dam tuturor variantelor
+    grp = {}
+    for x in out:
+        r = x.pop("_r", None)
+        if r:
+            a = grp.setdefault(x["g"] or x["id"], [0.0, 0])
+            a[0] += r["v"] * r["n"]; a[1] += r["n"]
+    for x in out:
+        a = grp.get(x["g"] or x["id"])
+        if a and a[1]:
+            x["r"], x["rc"] = round(a[0] / a[1], 1), a[1]
     return out
 
 
