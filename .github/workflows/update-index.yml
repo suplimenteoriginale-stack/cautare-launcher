@@ -19,6 +19,7 @@ jobs:
         run: |
           mkdir -p data
           curl -sSf --retry 3 -o data/so_feed.xml https://www.suplimenteoriginale.ro/feed/googleShoppingAds.xml
+          curl -sS --retry 3 -o data/so_ratings.json https://cautare-statistici.provitaminebg.workers.dev/ratings || echo '{}' > data/so_ratings.json
           python3 - <<'E'
           import json, time, urllib.request, urllib.error
           def get(url):

@@ -14,7 +14,7 @@
   "cardRadius": "12px",
   "cardBorder": "#e6e6e6",
   "brandCase": "upper",
-  "ratings": false,
+  "ratings": true,
   "stockLabel": false,
   "badgeFormat": "- {n}%",
   "rail": "#3F8E8B"

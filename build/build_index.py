@@ -23,7 +23,10 @@ def cdata(s):
 
 
 def build_so(path):
+    import os
     t = open(path, encoding="utf-8").read()
+    rp = os.path.join(os.path.dirname(os.path.abspath(path)), "so_ratings.json")
+    ratings = json.load(open(rp)) if os.path.exists(rp) else {}
     out = []
     for it in t.split("<item>")[1:]:
         def g(tag):
@@ -41,6 +44,8 @@ def build_so(path):
             "img": img, "u": g("link"), "g": g("item_group_id"),
             "k": [c for c in {g("id"), g("gtin"), g("mpn")} if c],
         })
+        r = ratings.get(g("id"))
+        if r: out[-1]["r"], out[-1]["rc"] = r["v"], r["n"]
     return out
 
 
