@@ -376,7 +376,7 @@
     if (d.car) { var tr = b.parentNode.querySelector('.ofs-track'); tr.scrollBy({ left: (+d.car) * tr.clientWidth * 0.8, behavior: 'smooth' }); return; }
     if (d.skipg) { st.skipGuided = true; rerenderResults(); return; }
     if (d.gval != null) { if (d.gval !== '') st.F[d.gkey].add(d.gval); rerenderResults(); return; }
-    if (d.fclear) { st.F = newF(); rerenderResults(); return; }
+    if (d.fclear) { st.F = newF(); st.skipGuided = false; rerenderResults(); return; }
     if (d.f) { var s = st.F[d.f]; s.has(d.v) ? s.delete(d.v) : s.add(d.v); rerenderResults(true); return; }
     if (d.fcol) { st.collapsed[d.fcol] = !st.collapsed[d.fcol]; b.parentNode.classList.toggle('ofs-col'); return; }
     if (d.fmore) { st.more[d.fmore] = !st.more[d.fmore]; rerenderResults(true); return; }
