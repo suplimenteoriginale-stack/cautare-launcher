@@ -72,6 +72,13 @@ export default {
       }
       return r;
     }
+    if (url.pathname === '/ratings') {
+      const row = await env.DB.prepare("SELECT v FROM cfg WHERE k='ratings_so'").first();
+      return new Response(row ? row.v : '{}', { headers: { 'content-type': 'application/json', 'access-control-allow-origin': '*', 'cache-control': 'public, max-age=3600' } });
+    }
+    if (url.pathname === '/ratings/sync' && DASH_KEY && url.searchParams.get('k') === DASH_KEY) {
+      return json(await syncReviewsSO(env), { 'cache-control': 'no-store' });
+    }
     if (url.pathname === '/stock/status') {
       const r = await env.DB.prepare("SELECT k, v FROM cfg WHERE k LIKE 'sync_%'").all();
       return json(Object.fromEntries(r.results.map((x) => [x.k, x.v])), { 'cache-control': 'no-store' });
@@ -91,6 +98,8 @@ export default {
     const min = new Date(ev.scheduledTime).getUTCMinutes();
     const jobs = [syncSO(env)];
     if (min % 4 === 0) jobs.push(syncPV(env));
+    const t = new Date(ev.scheduledTime);
+    if (t.getUTCHours() === 2 && t.getUTCMinutes() < 2) jobs.push(syncReviewsSO(env));
     await Promise.allSettled(jobs);
   },
 };
@@ -239,3 +248,38 @@ async function load(){$('st').textContent='se încarcă...';
 function drawTerms(){const q=$('ft').value.toLowerCase();table($('terms'),[{h:'Termen',f:x=>esc(x.q),v:x=>x.q},{h:'Căutări',n:1,f:x=>f(x.c),v:x=>x.c},{h:'CTR',n:1,f:x=>pct(x.k,x.c),v:x=>x.k/x.c},{h:'Poz. click',n:1,f:x=>x.p==null?'–':(x.p+1).toFixed(1),v:x=>x.p||0},{h:'Rezultate',n:1,f:x=>f(x.n),v:x=>x.n}],D.terms.filter(x=>x.q.includes(q)))}
 $('s').onchange=load;$('d').onchange=load;$('ft').oninput=drawTerms;load();
 </script></body></html>`;
+
+// suplimenteoriginale.ro: recenziile din Gomag -> media si numarul pe SKU (o data pe zi)
+async function syncReviewsSO(env) {
+  if (!env.GOMAG_API_KEY) return { err: 'fara cheie' };
+  const H = { Apikey: env.GOMAG_API_KEY, ApiShop: 'https://www.suplimenteoriginale.ro', 'User-Agent': 'Mozilla/5.0 (cautare-launcher)' };
+  const paths = ['product/review/read', 'review/read', 'product/reviews/read'];
+  let base = null, tried = [];
+  for (const p of paths) {
+    const r = await fetch(`https://api.gomag.ro/api/v1/${p}/json?limit=1&page=1`, { headers: H });
+    tried.push(p + ' ' + r.status);
+    if (r.ok) { const d = await r.json().catch(() => null); if (d && !d.error) { base = p; break; } else tried.push(JSON.stringify(d).slice(0, 120)); }
+  }
+  if (!base) { await env.DB.prepare('INSERT OR REPLACE INTO cfg (k, v) VALUES (?, ?)').bind('sync_ratings', new Date().toISOString() + ' eroare ' + tried.join('; ')).run(); return { err: tried }; }
+  const agg = {}; let n = 0;
+  for (let page = 1; page <= 200; page++) {
+    const r = await fetch(`https://api.gomag.ro/api/v1/${base}/json?limit=100&page=${page}`, { headers: H });
+    if (!r.ok) break;
+    const d = await r.json();
+    const list = Object.values(d.reviews || d).filter((x) => x && typeof x === 'object' && x.rating && x.productSku);
+    if (!list.length) break;
+    for (const x of list) {
+      if (x.parent && x.parent !== '0') continue; // raspunsuri, nu recenzii
+      const k = String(x.productSku); const a = agg[k] || (agg[k] = [0, 0]);
+      a[0] += +x.rating; a[1]++; n++;
+    }
+    if (list.length < 100) break;
+  }
+  const out = {};
+  for (const k in agg) out[k] = { v: Math.round(agg[k][0] / agg[k][1] * 10) / 10, n: agg[k][1] };
+  await env.DB.batch([
+    env.DB.prepare('INSERT OR REPLACE INTO cfg (k, v) VALUES (?, ?)').bind('ratings_so', JSON.stringify(out)),
+    env.DB.prepare('INSERT OR REPLACE INTO cfg (k, v) VALUES (?, ?)').bind('sync_ratings', new Date().toISOString() + ' ok ' + n + ' recenzii, ' + Object.keys(out).length + ' produse (' + base + ')'),
+  ]);
+  return { ok: n, produse: Object.keys(out).length, base };
+}
