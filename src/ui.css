@@ -185,7 +185,8 @@
   .ofs-fbtn{display:none}
   .ofs-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
   .ofs-card{padding:8px 12px 14px}
-  .ofs-brand,.ofs-rating{display:none}
+  .ofs-brand{display:none}
+  .ofs-rating{margin-top:4px;font-size:11px}
   .ofs-info{margin-top:14px}
   .ofs-title{font-size:14px;margin-top:0}
   .ofs-pv .ofs-title{font-size:14px}
