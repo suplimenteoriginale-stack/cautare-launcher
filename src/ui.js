@@ -144,7 +144,7 @@
   function submit(q) {
     clearTimeout(debTimer);
     q = (q || '').trim(); if (!q) return;
-    el.input.value = q; st.q = q; st.mode = 'results'; st.F = newF(); st.sort = 0; st.shown = 20; st.skipGuided = false; st.more = {}; st.fsearch = {};
+    el.input.value = q; st.q = q; st.mode = 'results'; st.live = false; st.F = newF(); st.sort = 0; st.shown = 20; st.skipGuided = false; st.more = {}; st.fsearch = {};
     addRecent(q); render(); el.body.scrollTop = 0;
   }
 
@@ -163,13 +163,16 @@
   /* ---------- randare ---------- */
   function render(keep) {
     if (!E) { root.classList.toggle('ofs-hasq', !!el.input.value); el.content.innerHTML = '<div class="ofs-loading"><span></span></div>'; return; }
+    // pe mobil nu exista ecran separat de sugestii: cat scrii vezi direct toate rezultatele (ca dupa Enter)
+    if (st.mode === 'suggest' && isMob()) { st.mode = 'results'; st.live = true; st.shown = 20; st.sort = 0; st.skipGuided = false; st.more = {}; st.fsearch = {}; }
+    else if (st.mode !== 'results') st.live = false;
     var y = keep && el.body ? el.body.scrollTop : 0;
     var c = el.content;
     root.classList.toggle('ofs-res', st.mode === 'results');
     root.classList.toggle('ofs-hasq', !!el.input.value);
     if (st.mode === 'initial') { renderChipsInitial(); c.innerHTML = renderInitial(); }
     else if (st.mode === 'suggest') { var r = E.search(st.q, { prefix: true }); st.ids = r.ids; renderChipsSuggest(L('suggestions')); c.innerHTML = renderSuggest(); logSearch(false); }
-    else { var rr = E.search(st.q); st.ids = rr.ids; renderChipsSuggest(''); c.innerHTML = renderResults(); logSearch(true); }
+    else { var rr = E.search(st.q, st.live ? { prefix: true } : undefined); st.ids = rr.ids; renderChipsSuggest(''); c.innerHTML = renderResults(); logSearch(!st.live); }
     el.layer.classList.toggle('ofs-short', st.mode !== 'results' && window.innerWidth >= 768 && !(st.mode === 'suggest' && !st.ids.length));
     root.classList.toggle('ofs-m-results', st.mode === 'results' && !!st.ids.length);
     if (st.mode !== 'results') { st._asideOpen = false; root.classList.remove('ofs-sheet'); }
