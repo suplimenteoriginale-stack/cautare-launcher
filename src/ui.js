@@ -6,7 +6,7 @@
   var SCRIPT = document.currentScript || document.querySelector('script[data-ofs-store]');
   var BASE = (SCRIPT.getAttribute('data-ofs-base') || SCRIPT.src.replace(/[^/]*$/, ''));
   var STOCK_URL = SCRIPT.getAttribute('data-ofs-stock') || 'https://cautare-statistici.provitaminebg.workers.dev';
-  var STORE = SCRIPT.getAttribute('data-ofs-store') || 'so';
+  var STORE = SCRIPT.getAttribute('data-ofs-store') || (/provitamine/.test(location.hostname) ? 'pv' : 'so');
   var CSS = '__CSS__';
   var Engine = window.OFSEngine, norm = Engine.norm;
 
