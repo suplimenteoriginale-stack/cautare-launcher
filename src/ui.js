@@ -156,11 +156,12 @@
     var c = el.content;
     root.classList.toggle('ofs-res', st.mode === 'results');
     root.classList.toggle('ofs-hasq', !!el.input.value);
-    root.classList.toggle('ofs-m-results', st.mode === 'results' && !!st.ids.length);
     if (st.mode === 'initial') { renderChipsInitial(); c.innerHTML = renderInitial(); }
     else if (st.mode === 'suggest') { var r = E.search(st.q, { prefix: true }); st.ids = r.ids; renderChipsSuggest(L('suggestions')); c.innerHTML = renderSuggest(); logSearch(false); }
     else { var rr = E.search(st.q); st.ids = rr.ids; renderChipsSuggest(''); c.innerHTML = renderResults(); logSearch(true); }
     el.layer.classList.toggle('ofs-short', st.mode !== 'results' && window.innerWidth >= 768 && !(st.mode === 'suggest' && !st.ids.length));
+    root.classList.toggle('ofs-m-results', st.mode === 'results' && !!st.ids.length);
+    if (st.mode !== 'results') { st._asideOpen = false; root.classList.remove('ofs-sheet'); }
     syncHash(); onScroll();
     if (keep) el.body.scrollTop = y;
   }

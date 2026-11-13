@@ -1,5 +1,5 @@
 /* Dimensiunile si culorile sunt masurate pe layer-ul Doofinder live (fullscreen, 1568px) */
-.ofs-root{position:fixed;inset:0;z-index:2147483000;display:none;font-family:var(--ofs-font);color:var(--ofs-text);font-size:16px;line-height:1.35;-webkit-font-smoothing:antialiased;text-align:left}
+.ofs-root{position:fixed;inset:0;z-index:2147483646;display:none;font-family:var(--ofs-font);color:var(--ofs-text);font-size:16px;line-height:1.35;-webkit-font-smoothing:antialiased;text-align:left}
 .ofs-root *{box-sizing:border-box}
 .ofs-root.ofs-open{display:block}
 :where(.ofs-root) button{font-family:inherit;cursor:pointer;background:none;border:0;padding:0;color:inherit;margin:0;font-size:inherit;line-height:inherit;text-align:inherit}
