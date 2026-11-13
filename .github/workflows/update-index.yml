@@ -1,0 +1,50 @@
+name: Actualizare index produse
+on:
+  schedule:
+    - cron: "17 */3 * * *"   # la fiecare 3 ore
+  workflow_dispatch:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency: { group: pages, cancel-in-progress: true }
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Descarca catalogele
+        run: |
+          mkdir -p data
+          curl -sSf --retry 3 -o data/so_feed.xml https://www.suplimenteoriginale.ro/feed/googleShoppingAds.xml
+          python3 - <<'E'
+          import json, urllib.request
+          allp = []
+          for page in range(1, 40):
+              req = urllib.request.Request(f"https://provitamine.ro/products.json?limit=250&page={page}", headers={"User-Agent": "Mozilla/5.0"})
+              d = json.load(urllib.request.urlopen(req, timeout=60))["products"]
+              if not d: break
+              allp += d
+          json.dump(allp, open("data/pv_products.json", "w"))
+          print(len(allp), "produse PV")
+          E
+      - name: Construieste indexul
+        run: |
+          mkdir -p dist/so dist/pv
+          python3 build/build_index.py so data/so_feed.xml dist/so/index.json
+          python3 build/build_index.py pv data/pv_products.json dist/pv/index.json data/pv_ratings.json
+          python3 build/build_config.py so
+          python3 build/build_config.py pv
+          python3 build/bundle.py
+          mkdir -p dist/assets && cp -r assets/banners assets/logos dist/assets/ && cp src/test_so.html src/test_pv.html dist/
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: dist }
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: { name: github-pages }
+    steps:
+      - uses: actions/deploy-pages@v4

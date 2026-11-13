@@ -1,0 +1,277 @@
+{
+ "store": "pv",
+ "trigger": "input[name='q'], #SearchInput, input[name='search_query']",
+ "logo": "https://provitamine.ro/cdn/shop/files/logo_provitamine_white.png?v=1746167342&width=300",
+ "logoText": "PROVITAMINE",
+ "currency": "lei",
+ "theme": {
+  "header": "#002F34",
+  "accent": "#5E7D69",
+  "link": "#3BB4C1",
+  "text": "#2A2B2A",
+  "font": "DMSans, 'DM Sans', sans-serif",
+  "badgeBg": "#2A2B2A",
+  "badgeFg": "#fff",
+  "cardRadius": "10px",
+  "cardBorder": "#e3e3e3",
+  "brandCase": "none",
+  "ratings": true,
+  "stockLabel": true,
+  "badgeFormat": "{n}% reducere"
+ },
+ "labels": {
+  "placeholder": "Caută produse...",
+  "recent": "Căutări recente:",
+  "clearRecent": "Sterge toate căutările recente",
+  "suggestions": "Sugestii:",
+  "popular": "Cele mai căutate",
+  "recommended": "Recomandate pentru tine",
+  "categories": "Categorii",
+  "brands": "Branduri",
+  "products": "Produse",
+  "seeAll": "Vezi toate produsele",
+  "guidedTitle": "Filtrează după <b>Branduri</b>",
+  "guidedSkip": "Sari peste →",
+  "found": "produse găsite",
+  "sortBy": "Sortează după:",
+  "search": "Caută",
+  "seeMore": "Vezi mai multe",
+  "seeLess": "Vezi mai puține",
+  "of": "din",
+  "outOfStock": "Stoc epuizat",
+  "inStock": "În stoc",
+  "noResults": "Nu am găsit rezultate pentru",
+  "sort": [
+   "Relevanță",
+   "Preț crescător",
+   "Preț descrescător",
+   "Nume A-Z",
+   "Nume Z-A"
+  ],
+  "facetBrand": "Branduri",
+  "facetCategory": "Categorii",
+  "facetPrice": "Preț",
+  "facetStock": "In Stoc",
+  "stockValues": {
+   "1": "In Stoc",
+   "0": "Stoc Epuizat"
+  }
+ },
+ "facets": [
+  "category",
+  "brand",
+  "price",
+  "stock"
+ ],
+ "brandLogos": false,
+ "outOfStockBoost": 0.1,
+ "popular": [
+  "magneziu",
+  "omega 3",
+  "vitamina c",
+  "colagen",
+  "omega",
+  "zinc",
+  "magneziu bisglicinat",
+  "d3",
+  "coenzima q10",
+  "berberina"
+ ],
+ "recommended": [
+  "Magneziu Glicinat Albion Chelat, 133mg, Swanson, 90",
+  "Biotin (Vitamina B7), 5000 mcg, Swanson",
+  "Ashwagandha Root, 450mg, Swanson",
+  "Inositol (Myoinositol), 750 mg, Jarrow",
+  "Pilex (hemoroizi), Himalaya",
+  "Gasex (Digestiv), Himalaya",
+  "DLux"
+ ],
+ "synonyms": [
+  [
+   "acid folic",
+   "folic acid"
+  ],
+  [
+   "electroliti",
+   "electrolytes"
+  ],
+  [
+   "probiotice",
+   "probiotic",
+   "probiotics"
+  ],
+  [
+   "creatina",
+   "creatine"
+  ],
+  [
+   "potasiu",
+   "potassium"
+  ],
+  [
+   "seleniu",
+   "selenium"
+  ],
+  [
+   "acid hialuronic",
+   "hyaluronic acid"
+  ],
+  [
+   "condroitina",
+   "chondroitin"
+  ],
+  [
+   "glucozamina",
+   "glucosamine"
+  ],
+  [
+   "vitamina k2",
+   "vitamin k2",
+   "k2"
+  ],
+  [
+   "coenzima q10",
+   "coenzyme q10",
+   "coq10",
+   "q10"
+  ],
+  [
+   "melatonina",
+   "melatonin"
+  ],
+  [
+   "curcuma",
+   "turmeric",
+   "curcumina",
+   "curcumin"
+  ],
+  [
+   "lipozomal",
+   "liposomal",
+   "lipozomala"
+  ],
+  [
+   "calciu",
+   "calcium"
+  ],
+  [
+   "vitamina b12",
+   "vitamin b12",
+   "b12",
+   "cobalamina"
+  ],
+  [
+   "fier",
+   "iron"
+  ],
+  [
+   "omega 3",
+   "ulei de peste",
+   "fish oil"
+  ],
+  [
+   "magneziu",
+   "magnesium"
+  ],
+  [
+   "vitamina d",
+   "vitamin d",
+   "vit d"
+  ],
+  [
+   "vitamina d3",
+   "vitamin d3",
+   "colecalciferol",
+   "cholecalciferol"
+  ],
+  [
+   "colagen",
+   "collagen"
+  ],
+  [
+   "vitamina c",
+   "vit c",
+   "vitamin c",
+   "acid ascorbic"
+  ],
+  [
+   "bisglicinat",
+   "glicinat",
+   "bisglycinate",
+   "glycinate"
+  ]
+ ],
+ "pinned": [
+  {
+   "term": "magneziu bisglicinat",
+   "items": [
+    "Magnesium Bisglycinate, 200 mg, Natural Factors, 120 capsule",
+    "Magneziu Glicinat Albion Chelat, 133mg, Swanson, 90 capsule SWU073",
+    "Magnesium Bisglycinate Plus L-Theanine, Natural Factors, 90 capsule",
+    "Magnesium Bisglycinate Powder, Now Foods, 227g",
+    "Magnesium Glycinate, Now Foods, 180 tablete"
+   ]
+  },
+  {
+   "term": "magneziu",
+   "items": [
+    "Triple Magnesium Complex, 400mg, Swanson, 100 capsule SW808",
+    "Magneziu Glicinat Albion Chelat, 133mg, Swanson, 90 capsule SWU073",
+    "Calciu Magneziu Zinc Potasiu Citrat, Swanson, 60 capsule SWU421",
+    "Magnesium Glycinate, 133 mg, OstroVit, 90 capsule",
+    "Magnesium Citrate 400 mg + B6, OstroVit, 90 tablete"
+   ]
+  },
+  {
+   "term": "vitamina c",
+   "items": [
+    "Vitamin C, 1000 mg, OstroVit, 90 tablete",
+    "C-1000 Vitamina C cu Bioflavonoide 100mg, Now Foods. 100 capsule",
+    "Vitamin C 1000mg with Rose Hips, Swanson, 90 capsule SW1054",
+    "Vitamin C, 1000 mg, OstroVit, 120 capsule",
+    "Liposomal Vitamin C, NOW Foods, 120 capsule"
+   ]
+  },
+  {
+   "term": "colagen",
+   "items": [
+    "Collagen Hidrolizat + Vitamin C, OstroVit, 400 g",
+    "Collagen Peptides, Hydrolyzed type I & III, Osavi, 300g",
+    "Collagen Tendons & Ligaments, Osavi, 151g",
+    "Collagen Peptides, Hydrolyzed type I & III, Osavi, 600g",
+    "Hydrolyzed Collagen, 1000 mg, Puritan's Pride, 180 capsule"
+   ]
+  }
+ ],
+ "banners": [
+  {
+   "name": "himalaya",
+   "terms": [
+    "rumalaya",
+    "liv 52",
+    "cystone",
+    "liv52",
+    "himalaya"
+   ],
+   "img": "pv_himalaya_desk.jpg",
+   "mimg": "pv_himalaya_mob.jpg",
+   "link": ""
+  },
+  {
+   "name": "now",
+   "terms": [
+    "new",
+    "nau",
+    "nou",
+    "fods",
+    "foods",
+    "now foods",
+    "now"
+   ],
+   "img": "pv_now_desk.jpg",
+   "mimg": "pv_now_mob.jpg",
+   "link": ""
+  }
+ ],
+ "hideCategories": "^(Import.*|Producatori|Reducere Cantitativa|CATEGORII AFECTIUNI|Alte suplimente alimentare|Categorii Produse)$"
+}

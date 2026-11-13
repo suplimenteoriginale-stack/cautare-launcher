@@ -1,0 +1,501 @@
+{
+ "store": "so",
+ "trigger": "input[name=\"c\"]",
+ "logo": "https://www.suplimenteoriginale.ro/domains/suplimenteoriginale.ro/files/company/so-bf-alb-banda-rosdsdie-copy-1-12872.png",
+ "currency": "RON",
+ "theme": {
+  "header": "#002F34",
+  "accent": "#4FD1C5",
+  "link": "#3BB4C1",
+  "text": "#323334",
+  "font": "'Open Sans', sans-serif",
+  "badgeBg": "#111",
+  "badgeFg": "#fff",
+  "cardRadius": "4px",
+  "cardBorder": "#e6e6e6",
+  "brandCase": "upper",
+  "ratings": false,
+  "stockLabel": false,
+  "badgeFormat": "- {n}%"
+ },
+ "labels": {
+  "placeholder": "Căutare...",
+  "recent": "Ultimele căutări:",
+  "clearRecent": "Ștergeți toate căutările recente",
+  "suggestions": "Sugestii:",
+  "popular": "Cautari populare",
+  "recommended": "Produse recomandate",
+  "categories": "Categorii",
+  "brands": "Brand",
+  "products": "Produse",
+  "seeAll": "Vezi toate produsele",
+  "guidedTitle": "Filtrează după <b>Brand</b>",
+  "guidedSkip": "Săriți peste filtru →",
+  "found": "Rezultate găsite",
+  "sortBy": "Sortează după:",
+  "search": "Caută",
+  "seeMore": "Vezi mai mult",
+  "seeLess": "Vezi mai puțin",
+  "of": "din",
+  "outOfStock": "Stoc epuizat",
+  "inStock": "În stoc",
+  "noResults": "Nu am găsit rezultate pentru",
+  "sort": [
+   "Relevanță",
+   "Preț crescător",
+   "Preț descrescător",
+   "Nume A-Z",
+   "Nume Z-A"
+  ],
+  "facetBrand": "Brand",
+  "facetCategory": "Categorie",
+  "facetPrice": "Preț",
+  "facetStock": "In Stoc",
+  "stockValues": {
+   "1": "In Stoc",
+   "0": "Stoc Epuizat"
+  }
+ },
+ "facets": [
+  "brand",
+  "category",
+  "price",
+  "stock"
+ ],
+ "brandLogos": true,
+ "outOfStockBoost": 0.01,
+ "popular": [
+  "omega 3",
+  "magneziu",
+  "zinc",
+  "vitamina c",
+  "nac",
+  "colagen",
+  "creatina",
+  "berberina",
+  "d3",
+  "omega"
+ ],
+ "recommended": [
+  "Magneziu Glicinat Albion Chelat, 133mg, Swanson, 90",
+  "Pau d Arco (Detoxifiere), 500mg, Swanson",
+  "Turmeric Black Pepper, Swanson",
+  "Zinc Picolinate Body Preferred Form, 22mg, Swanson",
+  "Oregano Oil 10:1 Extract, 150mg, Swanson",
+  "Berberine, 400mg, Swanson",
+  "Slippery Elm"
+ ],
+ "synonyms": [
+  [
+   "omega 3",
+   "omega3"
+  ],
+  [
+   "acid folic",
+   "folic acid"
+  ],
+  [
+   "electroliti",
+   "electrolytes"
+  ],
+  [
+   "probiotice",
+   "probiotic",
+   "probiotics"
+  ],
+  [
+   "creatina",
+   "creatine"
+  ],
+  [
+   "potasiu",
+   "potassium"
+  ],
+  [
+   "seleniu",
+   "selenium"
+  ],
+  [
+   "acid hialuronic",
+   "hyaluronic acid"
+  ],
+  [
+   "condroitina",
+   "chondroitin"
+  ],
+  [
+   "glucozamina",
+   "glucosamine"
+  ],
+  [
+   "vitamina k2",
+   "vitamin k2",
+   "k2"
+  ],
+  [
+   "coenzima q10",
+   "coenzyme q10",
+   "coq10",
+   "q10"
+  ],
+  [
+   "melatonina",
+   "melatonin"
+  ],
+  [
+   "curcuma",
+   "turmeric",
+   "curcumina",
+   "curcumin"
+  ],
+  [
+   "lipozomal",
+   "liposomal",
+   "lipozomala"
+  ],
+  [
+   "calciu",
+   "calcium"
+  ],
+  [
+   "vitamina b12",
+   "vitamin b12",
+   "b12",
+   "cobalamina"
+  ],
+  [
+   "fier",
+   "iron"
+  ],
+  [
+   "omega 3",
+   "ulei de peste",
+   "fish oil"
+  ],
+  [
+   "magneziu",
+   "magnesium"
+  ],
+  [
+   "vitamina d",
+   "vitamin d",
+   "vit d"
+  ],
+  [
+   "vitamina d3",
+   "vitamin d3",
+   "colecalciferol",
+   "cholecalciferol"
+  ],
+  [
+   "colagen",
+   "collagen"
+  ],
+  [
+   "vitamina c",
+   "vit c",
+   "vitamin c",
+   "acid ascorbic"
+  ],
+  [
+   "bisglicinat",
+   "glicinat",
+   "bisglycinate",
+   "glycinate"
+  ],
+  [
+   "inositol",
+   "supramen"
+  ],
+  [
+   "inofem",
+   "inositol"
+  ],
+  [
+   "coama leului",
+   "lions mane"
+  ],
+  [
+   "coama leului",
+   "lion's mane"
+  ],
+  [
+   "brain",
+   "creier"
+  ],
+  [
+   "5 htp",
+   "htp"
+  ]
+ ],
+ "pinned": [],
+ "banners": [
+  {
+   "name": "Life Extension",
+   "terms": [
+    "neuro mag",
+    "neuromag",
+    "neuro-mag",
+    "extension",
+    "life",
+    "life extension"
+   ],
+   "img": "so_life_extension_desk.jpg",
+   "mimg": "so_life_extension_mob.jpg",
+   "link": "https://www.suplimenteoriginale.ro/produse/life-extension-brand"
+  },
+  {
+   "name": "Now Foods",
+   "terms": [
+    "fods",
+    "fod",
+    "novv",
+    "nau",
+    "nou",
+    "nov",
+    "now foods",
+    "now"
+   ],
+   "img": "so_now_foods_desk.jpg",
+   "mimg": "so_now_foods_mob.jpg",
+   "link": "https://www.suplimenteoriginale.ro/produse/now-foods-brand"
+  },
+  {
+   "name": "Natural Factors",
+   "terms": [
+    "natura",
+    "factor",
+    "factors",
+    "natural factors"
+   ],
+   "img": "so_natural_factors_desk.jpg",
+   "mimg": "so_natural_factors_mob.jpg",
+   "link": "https://www.suplimenteoriginale.ro/produse/natural-factors-brand"
+  },
+  {
+   "name": "Carlson",
+   "terms": [
+    "clarson",
+    "carlson"
+   ],
+   "img": "so_carlson_desk.jpg",
+   "mimg": "so_carlson_mob.jpg",
+   "link": "https://www.suplimenteoriginale.ro/produse/carlson-brand"
+  },
+  {
+   "name": "NeoCell",
+   "terms": [
+    "neocel",
+    "hidrolizat",
+    "hydrolyzed",
+    "colagen",
+    "collagen",
+    "neo cell",
+    "neocell"
+   ],
+   "img": "so_neocell_desk.jpg",
+   "mimg": "so_neocell_mob.jpg",
+   "link": "https://www.suplimenteoriginale.ro/produse/neocell-brand"
+  },
+  {
+   "name": "Doctor's Best",
+   "terms": [
+    "dr",
+    "dr best",
+    "best",
+    "doctor",
+    "doctors",
+    "doctors best",
+    "doctor's best"
+   ],
+   "img": "so_doctors_best_desk.jpg",
+   "mimg": "so_doctors_best_mob.jpg",
+   "link": "https://www.suplimenteoriginale.ro/produse/doctors-best-brans"
+  },
+  {
+   "name": "Nutricost",
+   "terms": [
+    "cost",
+    "nutri cost",
+    "nutri",
+    "nutricost"
+   ],
+   "img": "so_nutricost_desk.jpg",
+   "mimg": "so_nutricost_mob.jpg",
+   "link": "https://www.suplimenteoriginale.ro/produse/nutricost-brand"
+  },
+  {
+   "name": "Garden of Life",
+   "terms": [
+    "live",
+    "garden life",
+    "garden",
+    "garden of life"
+   ],
+   "img": "so_garden_of_life_desk.jpg",
+   "mimg": "so_garden_of_life_mob.jpg",
+   "link": "https://www.suplimenteoriginale.ro/produse/garden-of-life-brand"
+  },
+  {
+   "name": "Nordic Naturals",
+   "terms": [
+    "natural",
+    "naturals",
+    "nordic",
+    "nordic naturals"
+   ],
+   "img": "so_nordic_naturals_desk.jpg",
+   "mimg": "so_nordic_naturals_mob.jpg",
+   "link": "https://www.suplimenteoriginale.ro/produse/nordic-naturals"
+  },
+  {
+   "name": "Natural Vitality",
+   "terms": [
+    "magneziu copii",
+    "vitality",
+    "natural vitality",
+    "magnesium kids"
+   ],
+   "img": "so_natural_vitality_desk.jpg",
+   "mimg": "so_natural_vitality_mob.jpg",
+   "link": "https://www.suplimenteoriginale.ro/produse/natural-vitality-brand"
+  },
+  {
+   "name": "Enzymedica",
+   "terms": [
+    "enzimedica",
+    "digestive",
+    "enzime",
+    "enzymedica"
+   ],
+   "img": "so_enzymedica_desk.jpg",
+   "mimg": "so_enzymedica_mob.jpg",
+   "link": "https://www.suplimenteoriginale.ro/produse/enzymedica-brand"
+  },
+  {
+   "name": "neuro optimizer",
+   "terms": [
+    "neuro",
+    "optimizer",
+    "neuroptimizer",
+    "neuro optimizer"
+   ],
+   "img": "so_neuro_optimizer_desk.png",
+   "mimg": "so_neuro_optimizer_mob.png",
+   "link": "https://www.suplimenteoriginale.ro/neuro-optimizer-jarrow-formulas.html"
+  },
+  {
+   "name": "lions",
+   "terms": [
+    "lion's",
+    "ciuperca",
+    "mushroom",
+    "leu",
+    "leului",
+    "coama",
+    "mane",
+    "lion"
+   ],
+   "img": "so_lions_desk.png",
+   "mimg": "so_lions_mob.png",
+   "link": "https://www.suplimenteoriginale.ro/lions-mane-mushroom-500mg-swanson.html"
+  },
+  {
+   "name": "nac dr",
+   "terms": [
+    "cysteine",
+    "acetyl l-cysteine",
+    "acetyl cysteine",
+    "n-acetyl l-cysteine",
+    "nac"
+   ],
+   "img": "so_nac_desk.png",
+   "mimg": "so_nac_mob.png",
+   "link": "https://www.suplimenteoriginale.ro/nac-detox-regulators-n-acetyl-cysteine-doctors-best.html"
+  },
+  {
+   "name": "himalaya",
+   "terms": [
+    "hepatoprotector",
+    "himalaya",
+    "liv52",
+    "liv 52",
+    "liver",
+    "ficat"
+   ],
+   "img": "so_himalaya_desk.jpg",
+   "mimg": "so_himalaya_mob.jpg",
+   "link": "https://www.suplimenteoriginale.ro/liv52-hepatoprotector-himalaya.html"
+  },
+  {
+   "name": "wormwood",
+   "terms": [
+    "intestinal",
+    "tumori",
+    "anticancerigen",
+    "paraziti",
+    "cancer",
+    "pelinita",
+    "sweet",
+    "pelin dulce",
+    "artemisia",
+    "wormwood",
+    "pelin"
+   ],
+   "img": "so_wormwood_desk.png",
+   "mimg": "so_wormwood_mob.png",
+   "link": "https://www.suplimenteoriginale.ro/wormwood-artemisia-annua-425mg-swanson.html"
+  },
+  {
+   "name": "pau darco",
+   "terms": [
+    "tabebuia",
+    "arco",
+    "darco",
+    "pau"
+   ],
+   "img": "so_pau_darco_desk.png",
+   "mimg": "so_pau_darco_mob.png",
+   "link": "https://www.suplimenteoriginale.ro/pau-d-arco-500mg-swanson.html"
+  },
+  {
+   "name": "d3 k2 spray",
+   "terms": [
+    "betteryou",
+    "spray",
+    "k2",
+    "d3"
+   ],
+   "img": "so_d3_k2_spray_desk.png",
+   "mimg": "so_d3_k2_spray_mob.png",
+   "link": "https://www.suplimenteoriginale.ro/d3000-k2-vitamin-oral-spray-betteryou.html"
+  },
+  {
+   "name": "triple boron",
+   "terms": [
+    "articulatii",
+    "oase",
+    "bor",
+    "boron"
+   ],
+   "img": "so_triple_boron_desk.png",
+   "mimg": "so_triple_boron_mob.png",
+   "link": "https://www.suplimenteoriginale.ro/producatori/triple-boron-complex-3mg-swanson.html"
+  },
+  {
+   "name": "infant",
+   "terms": [
+    "dophilus",
+    "jarro",
+    "probiotic",
+    "bebe",
+    "bebelusi",
+    "infant"
+   ],
+   "img": "so_infant_desk.png",
+   "mimg": "so_infant_mob.png",
+   "link": "https://www.suplimenteoriginale.ro/jarro-dophilus-infant-jarrow-formulas.html"
+  }
+ ],
+ "hideCategories": "^Import"
+}

@@ -1,0 +1,4 @@
+dist/
+data/*
+!data/pv_ratings.json
+__pycache__/
