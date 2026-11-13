@@ -5,6 +5,7 @@
 
   var SCRIPT = document.currentScript || document.querySelector('script[data-ofs-store]');
   var BASE = (SCRIPT.getAttribute('data-ofs-base') || SCRIPT.src.replace(/[^/]*$/, ''));
+  var STOCK_URL = SCRIPT.getAttribute('data-ofs-stock') || 'https://cautare-statistici.provitaminebg.workers.dev';
   var STORE = SCRIPT.getAttribute('data-ofs-store') || 'so';
   var CSS = '__CSS__';
   var Engine = window.OFSEngine, norm = Engine.norm;
@@ -39,8 +40,13 @@
   function load() {
     if (loading) return loading;
     var j = function (f) { return fetch(BASE + STORE + '/' + f + V).then(function (r) { return r.json(); }); };
-    loading = Promise.all([j('config.json'), j('index.json'), j('search.json')]).then(function (res) {
-      CFG = res[0]; P = res[1]; E = new Engine(P, CFG, res[2], window.OFSStemmer);
+    // stoc si preturi la zi (worker Cloudflare, actualizat la 2-4 minute); daca nu raspunde, ramane indexul
+    var stock = fetch(STOCK_URL + '/stock?s=' + STORE + '&m=' + Math.floor(Date.now() / 60000)).then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; });
+    loading = Promise.all([j('config.json'), j('index.json'), j('search.json'), stock]).then(function (res) {
+      CFG = res[0]; P = res[1];
+      var S = res[3] || {};
+      for (var i = 0; i < P.length; i++) { var x = S[P[i].id]; if (x) { P[i].a = x[0]; P[i].p = x[1]; P[i].op = x[2]; } }
+      E = new Engine(P, CFG, res[2], window.OFSStemmer);
       popularFromStats();
       // descrierile (pentru potriviri ca in Doofinder) se incarca in fundal
       j('desc.json').then(function (d) { E.addDesc(d); if (isOpen() && st.q) render(true); }).catch(function () {});

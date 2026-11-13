@@ -60,7 +60,24 @@ export default {
       return json(r.results.map((x) => x.q));
     }
 
-    // 3) panou statistici
+    // 3) stoc si preturi actualizate (sincronizate la 2-4 minute de cron)
+    if (url.pathname === '/stock') {
+      const st = url.searchParams.get('s') === 'pv' ? 'pv' : 'so';
+      const cache = caches.default, key = new Request(url.origin + '/stock?s=' + st);
+      let r = await cache.match(key);
+      if (!r) {
+        const row = await env.DB.prepare('SELECT v FROM cfg WHERE k=?').bind('stock_' + st).first();
+        r = new Response(row ? row.v : '{}', { headers: { 'content-type': 'application/json', 'access-control-allow-origin': '*', 'cache-control': 'public, max-age=60' } });
+        ctx.waitUntil(cache.put(key, r.clone()));
+      }
+      return r;
+    }
+    if (url.pathname === '/stock/status') {
+      const r = await env.DB.prepare("SELECT k, v FROM cfg WHERE k LIKE 'sync_%'").all();
+      return json(Object.fromEntries(r.results.map((x) => [x.k, x.v])), { 'cache-control': 'no-store' });
+    }
+
+    // 4) panou statistici
     const m = url.pathname.match(/^\/d\/([^/]+)\/?(api)?$/);
     if (m && DASH_KEY && m[1] === DASH_KEY) {
       if (m[2]) return json(await stats(env, url), { 'cache-control': 'no-store' });
@@ -68,7 +85,83 @@ export default {
     }
     return new Response('ok');
   },
+
+  async scheduled(ev, env, ctx) {
+    await init(env);
+    const min = new Date(ev.scheduledTime).getUTCMinutes();
+    const jobs = [syncSO(env)];
+    if (min % 4 === 0) jobs.push(syncPV(env));
+    await Promise.allSettled(jobs);
+  },
 };
+
+/* ---------- sincronizare stoc ---------- */
+async function getMap(env, st) {
+  const row = await env.DB.prepare('SELECT v FROM cfg WHERE k=?').bind('stock_' + st).first();
+  try { return row ? JSON.parse(row.v) : {}; } catch (e) { return {}; }
+}
+async function putMap(env, st, map, info) {
+  await env.DB.batch([
+    env.DB.prepare('INSERT OR REPLACE INTO cfg (k, v) VALUES (?, ?)').bind('stock_' + st, JSON.stringify(map)),
+    env.DB.prepare('INSERT OR REPLACE INTO cfg (k, v) VALUES (?, ?)').bind('sync_' + st, new Date().toISOString() + ' ' + info),
+  ]);
+}
+const r2 = (x) => Math.round(+x * 100) / 100;
+
+// suplimenteoriginale.ro: API Gomag, doar produsele modificate azi (o comanda modifica si data produsului)
+async function syncSO(env) {
+  if (!env.GOMAG_API_KEY) return;
+  try {
+    // data in ora Romaniei, cu 30 de minute in urma (prinde si trecerea de la miezul noptii)
+    const day = new Date(Date.now() + 2 * 3600e3 - 30 * 60e3).toISOString().slice(0, 10);
+    const map = await getMap(env, 'so');
+    let page = 1, pages = 1, n = 0;
+    while (page <= pages && page <= 60) {
+      const res = await fetch(`https://api.gomag.ro/api/v1/product/read/json?updated=${day}&limit=100&page=${page}`, {
+        headers: { Apikey: env.GOMAG_API_KEY, ApiShop: 'https://www.suplimenteoriginale.ro', 'User-Agent': 'Mozilla/5.0 (cautare-launcher)' },
+      });
+      if (!res.ok) throw new Error('gomag ' + res.status);
+      const d = await res.json();
+      pages = +d.pages || 1;
+      for (const p of Object.values(d.products || {})) {
+        if (!p.sku) continue;
+        const price = r2(p.price), base = r2(p.base_price);
+        const a = p.enabled === '0' ? 0 : (p.stock_status === 'instock' || (p.stockManagement === '0') ? 1 : 0);
+        map[p.sku] = [a, price, base > price ? base : 0];
+        n++;
+      }
+      page++;
+    }
+    await putMap(env, 'so', map, 'ok ' + n);
+  } catch (e) {
+    await env.DB.prepare('INSERT OR REPLACE INTO cfg (k, v) VALUES (?, ?)').bind('sync_so', new Date().toISOString() + ' eroare ' + e.message).run();
+  }
+}
+
+// provitamine.ro: products.json public din Shopify (tot catalogul)
+async function syncPV(env) {
+  try {
+    const map = {};
+    let n = 0;
+    for (let page = 1; page <= 20; page++) {
+      const res = await fetch(`https://provitamine.ro/products.json?limit=250&page=${page}`, { headers: { 'User-Agent': 'Mozilla/5.0 (cautare-launcher)' } });
+      if (!res.ok) throw new Error('shopify ' + res.status);
+      const ps = (await res.json()).products || [];
+      if (!ps.length) break;
+      for (const pr of ps) {
+        const vs = pr.variants || [];
+        if (!vs.length) continue;
+        const v = vs.reduce((m, x) => (+x.price < +m.price ? x : m), vs[0]);
+        const p = r2(v.price), cap = r2(v.compare_at_price || 0);
+        map[String(pr.id)] = [vs.some((x) => x.available) ? 1 : 0, p, cap > p ? cap : 0];
+        n++;
+      }
+    }
+    if (n) await putMap(env, 'pv', map, 'ok ' + n);
+  } catch (e) {
+    await env.DB.prepare('INSERT OR REPLACE INTO cfg (k, v) VALUES (?, ?)').bind('sync_pv', new Date().toISOString() + ' eroare ' + e.message).run();
+  }
+}
 
 function dayStr(back) { return new Date(Date.now() + 2 * 3600e3 - back * 864e5).toISOString().slice(0, 10); }
 
