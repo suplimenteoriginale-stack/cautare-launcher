@@ -6,8 +6,8 @@
  "currency": "lei",
  "theme": {
   "header": "#002F34",
-  "accent": "#5E7D69",
-  "link": "#3BB4C1",
+  "accent": "#869D81",
+  "link": "#869D81",
   "text": "#2A2B2A",
   "font": "DMSans, 'DM Sans', sans-serif",
   "badgeBg": "#2A2B2A",
@@ -17,7 +17,19 @@
   "brandCase": "none",
   "ratings": true,
   "stockLabel": true,
-  "badgeFormat": "{n}% reducere"
+  "badgeFormat": "{n}% reducere",
+  "rail": "#869D81",
+  "badgeRadius": "4px",
+  "badgeWeight": "600",
+  "brandColor": "#6b6b6b",
+  "brandSize": "13px",
+  "titleSize": "15px",
+  "titleWeight": "700",
+  "saleSize": "18px",
+  "oldSize": "14px",
+  "oldColor": "#6b6b6b",
+  "cardSep": true,
+  "linkStrong": "#24505C"
  },
  "labels": {
   "placeholder": "Caută produse...",
@@ -55,7 +67,10 @@
   "stockValues": {
    "1": "In Stoc",
    "0": "Stoc Epuizat"
-  }
+  },
+  "clearFilters": "Șterge filtrele",
+  "noResultsTitle": "Nu am găsit produse pentru căutarea ta.",
+  "noResultsText": "Verifică ortografia sau încearcă un termen mai general (ex: „magneziu” în loc de numele exact al produsului). Ai nevoie de ajutor? Sună-ne la <a href=\"tel:0753333773\">0753 333 773</a> (L–V, 09–16)."
  },
  "facets": [
   "category",

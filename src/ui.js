@@ -12,7 +12,7 @@
   var CFG = null, P = null, E = null, loading = null;
   var V = '?v=' + Math.floor(Date.now() / 36e5); // reimprospatare din ora in ora (indexul se reface la 3 ore)
   var LS = 'ofs_recent_' + STORE;
-  var st = { q: '', mode: 'initial', F: newF(), sort: 0, shown: 24, ids: [], skipGuided: false, collapsed: {}, more: {}, fsearch: {} };
+  var st = { q: '', mode: 'initial', F: newF(), sort: 0, shown: 20, ids: [], skipGuided: false, collapsed: {}, more: {}, fsearch: {} };
   var root, el = {}, origInput = null, histPushed = false, debTimer = null;
 
   function newF() { return { brand: new Set(), category: new Set(), stock: new Set(), price: null }; }
@@ -52,9 +52,9 @@
     var t = CFG.theme;
     var style = document.createElement('style'); style.textContent = CSS; document.head.appendChild(style);
     root = document.createElement('div');
-    root.className = 'ofs-root ofs-' + STORE + (t.brandCase === 'upper' ? ' ofs-upper' : '');
+    root.className = 'ofs-root ofs-' + STORE + (t.brandCase === 'upper' ? ' ofs-upper' : '') + (t.cardSep ? ' ofs-sep' : '');
     root.setAttribute('role', 'dialog'); root.setAttribute('aria-modal', 'true');
-    var vars = { header: t.header, accent: t.accent, link: t.link, rail: t.rail || t.accent, text: t.text, font: t.font, 'badge-bg': t.badgeBg, 'badge-fg': t.badgeFg, 'card-radius': t.cardRadius, 'card-border': t.cardBorder };
+    var vars = { header: t.header, accent: t.accent, link: t.link, rail: t.rail || t.accent, 'badge-r': t.badgeRadius || '6px', 'badge-w': t.badgeWeight || '700', 'brand-c': t.brandColor || '#8a8a8a', 'brand-s': t.brandSize || '11px', 'title-s': t.titleSize || '14px', 'title-w': t.titleWeight || '400', 'sale-s': t.saleSize || '17px', 'old-s': t.oldSize || '12px', 'old-c': t.oldColor || '#8a8a8a', strong: t.linkStrong || t.header, text: t.text, font: t.font, 'badge-bg': t.badgeBg, 'badge-fg': t.badgeFg, 'card-radius': t.cardRadius, 'card-border': t.cardBorder };
     Object.keys(vars).forEach(function (k) { root.style.setProperty('--ofs-' + k, vars[k]); });
     var logo = CFG.logo ? '<img class="ofs-logo" src="' + esc(CFG.logo) + '" alt="">' : '<div class="ofs-logotext">' + esc(CFG.logoText || '') + '</div>';
     var mic = ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) ? '<button type="button" class="ofs-mic" aria-label="Căutare vocală">' + IC.mic + '</button>' : '';
@@ -117,7 +117,7 @@
     document.documentElement.style.overflow = '';
     if (!fromPop && histPushed) { histPushed = false; try { history.back(); } catch (e) {} }
     else if (!fromPop) { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} }
-    if (origInput) { try { origInput.blur(); } catch (e) {} }
+    if (origInput) { try { if (st.q) origInput.value = st.q; origInput.blur(); } catch (e) {} }
   }
   function hashFor(q, mode) { return '#/cauta/' + (mode === 'results' ? 'r' : 's') + '/' + encodeURIComponent(q || ''); }
   function syncHash() { if (!isOpen()) return; try { history.replaceState(history.state, '', hashFor(st.q, st.mode)); } catch (e) {} }
@@ -126,7 +126,7 @@
   function submit(q) {
     clearTimeout(debTimer);
     q = (q || '').trim(); if (!q) return;
-    el.input.value = q; st.q = q; st.mode = 'results'; st.F = newF(); st.sort = 0; st.shown = 24; st.skipGuided = false; st.more = {}; st.fsearch = {};
+    el.input.value = q; st.q = q; st.mode = 'results'; st.F = newF(); st.sort = 0; st.shown = 20; st.skipGuided = false; st.more = {}; st.fsearch = {};
     addRecent(q); render(); el.body.scrollTop = 0;
   }
 
@@ -150,7 +150,7 @@
     if (st.mode === 'initial') { renderChipsInitial(); c.innerHTML = renderInitial(); }
     else if (st.mode === 'suggest') { var r = E.search(st.q, { prefix: true }); st.ids = r.ids; renderChipsSuggest(L('suggestions')); c.innerHTML = renderSuggest(); logSearch(false); }
     else { var rr = E.search(st.q); st.ids = rr.ids; renderChipsSuggest(''); c.innerHTML = renderResults(); logSearch(true); }
-    el.layer.classList.toggle('ofs-short', st.mode !== 'results' && window.innerWidth >= 768);
+    el.layer.classList.toggle('ofs-short', st.mode !== 'results' && window.innerWidth >= 768 && !(st.mode === 'suggest' && !st.ids.length));
     syncHash(); onScroll();
     if (keep) el.body.scrollTop = y;
   }
@@ -169,7 +169,7 @@
       s.map(function (q) { return '<span class="ofs-chip"><button type="button" data-q="' + esc(q) + '"><b>' + esc(q) + '</b></button><button type="button" class="ofs-x" data-hide="1" aria-label="Ascunde">×</button></span>'; }).join('');
   }
 
-  function stars(v) { var f = Math.round(v); return '<span class="ofs-stars">' + '★★★★★'.slice(0, f) + '<span style="color:#ddd">' + '★★★★★'.slice(f) + '</span></span>'; }
+  function stars(v) { var f = Math.round(v); return '<span class="ofs-stars">' + '★★★★★'.slice(0, f) + '<span style="color:#D9D9D9">' + '★★★★★'.slice(f) + '</span></span>'; }
   function card(i) {
     var p = P[i], t = CFG.theme, disc = p.op > p.p ? Math.round((p.op - p.p) / p.op * 100) : 0;
     var h = '<a class="ofs-card' + (p.a ? '' : ' ofs-oos') + '" href="' + esc(p.u) + '" data-pid="' + esc(p.id) + '">' +
@@ -193,9 +193,13 @@
       '</div></div><div class="ofs-main"><div class="ofs-h">' + esc(L('recommended')) + '</div>' + carousel(rec.map(card).join('')) + '</div></div>';
   }
 
+  // ecranul "fara rezultate" (textul vine din configurare, ca in Doofinder)
+  function noRes() {
+    return '<div class="ofs-nores"><p class="ofs-nores-t">' + esc(L('noResultsTitle')) + '</p><p class="ofs-nores-s">' + L('noResultsText') + '</p></div>';
+  }
   function topN(map, n) { return Array.from(map.entries()).sort(function (a, b) { return b[1] - a[1]; }).slice(0, n); }
   function renderSuggest() {
-    if (!st.ids.length) return '<div class="ofs-wrap"><div class="ofs-main"><div class="ofs-empty">' + esc(L('noResults')) + ' „' + esc(st.q) + '”</div></div></div>';
+    if (!st.ids.length) return noRes();
     var f = E.facet(st.ids.slice(0, 200), newF());
     var cats = topN(f.category, 4), brands = topN(f.brand, 4);
     return '<div class="ofs-wrap ofs-sug"><div class="ofs-aside">' +
@@ -209,23 +213,38 @@
     var f = E.facet(st.ids, st.F), ids = st.sort ? E.sort(f.ids, st.sort) : f.ids;
     st.view = ids;
     var h = '';
-    // filtru ghidat pe branduri
-    if (!st.skipGuided && !st.F.brand.size && f.brand.size >= 4) {
-      var bs = Array.from(f.brand.entries()).sort(brandSort('brand')).slice(0, 20);
-      h += '<div class="ofs-guided"><div class="ofs-guided-t">' + L('guidedTitle') + '<button type="button" data-skipg="1">' + esc(L('guidedSkip')) + '</button></div>' +
-        carousel(bs.map(function (b) {
-          var img = ''; for (var k = 0; k < ids.length; k++) { if (P[ids[k]].b === b[0]) { img = P[ids[k]].img; break; } }
-          return '<button type="button" class="ofs-gcard" data-gbrand="' + esc(b[0]) + '">' +
-            '<img class="ofs-gthumb" loading="lazy" src="' + esc(img) + '" alt=""><span>' + esc(b[0]) + '</span></button>';
-        }).join('')) + '</div>';
+    // filtru ghidat ca in Doofinder: pe rand Brand -> Categorie -> Stoc (pana alegi sau sari)
+    if (!st.skipGuided) {
+      var gk = null, gvals = null;
+      ['brand', 'category', 'stock'].some(function (k) {
+        if (st.F[k].size || CFG.facets.indexOf(k) < 0) return false;
+        var mp = f[k]; if (!mp || mp.size < 2) return false;
+        gk = k; gvals = k === 'brand' ? Array.from(mp.entries()).sort(brandSort('brand')) : Array.from(mp.entries()).sort(function (a, b) { return b[1] - a[1]; });
+        return true;
+      });
+      if (gk) {
+        var gname = { brand: L('facetBrand'), category: L('facetCategory'), stock: L('facetStock') }[gk];
+        var sv = L('stockValues');
+        h += '<div class="ofs-guided"><div class="ofs-guided-t">' + L('guidedTitle').replace(/<b>.*<\/b>/, '<b>' + esc(gname) + '</b>') + '<button type="button" data-skipg="1">' + esc(L('guidedSkip')) + '</button></div>' +
+          carousel(gvals.slice(0, 20).map(function (b) {
+            var img = '';
+            for (var k = 0; k < ids.length; k++) { var pp = P[ids[k]]; if (gk === 'brand' ? pp.b === b[0] : gk === 'category' ? pp._cats.indexOf(b[0]) >= 0 : String(pp.a) === b[0]) { img = pp.img; break; } }
+            var label = gk === 'stock' ? sv[b[0]] : b[0];
+            return '<button type="button" class="ofs-gcard" data-gkey="' + gk + '" data-gval="' + esc(b[0]) + '">' +
+              '<img class="ofs-gthumb" loading="lazy" src="' + esc(img) + '" alt=""><span>' + esc(label) + '</span></button>';
+          }).join('')) + '</div>';
+      }
     }
-    h += '<div class="ofs-wrap"><div class="ofs-aside"><div class="ofs-afclose"><span>Filtre</span><button type="button" data-fclose="1">' + IC.close + '</button></div>' + renderFacets(f) + '</div><div class="ofs-main">';
+    var anyF = st.F.brand.size || st.F.category.size || st.F.stock.size || st.F.price;
+    h += '<div class="ofs-wrap"><div class="ofs-aside"><div class="ofs-afclose"><span>Filtre</span><button type="button" data-fclose="1">' + IC.close + '</button></div>' +
+      (anyF ? '<button type="button" class="ofs-fclear" data-fclear="1">' + esc(L('clearFilters')) + '</button>' : '') + renderFacets(f) + '</div><div class="ofs-main">';
     var bn = E.banner(st.q);
     if (bn) {
       var mob = window.innerWidth < 768 && bn.mimg ? bn.mimg : bn.img;
       var bimg = '<img src="' + esc(BASE + 'assets/banners/' + mob) + '" alt="' + esc(bn.name) + '">';
       h += bn.link ? '<a class="ofs-banner" href="' + esc(bn.link) + '">' + bimg + '</a>' : '<div class="ofs-banner">' + bimg + '</div>';
     }
+    if (!st.ids.length) return noRes();
     if (!ids.length) {
       h += '<div class="ofs-empty">' + esc(L('noResults')) + ' „' + esc(st.q) + '”</div>';
     } else {
@@ -299,22 +318,23 @@
 
   /* ---------- evenimente ---------- */
   function rerenderResults(keepScroll) {
-    var y = el.body.scrollTop; st.shown = 24; render(); if (keepScroll) el.body.scrollTop = y;
+    var y = el.body.scrollTop; st.shown = 20; render(); if (keepScroll) el.body.scrollTop = y;
     var a = root.querySelector('.ofs-aside'); if (st._asideOpen && a) a.classList.add('ofs-show');
   }
   function onClick(e) {
     var b = e.target.closest('button,a'); if (!b || !root.contains(b)) return;
     var d = b.dataset;
     if (d.q != null) { submit(d.q); return; }
-    if (d.go != null) { submit(d.go); return; }
+    if (d.go != null) { clearTimeout(debTimer); el.input.value = d.go; st.q = d.go; st.mode = 'suggest'; st.F = newF(); render(); el.input.focus(); return; }
     if (d.rm != null) { setRecent(recent().filter(function (x) { return x !== d.rm; })); renderChipsInitial(); return; }
     if (d.clear) { setRecent([]); renderChipsInitial(); return; }
     if (d.hide) { b.closest('.ofs-chip').remove(); return; }
     if (d.all) { submit(el.input.value); return; }
-    if (d.gocat != null || d.gobrand != null) { submit(el.input.value); if (d.gocat != null) st.F.category.add(d.gocat); else st.F.brand.add(d.gobrand); st.skipGuided = true; rerenderResults(); return; }
+    if (d.gocat != null || d.gobrand != null) { submit(el.input.value); if (d.gocat != null) st.F.category.add(d.gocat); else st.F.brand.add(d.gobrand); rerenderResults(); return; }
     if (d.car) { var tr = b.parentNode.querySelector('.ofs-track'); tr.scrollBy({ left: (+d.car) * tr.clientWidth * 0.8, behavior: 'smooth' }); return; }
     if (d.skipg) { st.skipGuided = true; rerenderResults(); return; }
-    if (d.gbrand != null) { st.F.brand.add(d.gbrand); st.skipGuided = true; rerenderResults(); return; }
+    if (d.gval != null) { st.F[d.gkey].add(d.gval); rerenderResults(); return; }
+    if (d.fclear) { st.F = newF(); rerenderResults(); return; }
     if (d.f) { var s = st.F[d.f]; s.has(d.v) ? s.delete(d.v) : s.add(d.v); rerenderResults(true); return; }
     if (d.fcol) { st.collapsed[d.fcol] = !st.collapsed[d.fcol]; b.parentNode.classList.toggle('ofs-col'); return; }
     if (d.fmore) { st.more[d.fmore] = !st.more[d.fmore]; rerenderResults(true); return; }
@@ -356,7 +376,7 @@
     if (st.mode !== 'results' || !st.view || st.shown >= st.view.length) return;
     var more = root.querySelector('.ofs-more');
     if (more && more.getBoundingClientRect().top < window.innerHeight + 600) {
-      var grid = root.querySelector('.ofs-grid'), from = st.shown; st.shown += 24;
+      var grid = root.querySelector('.ofs-grid'), from = st.shown; st.shown += 20;
       grid.insertAdjacentHTML('beforeend', st.view.slice(from, st.shown).map(card).join(''));
     }
   }
@@ -399,7 +419,7 @@
     e.preventDefault(); if (e.stopPropagation) e.stopPropagation();
     origInput = e.target; var v = e.target.value || '';
     try { e.target.blur(); } catch (x) {}
-    open(v);
+    open(v, { mode: v.trim() ? 'results' : 'initial' });
   }
   function init() {
     load().then(function () {
