@@ -156,7 +156,7 @@
   .ofs-msec .ofs-mlabel:not(:first-child){margin-top:16px}
   .ofs-pills{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:1px 0}
   .ofs-pills::-webkit-scrollbar{display:none}
-  .ofs-pill{flex:0 0 auto;height:36px;padding:0 12px;border:1px solid #d5d5d5;border-radius:20px;font-size:15px;white-space:nowrap;color:var(--ofs-text)}
+  .ofs-pill{flex:0 0 auto;height:34px;padding:0 12px;border:1px solid #d5d5d5;border-radius:20px;font-size:14px;white-space:nowrap;color:var(--ofs-text)}
   .ofs-pill.ofs-on{border-color:var(--ofs-text)}
   .ofs-mchips{padding:16px 12px 18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 6px 8px -6px rgba(0,0,0,.12);background:#fff;position:sticky;top:0;z-index:4;transition:margin .2s}
   .ofs-scrolled .ofs-mchips{display:none}
@@ -183,17 +183,17 @@
   .ofs-m-results .ofs-mfbtn{display:flex}
   .ofs-sheet .ofs-mfbtn{display:none}
   .ofs-rhead{height:auto;margin:0 4px 10px;font-size:14px}
-  .ofs-rhead b{font-weight:400}
+  .ofs-rhead b{font-weight:400!important}
   .ofs-fbtn{display:none}
   .ofs-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
   .ofs-card{padding:8px 12px 14px}
   .ofs-brand,.ofs-rating{display:none}
   .ofs-info{margin-top:14px}
-  .ofs-title{font-size:15px;margin-top:0}
-  .ofs-pv .ofs-title{font-size:15px}
+  .ofs-title{font-size:14px;margin-top:0}
+  .ofs-pv .ofs-title{font-size:14px}
   .ofs-price{column-gap:12px;padding-top:16px;min-height:0}
-  .ofs-sale{font-size:17px}
-  .ofs-old{font-size:13px}
+  .ofs-sale{font-size:16px}
+  .ofs-old{font-size:12px}
   .ofs-top{display:none!important}
   .ofs-foot{display:none}
   .ofs-nores{padding:40px 16px 0}

@@ -203,7 +203,7 @@
   function mChipRows() {
     var f = E.facet(st.ids.slice(0, 200), newF()), h = '';
     (CFG.mobileChipRows || ['category', 'brand']).forEach(function (k) {
-      var top = topN(f[k], 10); if (!top.length) return;
+      var top = Array.from(f[k].entries()).sort(k === 'brand' ? brandSort('brand') : function (a, b) { return b[1] - a[1]; }).slice(0, 10); if (!top.length) return;
       h += pills(top.map(function (x) { return { v: x[0] }; }), k === 'brand' ? 'data-gobrand' : 'data-gocat');
     });
     return h ? '<div class="ofs-mchips">' + h + '</div>' : '';
@@ -260,7 +260,7 @@
       });
       if (gk && isMob()) {
         var mlab = (L('mGuided') || {})[gk] || ('Alegeți ' + gk + ':');
-        var gp = [{ v: '', l: L('any'), k: gk, on: true }].concat(gvals.slice(0, 20).map(function (b) { return { v: b[0], l: gk === 'stock' ? L('stockValues')[b[0]] : b[0], k: gk }; }));
+        var gp = [{ v: '', l: L('any'), k: gk }].concat(gvals.slice(0, 20).map(function (b) { return { v: b[0], l: gk === 'stock' ? L('stockValues')[b[0]] : b[0], k: gk }; }));
         h += '<div class="ofs-mguided"><div class="ofs-mlabel2">' + esc(mlab) + '</div>' + pills(gp, 'data-gval') + '</div>';
       } else if (gk) {
         var gname = { brand: L('facetBrand'), category: L('facetCategory'), stock: L('facetStock') }[gk];
