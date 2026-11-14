@@ -62,6 +62,19 @@ jobs:
           python3 build/build_config.py pv
           python3 build/bundle.py
           mkdir -p dist/assets && cp -r assets/banners assets/logos dist/assets/ && cp src/test_so.html src/test_pv.html dist/
+      - name: Impacheteaza sursa (exact versiunea publicata)
+        run: |
+          T=$(TZ=Europe/Bucharest date '+%Y-%m-%d %H:%M')
+          printf 'commit: %s\nconstruit: %s (ora Romaniei)\nlauncher.js sha256: %s\n' "$GITHUB_SHA" "$T" "$(sha256sum dist/launcher.js | cut -d' ' -f1)" > BUILD.txt
+          printf '{"sha":"%s","t":"%s"}' "${GITHUB_SHA:0:7}" "$T" > dist/build.json
+          mkdir -p /tmp/pkg/cautare-launcher
+          git ls-files -z | xargs -0 -I{} cp --parents {} /tmp/pkg/cautare-launcher/
+          cp BUILD.txt /tmp/pkg/cautare-launcher/
+          mkdir -p /tmp/pkg/cautare-launcher/live && cp dist/launcher.js /tmp/pkg/cautare-launcher/live/launcher.js
+          cp dist/so/config.json /tmp/pkg/cautare-launcher/live/so_config.json && cp dist/pv/config.json /tmp/pkg/cautare-launcher/live/pv_config.json
+          rm -rf /tmp/pkg/cautare-launcher/assets
+          (cd /tmp/pkg && zip -qr9 "$GITHUB_WORKSPACE/dist/sursa-cautare.zip" cautare-launcher)
+          ls -la dist/sursa-cautare.zip
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with: { path: dist }

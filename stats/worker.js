@@ -216,17 +216,19 @@ main{padding:16px 20px;max-width:1300px;margin:auto}
 table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee}th{color:#666;font-weight:600;cursor:pointer;white-space:nowrap}td.n{text-align:right;font-variant-numeric:tabular-nums}
 .bars{display:flex;align-items:flex-end;gap:3px;height:120px}.bars div{flex:1;background:#4FD1C5;min-height:1px;position:relative}.bars div:hover:after{content:attr(title);position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:#222;color:#fff;font-size:11px;padding:3px 6px;border-radius:4px;white-space:nowrap}
 .flt{margin-bottom:8px}
+#src{margin-left:auto;font-size:12px;color:rgba(255,255,255,.55);text-decoration:none;border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:4px 8px;white-space:nowrap}#src:hover{color:#fff;border-color:rgba(255,255,255,.6)}
 </style></head><body>
 <header><h1>Statistici căutare</h1>
 <select id="s"><option value="so">suplimenteoriginale.ro</option><option value="pv">provitamine.ro</option></select>
 <select id="d"><option value="1">Azi</option><option value="7">7 zile</option><option value="15" selected>15 zile</option><option value="30">30 zile</option><option value="90">90 zile</option><option value="365">365 zile</option></select>
-<span id="st"></span></header>
+<span id="st"></span><a id="src" href="https://suplimenteoriginale-stack.github.io/cautare-launcher/sursa-cautare.zip" download title="Arhiva cu sursa completă, din versiunea care rulează live (pentru o conversație nouă cu Claude)">⬇ Sursa</a></header>
 <main><div class="kpis" id="kpis"></div>
 <div class="card"><h2>Căutări pe zi</h2><div class="bars" id="bars"></div></div>
 <div class="grid"><div class="card"><h2>Termeni căutați</h2><input class="flt" id="ft" placeholder="Filtrează..."><table id="terms"></table></div>
 <div class="card"><h2>Produse cu click din căutare</h2><table id="prods"></table></div></div>
 <div class="card"><h2>Căutări fără rezultat (de rezolvat cu sinonime)</h2><table id="zero"></table></div></main>
 <script>
+fetch('https://suplimenteoriginale-stack.github.io/cautare-launcher/build.json?'+Date.now()).then(r=>r.json()).then(b=>{const a=document.getElementById('src');a.textContent='⬇ Sursa ('+b.t+')';a.title+=' (commit '+b.sha+')'}).catch(()=>{});
 const $=id=>document.getElementById(id), pct=(a,b)=>b?(100*a/b).toFixed(1)+' %':'–', f=n=>(n||0).toLocaleString('ro-RO');
 let D=null, names={};
 function delta(c,p){if(!p)return'';const v=(c-p)/p*100;return '<small class="'+(v>=0?'up':'dn')+'">'+(v>=0?'+':'')+v.toFixed(1)+' % față de perioada anterioară</small>'}
