@@ -23,6 +23,10 @@
 "v": 5.0,
 "n": 1
 },
+"acerola-500mg-swanson": {
+"v": 5.0,
+"n": 1
+},
 "acetyl-l-carnitine-500mg-now-foods": {
 "v": 5.0,
 "n": 7
@@ -213,7 +217,7 @@
 },
 "berberine-ostrovit": {
 "v": 5.0,
-"n": 3
+"n": 4
 },
 "berberine-plus-with-bitter-melon-milk-thistle-swanson": {
 "v": 5.0,
@@ -523,13 +527,17 @@
 "v": 5.0,
 "n": 1
 },
+"creatine-monohydrate-micronized-pepene-verde-ostrovit-500g": {
+"v": 5.0,
+"n": 1
+},
 "curcumin-phytosome-now-foods": {
 "v": 5.0,
 "n": 1
 },
 "cystone-tractul-urinar-himalaya": {
 "v": 4.97,
-"n": 111
+"n": 114
 },
 "d-mannose-700mg-swanson": {
 "v": 5.0,
@@ -549,7 +557,7 @@
 },
 "d3000-k2-vitamin-oral-spray-betteryou": {
 "v": 5.0,
-"n": 8
+"n": 9
 },
 "d400-junior-daily-vitamin-d-oral-spray-betteryou": {
 "v": 5.0,
@@ -1029,7 +1037,7 @@
 },
 "liv52-hepatoprotector-himalaya": {
 "v": 4.98,
-"n": 86
+"n": 89
 },
 "liv52ds-himalaya": {
 "v": 5.0,
@@ -1089,7 +1097,7 @@
 },
 "magnesium-chelated-albion-133mg-swanson": {
 "v": 4.97,
-"n": 62
+"n": 64
 },
 "magnesium-citrate-225mg-swanson": {
 "v": 5.0,
@@ -1109,6 +1117,10 @@
 },
 "magnesium-glycinate-100-chelated-100mg-doctors-best-240-tablete": {
 "v": 5.0,
+"n": 2
+},
+"magnesium-glycinate-life-extension": {
+"v": 5.0,
 "n": 1
 },
 "magnesium-glycinate-now-foods": {
@@ -1117,7 +1129,7 @@
 },
 "magnesium-glycinate-ostrovit": {
 "v": 5.0,
-"n": 1
+"n": 2
 },
 "magnesium-lysinate-glycinate-doctors-best": {
 "v": 5.0,
@@ -1127,6 +1139,10 @@
 "v": 5.0,
 "n": 10
 },
+"magnesium-max-vitamin-ostrovit-60-tablete": {
+"v": 5.0,
+"n": 1
+},
 "magnesium-orotate-swanson": {
 "v": 5.0,
 "n": 1
@@ -1134,6 +1150,10 @@
 "magnesium-oxide-200mg-swanson": {
 "v": 5.0,
 "n": 2
+},
+"magnesium-potassium-b6-ostrovit-60-tablete": {
+"v": 5.0,
+"n": 1
 },
 "magtein-magnesium-threonate-now-foods": {
 "v": 5.0,
@@ -1149,7 +1169,7 @@
 },
 "mega-d-3-mk-7-k2-180-mcg-5-000-iu-now-foods-120-capsule": {
 "v": 5.0,
-"n": 1
+"n": 2
 },
 "mega-d3-mk7-now-foods": {
 "v": 5.0,
@@ -1226,6 +1246,10 @@
 "methyl-folate-jarrow-formulas": {
 "v": 5.0,
 "n": 17
+},
+"milk-thistle-extract-silymarin-puritans-pride": {
+"v": 5.0,
+"n": 1
 },
 "mineral-citrate-complex-swanson": {
 "v": 5.0,
@@ -1313,7 +1337,7 @@
 },
 "natural-vitamin-k2-menachinona-mk-7-100mcg-swanson-30-softgels-swu672": {
 "v": 5.0,
-"n": 1
+"n": 2
 },
 "natural-vitamin-k2-menachinona-mk-7-200mcg-swanson-30-softgels-swu906": {
 "v": 5.0,
@@ -1333,7 +1357,7 @@
 },
 "neuro-optimizer-jarrow-formulas": {
 "v": 5.0,
-"n": 268
+"n": 269
 },
 "niacin-vitamina-b3-swanson": {
 "v": 5.0,
@@ -1381,11 +1405,11 @@
 },
 "omega-3-now-foods": {
 "v": 5.0,
-"n": 22
+"n": 23
 },
 "omega-369-now-foods": {
 "v": 5.0,
-"n": 5
+"n": 6
 },
 "one-per-day-multivitamin-life-extension": {
 "v": 5.0,
@@ -1436,6 +1460,10 @@
 "n": 1
 },
 "passion-flower-500mg-swanson": {
+"v": 5.0,
+"n": 1
+},
+"pasta-de-dinti-mint-fresh-gum-expert-himalaya-herbal-75-ml": {
 "v": 5.0,
 "n": 1
 },
@@ -1585,11 +1613,11 @@
 },
 "rumalaya-forte-himalaya": {
 "v": 4.95,
-"n": 19
+"n": 20
 },
 "rumalaya-gel-himalaya": {
 "v": 5.0,
-"n": 1
+"n": 2
 },
 "rutin-vitamina-p-450mg-now-foods": {
 "v": 5.0,
@@ -1625,7 +1653,7 @@
 },
 "saw-palmetto-palmier-pitic-540mg-swanson-250-capsule-sw910": {
 "v": 5.0,
-"n": 1
+"n": 2
 },
 "selenium-complex-200mcg-swanson": {
 "v": 5.0,
@@ -1824,8 +1852,8 @@
 "n": 13
 },
 "triple-magnesium-complex-400mg-swanson": {
-"v": 5.0,
-"n": 28
+"v": 4.97,
+"n": 30
 },
 "triple-magnesium-complex-400mg-swanson-100-capsule-sw808-copy": {
 "v": 5.0,
@@ -1870,6 +1898,10 @@
 "type-2-collagen-complex-bioavailable-jarrow-formulas": {
 "v": 5.0,
 "n": 15
+},
+"ubiquinol-active-coq10-100-mg-natural-factors-60-softgels": {
+"v": 5.0,
+"n": 1
 },
 "ubiquinol-active-coq10-100mg-now-foods": {
 "v": 5.0,
@@ -1969,7 +2001,7 @@
 },
 "vitamin-c-1000mg-ostrovit": {
 "v": 5.0,
-"n": 2
+"n": 3
 },
 "vitamin-c-1000mg-with-rose-hips-swanson": {
 "v": 5.0,
@@ -1988,8 +2020,8 @@
 "n": 1
 },
 "vitamin-d3-4000-iu-k2-100-mcg-ostrovit-100-tablete": {
-"v": 4.0,
-"n": 2
+"v": 4.5,
+"n": 4
 },
 "vitamin-d3-k2-calcium-ostrovit-90-tablete": {
 "v": 5.0,
@@ -2001,7 +2033,7 @@
 },
 "vitamin-d3-k2-kids-oral-spray-betteryou": {
 "v": 5.0,
-"n": 1
+"n": 3
 },
 "vitamin-d3-k2-softgels-ostrovit": {
 "v": 5.0,
@@ -2031,6 +2063,10 @@
 "v": 5.0,
 "n": 2
 },
+"vitamin-t-testosteron-boosting-multi-vitamin-for-men-musclemeds-90-tablete": {
+"v": 5.0,
+"n": 1
+},
 "vitamina-a-10000-iu-now-foods": {
 "v": 5.0,
 "n": 8
@@ -2056,8 +2092,8 @@
 "n": 9
 },
 "vitamina-c-tamponata-sodium-ascorbate-powder-buffered-now-foods": {
-"v": 5.0,
-"n": 4
+"v": 4.8,
+"n": 5
 },
 "vitamina-d-3-5000-iu-swanson-250-softgels-sw1371": {
 "v": 5.0,
@@ -2150,6 +2186,10 @@
 "zinc-picolinate": {
 "v": 5.0,
 "n": 7
+},
+"zinc-picolinate-15-mg-ostrovit-200-tablete": {
+"v": 5.0,
+"n": 1
 },
 "zinc-picolinate-22mg-swanson": {
 "v": 5.0,
