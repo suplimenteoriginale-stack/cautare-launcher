@@ -183,7 +183,21 @@ async function syncPV(env) {
         n++;
       }
     }
-    if (n) await putMap(env, 'pv', map, 'ok ' + n);
+    // mesajele „Revine în stoc pe …” (metafield custom.eta_stoc), publicate de sablonul de tema collection.cautare-eta
+    let ne = 0;
+    try {
+      for (let page = 1, pages = 1; page <= pages && page <= 20; page++) {
+        const r = await fetch(`https://provitamine.ro/collections/all?view=cautare-eta&page=${page}`, { headers: { 'User-Agent': 'Mozilla/5.0 (cautare-launcher)' } });
+        if (!r.ok) break;
+        const d = JSON.parse(await r.text());
+        pages = +d.n || 1;
+        for (const id in d.e || {}) {
+          const x = map[id];
+          if (x && !x[0] && d.e[id]) { x.push(String(d.e[id]).slice(0, 120)); ne++; }
+        }
+      }
+    } catch (e) {}
+    if (n) await putMap(env, 'pv', map, 'ok ' + n + ', revin ' + ne);
   } catch (e) {
     await env.DB.prepare('INSERT OR REPLACE INTO cfg (k, v) VALUES (?, ?)').bind('sync_pv', new Date().toISOString() + ' eroare ' + e.message).run();
   }
