@@ -20,6 +20,7 @@ Căutarea rulează în browser (fără server de căutare). Un singur fișier `l
   - `POST /e` evenimente (căutări, click-uri) din launcher
   - `/popular?s=so|pv` căutări populare
   - `/stock?s=so|pv` stoc și prețuri la zi, aplicate peste index la deschidere. Cron la 2 minute: SO din API Gomag (produse modificate azi), PV din `products.json` la 4 minute
+  - Mesajul „Revine în stoc pe …” al produselor SO fără stoc vine din câmpul Gomag „Durata de livrare” (`delivery_time`), al 4-lea element din `/stock`; noaptea (01:00 UTC) se face o citire completă a catalogului, ziua doar produsele modificate. Launcher-ul recalculează zilele rămase și ascunde mesajul când produsul are stoc. Citire completă manuală: `/stock/full?k=<cheie panou>`.
   - `/ratings` recenziile SO din Gomag (zilnic, ~04:00), folosite de build
   - `/d/<cheie>` panoul de statistici (cheia e în D1: `SELECT v FROM cfg WHERE k='dash'`), cu butonul de descărcare a acestei arhive
   - `/stock/status` starea sincronizărilor
