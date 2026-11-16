@@ -60,8 +60,13 @@
 .ofs-img{position:relative;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center}
 .ofs-img img{max-width:100%;max-height:100%;object-fit:contain}
 .ofs-badge{position:absolute;left:-4px;top:-2px;z-index:1;background:var(--ofs-badge-bg);color:var(--ofs-badge-fg);font-size:12px;font-weight:var(--ofs-badge-w);line-height:18px;padding:3px 7px;border-radius:var(--ofs-badge-r)}
-.ofs-oos .ofs-img img{opacity:.35}
-.ofs-oos-label{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:#222;color:#fff;font-size:12px;font-weight:700;padding:6px 10px;border-radius:4px;white-space:nowrap}
+.ofs-oos .ofs-img img{opacity:.45}
+.ofs-oos-label{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);display:inline-flex;align-items:center;gap:7px;background:#fff;color:#333;font-size:13px;font-weight:600;line-height:1.2;padding:6px 14px;border-radius:999px;border:1px solid #e3e3e3;box-shadow:0 2px 8px rgba(0,0,0,.08);white-space:nowrap}
+.ofs-oos-label i{width:8px;height:8px;border-radius:50%;background:#d93025;flex:none}
+.ofs-soon-label{background:#ecfbf7;border-color:#7fd8c6;color:#174a44;padding:6px 14px 6px 11px;text-align:left}
+.ofs-soon-label svg{flex:none;color:#174a44}
+.ofs-soon-label b{display:block;font-size:13px;font-weight:700}
+.ofs-soon-label small{display:block;font-size:12px;font-weight:500}
 .ofs-info{margin-top:12px;display:flex;flex-direction:column;flex:1}
 .ofs-brand{font-size:var(--ofs-brand-s);line-height:1.2;color:var(--ofs-brand-c);letter-spacing:.4px;margin-top:6px}
 .ofs-upper .ofs-brand{text-transform:uppercase;font-weight:600}
@@ -220,8 +225,4 @@
 .ofs-gr{color:#a9adb1;pointer-events:auto;cursor:pointer}
 @media (max-width:767px){.ofs-ghost{padding-left:4px}}
 
-.ofs-soon .ofs-img img{opacity:.6}
-.ofs-soon .ofs-oos-label{background:#1e7a46}
-.ofs-restock{font-size:12px;font-weight:600;color:#1e7a46;margin-top:6px;line-height:1.35}
-.ofs-pv .ofs-soon .ofs-oos-label{background:#869D81}
-.ofs-pv .ofs-restock{color:#5d7a58}
+.ofs-stock.ofs-comming{color:#1b8a77}

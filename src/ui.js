@@ -258,25 +258,28 @@
   function stars(v) { var f = Math.round(v); return '<span class="ofs-stars">' + '★★★★★'.slice(0, f) + '<span style="color:#D9D9D9">' + '★★★★★'.slice(f) + '</span></span>'; }
   // „Revine în stoc pe 20.11.2026 (~4 zile)”: zilele se recalculeaza azi, ca mesajul sa nu ramana in urma
   function restock(p) {
+    // intoarce a doua linie a etichetei („pe 20.11 (~4 zile)”); '' = fara mesaj de revenire
     if (p.a || !p.ms || !/revine/i.test(p.ms)) return '';
     var m = /(\d{1,2})\.(\d{1,2})\.(\d{4})/.exec(p.ms);
-    if (!m) return p.ms.replace(/\s*\(~[^)]*\)\s*$/, '');
+    if (!m) return 'în curând';
     var d = new Date(+m[3], +m[2] - 1, +m[1]), now = new Date(); now.setHours(0, 0, 0, 0);
-    var n = Math.round((d - now) / 864e5), ds = m[1] + '.' + m[2] + '.' + m[3];
-    if (n < 0) return 'Revine în stoc în curând';
-    if (n === 0) return 'Revine în stoc azi, ' + ds;
-    if (n === 1) return 'Revine în stoc mâine, ' + ds;
-    return 'Revine în stoc pe ' + ds + ' (~' + n + ' zile)';
+    var n = Math.round((d - now) / 864e5), ds = ('0' + m[1]).slice(-2) + '.' + ('0' + m[2]).slice(-2);
+    if (n < 0) return 'în curând';
+    if (n === 0) return 'azi, ' + ds;
+    if (n === 1) return 'mâine, ' + ds;
+    return 'pe ' + ds + ' (~' + n + ' zile)';
   }
+
   function card(i) {
     var p = P[i], t = CFG.theme, disc = p.op > p.p ? Math.round((p.op - p.p) / p.op * 100) : 0, rs = restock(p);
     var h = '<a class="ofs-card' + (p.a ? '' : ' ofs-oos') + (rs ? ' ofs-soon' : '') + '" href="' + esc(p.u) + '" data-pid="' + esc(p.id) + '">' +
       '<div class="ofs-img">' + (disc > 0 ? '<span class="ofs-badge">' + esc(t.badgeFormat.replace('{n}', disc)) + '</span>' : '') +
-      '<img loading="lazy" src="' + esc(p.img) + '" alt="' + esc(p.t) + '">' + (p.a ? '' : '<span class="ofs-oos-label">' + esc(rs ? L('restockLabel') || 'Revine în stoc' : L('outOfStock')) + '</span>') + '</div>' +
+      '<img loading="lazy" src="' + esc(p.img) + '" alt="' + esc(p.t) + '">' + (p.a ? '' : rs
+        ? '<span class="ofs-oos-label ofs-soon-label"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span><b>' + esc(L('restockLabel') || 'Revine în stoc') + '</b><small>' + esc(rs) + '</small></span></span>'
+        : '<span class="ofs-oos-label"><i></i>' + esc(L('outOfStock')) + '</span>') + '</div>' +
       '<div class="ofs-info"><div class="ofs-brand">' + esc(p.b) + '</div><div class="ofs-title">' + esc(p.t) + '</div>';
-    if (rs) h += '<div class="ofs-restock">' + esc(rs) + '</div>';
     if (t.ratings && p.rc) h += '<div class="ofs-rating">' + stars(p.r) + '<span>(' + p.rc + ')</span></div>';
-    if (t.stockLabel) h += '<div class="ofs-stock' + (p.a ? '' : ' ofs-no') + '">● ' + esc(p.a ? L('inStock') : L('outOfStock')) + '</div>';
+    if (t.stockLabel) h += '<div class="ofs-stock' + (p.a ? '' : rs ? ' ofs-comming' : ' ofs-no') + '">● ' + esc(p.a ? L('inStock') : rs ? (L('restockLabel') || 'Revine în stoc') : L('outOfStock')) + '</div>';
     h += '<div class="ofs-price"><span class="ofs-sale">' + money(p.p) + '</span>' + (p.op > p.p ? '<span class="ofs-old">' + money(p.op) + '</span>' : '') + '</div></div></a>';
     return h;
   }
