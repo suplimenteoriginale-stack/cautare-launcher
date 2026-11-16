@@ -99,7 +99,7 @@
     loading = Promise.all([config(), J('index.json'), J('search.json'), stock]).then(function (res) {
       CFG = res[0]; P = res[1];
       var S = res[3] || {};
-      for (var i = 0; i < P.length; i++) { var x = S[P[i].id]; if (x) { P[i].a = x[0]; P[i].p = x[1]; P[i].op = x[2]; } }
+      for (var i = 0; i < P.length; i++) { var x = S[P[i].id]; if (x) { P[i].a = x[0]; P[i].p = x[1]; P[i].op = x[2]; P[i].ms = x[3] || ''; } }
       E = new Engine(P, CFG, res[2], window.OFSStemmer);
       popularFromStats();
       desc.then(function (d) { if (d) { E.addDesc(d); if (isOpen() && st.q) render(true); } });
@@ -256,12 +256,23 @@
   }
 
   function stars(v) { var f = Math.round(v); return '<span class="ofs-stars">' + '★★★★★'.slice(0, f) + '<span style="color:#D9D9D9">' + '★★★★★'.slice(f) + '</span></span>'; }
+  // „Revine în stoc pe 20.11.2026 (~4 zile)”: zilele se recalculeaza azi, ca mesajul sa nu ramana in urma
+  function restock(p) {
+    if (p.a || !p.ms) return '';
+    var m = /(\d{1,2})\.(\d{1,2})\.(\d{4})/.exec(p.ms);
+    if (!m) return p.ms.replace(/\s*\(~[^)]*\)\s*$/, '');
+    var d = new Date(+m[3], +m[2] - 1, +m[1]), now = new Date(); now.setHours(0, 0, 0, 0);
+    var n = Math.round((d - now) / 864e5);
+    if (n < 1) return 'Revine în stoc în curând';
+    return 'Revine în stoc pe ' + m[1] + '.' + m[2] + '.' + m[3] + ' (~' + n + (n === 1 ? ' zi' : ' zile') + ')';
+  }
   function card(i) {
-    var p = P[i], t = CFG.theme, disc = p.op > p.p ? Math.round((p.op - p.p) / p.op * 100) : 0;
-    var h = '<a class="ofs-card' + (p.a ? '' : ' ofs-oos') + '" href="' + esc(p.u) + '" data-pid="' + esc(p.id) + '">' +
+    var p = P[i], t = CFG.theme, disc = p.op > p.p ? Math.round((p.op - p.p) / p.op * 100) : 0, rs = restock(p);
+    var h = '<a class="ofs-card' + (p.a ? '' : ' ofs-oos') + (rs ? ' ofs-soon' : '') + '" href="' + esc(p.u) + '" data-pid="' + esc(p.id) + '">' +
       '<div class="ofs-img">' + (disc > 0 ? '<span class="ofs-badge">' + esc(t.badgeFormat.replace('{n}', disc)) + '</span>' : '') +
-      '<img loading="lazy" src="' + esc(p.img) + '" alt="' + esc(p.t) + '">' + (p.a ? '' : '<span class="ofs-oos-label">' + esc(L('outOfStock')) + '</span>') + '</div>' +
+      '<img loading="lazy" src="' + esc(p.img) + '" alt="' + esc(p.t) + '">' + (p.a ? '' : '<span class="ofs-oos-label">' + esc(rs ? L('restockLabel') || 'Revine în stoc' : L('outOfStock')) + '</span>') + '</div>' +
       '<div class="ofs-info"><div class="ofs-brand">' + esc(p.b) + '</div><div class="ofs-title">' + esc(p.t) + '</div>';
+    if (rs) h += '<div class="ofs-restock">' + esc(rs) + '</div>';
     if (t.ratings && p.rc) h += '<div class="ofs-rating">' + stars(p.r) + '<span>(' + p.rc + ')</span></div>';
     if (t.stockLabel) h += '<div class="ofs-stock' + (p.a ? '' : ' ofs-no') + '">● ' + esc(p.a ? L('inStock') : L('outOfStock')) + '</div>';
     h += '<div class="ofs-price"><span class="ofs-sale">' + money(p.p) + '</span>' + (p.op > p.p ? '<span class="ofs-old">' + money(p.op) + '</span>' : '') + '</div></div></a>';
