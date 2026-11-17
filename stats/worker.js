@@ -260,7 +260,7 @@ table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;p
 <div class="card"><h2>Căutări fără rezultat (de rezolvat cu sinonime)</h2><table id="zero"></table></div></main>
 <script>
 fetch('https://suplimenteoriginale-stack.github.io/cautare-launcher/build.json?'+Date.now()).then(r=>r.json()).then(b=>{const a=document.getElementById('src');a.textContent='⬇ Sursa ('+b.t+')';a.title+=' (commit '+b.sha+')'}).catch(()=>{});
-const B=location.pathname.replace(/\/+$/,'')+'/';
+const B=location.pathname.replace(/[/]+$/,'')+'/';
 function syncInfo(x){return x.produse+' produse, '+x.faraStoc+' fără stoc ('+x.revin+' cu „Revine în stoc”) · ultima: '+String(x.ultima||'').replace('T',' ').slice(0,16)+' UTC'}
 fetch(B+'syncstatus').then(r=>r.json()).then(d=>{['so','pv'].forEach(k=>{document.getElementById('sy_'+k).textContent=syncInfo(d[k])})}).catch(()=>{});
 document.querySelectorAll('.syncrow button').forEach(b=>b.onclick=async()=>{const k=b.dataset.s,sp=document.getElementById('sy_'+k);b.disabled=true;sp.className='';sp.textContent='se sincronizează...';
