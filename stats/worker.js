@@ -260,10 +260,11 @@ table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;p
 <div class="card"><h2>Căutări fără rezultat (de rezolvat cu sinonime)</h2><table id="zero"></table></div></main>
 <script>
 fetch('https://suplimenteoriginale-stack.github.io/cautare-launcher/build.json?'+Date.now()).then(r=>r.json()).then(b=>{const a=document.getElementById('src');a.textContent='⬇ Sursa ('+b.t+')';a.title+=' (commit '+b.sha+')'}).catch(()=>{});
+const B=location.pathname.replace(/\/+$/,'')+'/';
 function syncInfo(x){return x.produse+' produse, '+x.faraStoc+' fără stoc ('+x.revin+' cu „Revine în stoc”) · ultima: '+String(x.ultima||'').replace('T',' ').slice(0,16)+' UTC'}
-fetch('syncstatus').then(r=>r.json()).then(d=>{['so','pv'].forEach(k=>{document.getElementById('sy_'+k).textContent=syncInfo(d[k])})}).catch(()=>{});
+fetch(B+'syncstatus').then(r=>r.json()).then(d=>{['so','pv'].forEach(k=>{document.getElementById('sy_'+k).textContent=syncInfo(d[k])})}).catch(()=>{});
 document.querySelectorAll('.syncrow button').forEach(b=>b.onclick=async()=>{const k=b.dataset.s,sp=document.getElementById('sy_'+k);b.disabled=true;sp.className='';sp.textContent='se sincronizează...';
- try{const r=await fetch('sync?s='+k,{method:'POST'}).then(r=>r.json());sp.className=/eroare/.test(r.ultima)?'err':'ok';sp.textContent='Gata în '+r.secunde+' s · '+syncInfo(r)}catch(e){sp.className='err';sp.textContent='Eroare: '+e.message}b.disabled=false});
+ try{const r=await fetch(B+'sync?s='+k,{method:'POST'}).then(r=>r.json());sp.className=/eroare/.test(r.ultima)?'err':'ok';sp.textContent='Gata în '+r.secunde+' s · '+syncInfo(r)}catch(e){sp.className='err';sp.textContent='Eroare: '+e.message}b.disabled=false});
 const $=id=>document.getElementById(id), pct=(a,b)=>b?(100*a/b).toFixed(1)+' %':'–', f=n=>(n||0).toLocaleString('ro-RO');
 let D=null, names={};
 function delta(c,p){if(!p)return'';const v=(c-p)/p*100;return '<small class="'+(v>=0?'up':'dn')+'">'+(v>=0?'+':'')+v.toFixed(1)+' % față de perioada anterioară</small>'}
@@ -272,7 +273,7 @@ el.innerHTML='<tr>'+cols.map((c,i)=>'<th data-i="'+i+'">'+c.h+'</th>').join('')+
 el.querySelectorAll('th').forEach(th=>th.onclick=()=>{const i=+th.dataset.i;dir=sort===i?-dir:-1;sort=i;draw()})}draw()}
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 async function load(){$('st').textContent='se încarcă...';
- D=await fetch('api?s='+$('s').value+'&days='+$('d').value).then(r=>r.json());
+ D=await fetch(B+'api?s='+$('s').value+'&days='+$('d').value).then(r=>r.json());
  if(!names[D.store]){try{const ix=await fetch(D.idx).then(r=>r.json());names[D.store]={};ix.forEach(p=>names[D.store][p.id]=p)}catch(e){names[D.store]={}}}
  const c=D.cur,p=D.prev;
  $('kpis').innerHTML=[['Căutări',f(c.searches),delta(c.searches,p.searches)],['CTR (căutări cu click)',pct(c.clicked,c.searches),'<small>anterior '+pct(p.clicked,p.searches)+'</small>'],['Sesiuni care caută',f(c.sessions),delta(c.sessions,p.sessions)],['Fără rezultat',pct(c.zero,c.searches),'<small>'+f(c.zero)+' căutări</small>'],['Poziția medie a click-ului',c.pos?(+c.pos+1).toFixed(1):'–','']].map(k=>'<div class="k"><small>'+k[0]+'</small><b>'+k[1]+'</b>'+k[2]+'</div>').join('');
