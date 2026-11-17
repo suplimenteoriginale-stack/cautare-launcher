@@ -24,7 +24,7 @@ Căutarea rulează în browser (fără server de căutare). Un singur fișier `l
   - PV: același mesaj vine din metafield-ul de produs `custom.eta_stoc`, publicat de șablonul de temă `templates/collection.cautare-eta.liquid` (JSON, `https://provitamine.ro/collections/all?view=cautare-eta&page=N`), citit la fiecare sincronizare PV.
   - `/ratings` recenziile SO din Gomag (zilnic, ~04:00), folosite de build
   - `/d/<cheie>` panoul de statistici (cheia e în D1: `SELECT v FROM cfg WHERE k='dash'`), cu butonul de descărcare a acestei arhive
-  - `/stock/status` starea sincronizărilor
+  - `/stock/status` starea sincronizărilor; în panou, butoanele „Sincronizare forțată stoc” (POST `/d/<cheie>/sync?s=so|pv`) recitesc tot catalogul și golesc cache-ul `/stock`
   - Secret în Cloudflare: `GOMAG_API_KEY` (cheie Gomag cu „Produse Citire” + „Recenzii Citire”). Nu este în repo.
 
 ## Instalare pe site-uri

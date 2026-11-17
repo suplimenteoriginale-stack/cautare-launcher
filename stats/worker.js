@@ -250,7 +250,7 @@ table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;p
 <select id="s"><option value="so">suplimenteoriginale.ro</option><option value="pv">provitamine.ro</option></select>
 <select id="d"><option value="1">Azi</option><option value="7">7 zile</option><option value="15" selected>15 zile</option><option value="30">30 zile</option><option value="90">90 zile</option><option value="365">365 zile</option></select>
 <span id="st"></span><a id="src" href="https://suplimenteoriginale-stack.github.io/cautare-launcher/sursa-cautare.zip" download title="Arhiva cu sursa completă, din versiunea care rulează live (pentru o conversație nouă cu Claude)">⬇ Sursa</a></header>
-<main><div class="card sync"><h2>Sincronizare forțată stoc</h2><p class="muted">Recitește acum stocul tuturor produselor. Produsele intrate în stoc pierd mesajul „Revine în stoc” și apar „În stoc”. Durează până la un minut.</p>
+<main><div class="card sync"><h2>Sincronizare forțată stoc</h2><p class="muted">Recitește acum stocul tuturor produselor. Produsele intrate în stoc pierd mesajul „Revine în stoc” și apar „În stoc”. Durează ~15 secunde pentru provitamine.ro și ~1–2 minute pentru suplimenteoriginale.ro; nu închide pagina până apare „Gata”.</p>
 <div class="syncrow"><button type="button" data-s="so">⟳ suplimenteoriginale.ro</button><span id="sy_so"></span></div>
 <div class="syncrow"><button type="button" data-s="pv">⟳ provitamine.ro</button><span id="sy_pv"></span></div></div>
 <div class="kpis" id="kpis"></div>
