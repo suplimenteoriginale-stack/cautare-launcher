@@ -208,6 +208,18 @@
     }
     return out.sort(function (a, b) { return a[1] - b[1] || b[2] - a[2]; }).slice(0, 4).map(function (x) { return x[0]; });
   };
+  // cuvinte care INCEP aproape la fel cu ce s-a scris (pentru cuvinte neterminate: "chewiz" -> "chewyzym...")
+  Engine.prototype.fuzzyPrefix = function (w) {
+    if (w.length < 4 || /\d/.test(w)) return [];
+    var max = w.length >= 7 ? 2 : 1, V = this.vocabArr(), out = [];
+    for (var k = 0; k < V.length; k++) {
+      var x = V[k]; if (x.length < w.length - max) continue;
+      var pre = x.length > w.length ? x.slice(0, w.length) : x;
+      if (pre === w) continue;
+      var d = dist(w, pre, max); if (d <= max) out.push([x, d, this.dfAll(x)]);
+    }
+    return out.sort(function (a, b) { return a[1] - b[1] || b[2] - a[2]; }).slice(0, 6).map(function (x) { return x[0]; });
+  };
   Engine.prototype.search = function (q, opts) {
     opts = opts || {};
     var r = this.searchCore(q, opts);
@@ -225,6 +237,15 @@
         if (rr.ids.length && (!bestR || rr.ids.length > bestR.ids.length)) bestR = rr;
       }
       if (bestR) break;
+    }
+    // tot nimic: ultimul cuvant e probabil neterminat si scris gresit -> cuvintele care incep aproape la fel
+    if (!bestR) {
+      var L = words.length - 1, fp = this.fuzzyPrefix(words[L]);
+      for (var j2 = 0; j2 < fp.length; j2++) {
+        var fx = {}; fx[L] = fp[j2];
+        var r2 = this.searchCore(q, { prefix: true, fix: fx });
+        if (r2.ids.length && (!bestR || r2.ids.length > bestR.ids.length)) bestR = r2;
+      }
     }
     return bestR || r;
   };
