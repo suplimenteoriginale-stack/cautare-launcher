@@ -172,12 +172,23 @@
     return out;
   };
 
+  Engine.prototype.hasPrefix = function (w) {
+    var V = this.vocabArr(), lo = 0, hi = V.length;
+    while (lo < hi) { var mid = (lo + hi) >> 1; if (V[mid] < w) lo = mid + 1; else hi = mid; }
+    return lo < V.length && V[lo].lastIndexOf(w, 0) === 0;
+  };
   Engine.prototype.prefixAlts = function (w) {
     var out = [{ w: w, f: 1 }], V = this.vocabArr();
     if (w.length < 2) return out;
     var lo = 0, hi = V.length;
     while (lo < hi) { var mid = (lo + hi) >> 1; if (V[mid] < w) lo = mid + 1; else hi = mid; }
     for (var j = lo, n = 0; j < V.length && V[j].lastIndexOf(w, 0) === 0 && n < 60; j++) if (V[j] !== w) { out.push({ w: V[j], f: 0.7 }); n++; }
+    // completarile frecvente in catalog cantaresc mai mult decat cele rare ("magn" -> magnesium inaintea lui magnolia)
+    if (out.length > 2) {
+      var self = this, mx = 1;
+      out.forEach(function (o, i) { if (i) { o.df = self.dfAll(o.w); if (o.df > mx) mx = o.df; } });
+      out.forEach(function (o, i) { if (i) o.f = 0.7 * (0.3 + 0.7 * Math.sqrt(o.df / mx)); });
+    }
     return out;
   };
 
@@ -270,7 +281,9 @@
     var sq = words.map(function (w, k) {
       if (opts.fix && opts.fix[k]) return opts.fix[k];
       var s = self.stem(w);
-      if (opts.prefix && k === words.length - 1) return s;
+      // cuvantul in curs de scriere: radacina poate fi prea scurta ("magnez" -> "magn" prinde si "magnolia");
+      // daca exista cuvinte care incep exact cu ce s-a scris, folosim forma scrisa
+      if (opts.prefix && k === words.length - 1) return (w.length > s.length && self.hasPrefix(w)) ? w : s;
       return self.correct(s);
     }).join(' ');
     var best = new Map();
